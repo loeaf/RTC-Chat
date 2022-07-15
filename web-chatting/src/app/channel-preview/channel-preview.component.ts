@@ -23,7 +23,10 @@ export class ChannelPreviewComponent implements OnChanges {
     if (!messages) {
       return;
     }
-    this.messagePreview = messages[messages.length - 1].text?.slice(0, 30);
+    if (messages[messages.length - 1] !== undefined) {
+      const minMessage = messages[messages.length - 1].text?.slice(0, 30);
+      this.messagePreview = minMessage;
+    }
   }
 
   setAsActiveChannel() {

@@ -1,0 +1,66 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "nickName": "푸근하고-유식한-레몬"
+    },
+    {
+      "id": "bd4add93-9144-4bdb-9ed0-8aa63b3488d7",
+      "nickName": "애매모호해도-추한-나무늘보"
+    },
+    {
+      "id": "dd9cf57b-0fa2-42e9-a9e5-7fc52976a804",
+      "nickName": "조숙해도-야속한-율무"
+    },
+    {
+      "id": "7f4f790e-32ad-4d4e-a8e1-ff787eda0090",
+      "nickName": "치졸해도-당돌한-돌고래"
+    }
+  ],
+  "rooms": [
+    {
+      "id": "5621ae78-d334-49e3-92f6-c6bf235b88a9",
+      "ownerId": "1",
+      "roomName": "결백한데-해괴한-나무늘보"
+    },
+    {
+      "id": "0fdd9dda-ad3d-4d23-89fc-a7e4920d1721",
+      "ownerId": "odd-night-1",
+      "roomName": "굉장해도-완전한-올빼미"
+    },
+    {
+      "id": "c91fe010-9673-4cc5-b9a4-64685ff1fafc",
+      "ownerId": "dd9cf57b-0fa2-42e9-a9e5-7fc52976a804",
+      "roomName": "조용해도-초라한-용"
+    },
+    {
+      "id": "661c9c62-0b72-4a6b-be95-96c7157fb493",
+      "ownerId": "7f4f790e-32ad-4d4e-a8e1-ff787eda0090",
+      "roomName": "부적합해서-적나라한-비단뱀"
+    }
+  ],
+  "data": {
+    "data": {
+      "tokenId": 1234,
+      "owner": "e2314159-7a4a-4ebb-b8ca-651e60b7ea1b",
+      "price": 5000,
+      "orderId": 123,
+      "orderPrice": 15000,
+      "orderStartDt": "2022-04-06T00:00:00Z",
+      "orderEendDt": "2023-04-06T00:00:00Z",
+      "offerAt": true
+    }
+  },
+  "data1": {
+    "data": {
+      "tokenId": 1234,
+      "owner": "e13841d9-f52e-4e1a-83fe-d1c24405cd24",
+      "price": 5000,
+      "orderId": 123,
+      "orderPrice": 15000,
+      "orderStartDt": "2022-04-06T00:00:00Z",
+      "orderEendDt": "2023-04-06T00:00:00Z",
+      "offerAt": true
+    }
+  }
+}
