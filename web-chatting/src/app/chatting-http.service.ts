@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
+import {environment} from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,30 +11,37 @@ export class ChattingHttpService {
 
   getRooms(user: User): Promise<Room[] | undefined> {
     return this.httpClient.get<Room[]>(
-      `http://localhost:3000/rooms?ownerId=${user.id}`
+      `${environment.mokServerUrl}/rooms?ownerId=${user.id}`
     ).toPromise();
   }
 
   getRoomsAll(): Promise<Room[] | undefined> {
-    return this.httpClient.get<Room[]>(`http://localhost:3000/rooms`).toPromise();
+    return this.httpClient.get<Room[]>(`${environment.mokServerUrl}/rooms`).toPromise();
   }
 
   postRooms(room: Room): Promise<Room | undefined> {
     return this.httpClient.post<Room>(
-      `http://localhost:3000/rooms`, room
+      `${environment.mokServerUrl}/rooms`, room
     ).toPromise();
   }
 
   postUser(user: User): Promise<User | undefined> {
     return this.httpClient.post<User>(
-      `http://localhost:3000/users`, user
+      `${environment.mokServerUrl}/users`, user
     ).toPromise();
   }
 
   getUser(user: User): Promise<Array<User> | undefined> {
     return this.httpClient.get<Array<User>>(
-      `http://localhost:3000/users?id=${user.id}`
+      `${environment.mokServerUrl}/users?id=${user.id}`
     ).toPromise();
+  }
+
+  async getTokenById(userId: string): Promise<any> {
+    return this.httpClient.get<any>(
+      `${environment.apiServerUrl}/token/${userId}`
+    ).toPromise();
+
   }
 }
 

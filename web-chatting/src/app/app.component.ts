@@ -102,9 +102,11 @@ export class AppComponent implements OnInit, AfterViewInit {
   async initUser() {
     const apiKey = 'dhefjeuw9yg5';
     const userId = 'vaiv';
-    const userToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidmFpdiJ9.oG0aZEdPN-oZWvI8kq1IOmnB98mOrdu4GiTGUapVvX4';
+    // const userToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidmFpdiJ9.oG0aZEdPN-oZWvI8kq1IOmnB98mOrdu4GiTGUapVvX4';
+    // debugger;
+    const userToken = await this.chattingHttpService.getTokenById(userId);
     debugger;
-    this.chatService.init(apiKey, userId, userToken);
+    this.chatService.init(apiKey, userId, userToken.token);
     this.streamI18nService.setTranslation();
   }
   async createMyRoom() {
