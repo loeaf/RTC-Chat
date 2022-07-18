@@ -105,9 +105,18 @@ export class AppComponent implements OnInit, AfterViewInit {
     // const userToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidmFpdiJ9.oG0aZEdPN-oZWvI8kq1IOmnB98mOrdu4GiTGUapVvX4';
     // debugger;
     const userToken = await this.chattingHttpService.getTokenById(userId);
-    debugger;
-    this.chatService.init(apiKey, userId, userToken.token);
+    await this.chatService.init(apiKey, userId, userToken.token);
+    this.toggleDisplay(false);
     this.streamI18nService.setTranslation();
+  }
+  toggleDisplay(state: boolean): void {
+    if(state) {
+      this.hiddenProp1 = false;
+      this.hiddenProp2 = true;
+    } else {
+      this.hiddenProp1 = true;
+      this.hiddenProp2 = false;
+    }
   }
   async createMyRoom() {
     if(this.user === undefined) {
@@ -203,8 +212,6 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.loginAlert();
         alert('로그인되었습니다');
         this.chattingStep = ChattingStep.챗팅이용;
-        this.hiddenProp1 = true;
-        this.hiddenProp2 = false;
         this.afterLogin();
       });
     }
