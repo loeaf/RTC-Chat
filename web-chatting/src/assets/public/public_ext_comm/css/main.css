@@ -1,0 +1,125 @@
+@charset "utf-8";
+
+/* 스크롤 */
+#wrap .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar,
+#wrap .mCSB_scrollTools .mCSB_dragger:hover .mCSB_dragger_bar,
+#wrap .mCSB_scrollTools .mCSB_dragger:active .mCSB_dragger_bar,
+#wrap .mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar {background-color:#00b3ff;}
+
+/* loading */
+.loading .box_cell p::before {content:'';position:absolute;top:0;left:0;width:170px;height:170px;background:url(../../../../assets/public/public_ext_comm/images/loading_logo.png) center center no-repeat;animation: loading2 0s infinite linear;}
+.loading .box_cell p .count {position:absolute;bottom:auto;right:auto;top:-40px;left:50%;-webkit-transform:translateX(-50%);transform: translateX(-50%);font-size:20px;color:#e5f0f4}
+
+/* header */
+/*#header .logo {position:absolute;left:30px;top:34px;}*/
+#header .util_icon li a:hover {background-image:url(../../../../assets/public/public_ext_comm/images/icon_util_on.png);}
+#header .util_txt li a:hover {color:#24beff;}
+#header #gnb li a:hover,
+#header #gnb li.active a {color:#00b3ff;}
+
+/* layerBox */
+.layerBox .btn_list button:hover,
+.layerBox .btn_list_text button:hover {border-color:rgba(0,179,255,0.3);}
+
+/* control_group_l */
+.l_menu_list a:hover {background-color:#00b3ff;}
+.l_menu_list li a.on {background-color:#00b3ff;}
+.info_list input:checked + label::before {border-color:#00b3ff;background-image:url(../../../../assets/public/public_ext_comm/images/icon_infoList_on.png);}
+.info_btn_list li.active .btnStyle01::after {border:1px solid #00b3ff;}
+.info_btn_list li.active .icon_landscapeChoice::after {background-image:url(../../../../assets/public/public_ext_comm/images/icon_landscapeChoice_on.png);}
+.info_btn_list li.active .icon_blockSelection::after {background-image:url(../../../../assets/public/public_ext_comm/images/icon_blockSelection_on.png);}
+.info_btn_list li.active .icon_zoneSelection::after {background-image:url(../../../../assets/public/public_ext_comm/images/icon_zoneSelection_on.png);}
+.info_btn_list .icon_landscapeSelection::after {background-image:url(../../../../assets/public/public_ext_comm/images/icon_landscapeSelection_on.png); }
+
+/* control_group_b */
+.info_bottom_list input:checked + label::before {background-image:url(../../../../assets/public/public_ext_comm/images/icon_bottom_infoList_on.png);}
+
+/* control_group_r */
+.r_menu_list .active button.tip_w,
+.r_menu_list button.tip_w:hover {background-color:#00b3ff;}
+
+/* 측정메뉴 */
+#measurementMenu .btn_list button::before {background-image:url(../../../../assets/public/public_ext_comm/images/icon_measurementMenu.png);}
+/* 지도스타일 */
+#mapStyle .btn_list button::before {background-image:url(../../../../assets/public/public_ext_comm/images/icon_mapStyle.png);}
+/* 일조정보 */
+.sunlight_list .sunlight_list_wrap:hover {border-color:rgba(0,179,255,0.3);}
+.sunlight_list .sunlight_list_wrap::before {background-image:url(../../../../assets/public/public_ext_comm/images/icon_sunlightInfo.png);}
+
+/* 일조정보 */
+.sunlight_list_wrap .ui-state-default,
+.sunlight_list_wrap .ui-widget-content .ui-state-default {background:#00b3ff;}
+.sunlight_list_wrap .ui-slider-horizontal .ui-slider-range {top:3px;height:4px;background:#00b3ff;}
+
+/* out_area */
+.out_area .out_btn:hover {background-color:#00b3ff;}
+
+/* detail_view */
+.detail_view .detail_tit .backBtn::before {background:url(../../../../assets/public/public_ext_comm/images/btn_back_blue.png) center center no-repeat;}
+.detail_view .detail_tit .backBtn:hover::before,
+.detail_view .detail_tit .backBtn:focus::before{background:url(../../../../assets/public/public_ext_comm/images/btn_back_blue_on.png) center center no-repeat;}
+.detail_view .detail_tit .close::before,
+.comment_view .detail_tit .close::before {background:url(../../../../assets/public/public_ext_comm/images/btn_close_blue.png) center center no-repeat;}
+.detail_view .detail_tit .close:hover::before,
+.comment_view .detail_tit .close:hover::before {background:url(../../../../assets/public/public_ext_comm/images/btn_close_blue_on.png) center center no-repeat;}
+.detail_view .inner h4 {color:#24beff;}
+.detail_view .inner .subTxt {color:#24beff;}
+.detail_view .select_area select:hover,
+.detail_view .select_area select:focus {color:#fff;border:1px solid #24beff}
+
+/* comment_view */
+.comment_view .textarea_area button {background:#24beff}
+.comment_view .list_area .total {color:#24beff;border-bottom:1px solid rgba(36,190,255,0.5)}
+.comment_view .list_area li .modify button {color:#24beff;}
+
+/* menu_view */
+.top_slider .swiper-pagination-bullet-active,
+.district_slider .swiper-pagination-bullet-active {background:#00b3ff;opacity:1;}
+
+/* 카드뷰 2가지 타입 */
+.thumb_con a:hover::before {border-color:#00b3ff;}
+.thumb_con .typeA .thumb_txt .cate_nm {color:#24beff;}
+.thumb_con .typeA .thumb_txt .cate_nm::before {background-color:#00b3ff;}
+
+/* 지구정보 풀팝업 콘텐츠 */
+.district_list li em {color:#00b3ff;}
+
+/* 텍스트 링크 스타일 초록색 */
+.txtLinktT10 {display:block;margin-top:10px;}
+.txtLink {font-size:15px; color:#24d097; font-weight:900;}
+/* 텍스트 링크 스타일 파란색 */
+.txtLinktT10 {display:block;margin-top:10px;}
+.txtLink {font-size:15px; color:#24beff; font-weight:900;}
+
+/* 재생,일시정지,정지/키보드 controller */
+.check_green label {color:#00b3ff;}
+.check_green input:checked + label::before {border-color:#24beff;}
+.check_green label::before {background-image:url(../../../../assets/public/public_ext_comm/images/icon_check_blue.png.png);}
+.check_green input:checked + label::before {border-color:#24beff;background-image:url(../../../../assets/public/public_ext_comm/images/icon_check_blue_on.png);}
+
+/* 도움말 팝업 */
+.help_pop .specificationBtn {background-color:#00b3ff;}
+.color_g {color:#00b3ff;}
+
+/* point_click */
+.point_click .pointList button:hover span,
+.point_click .pointList button:focus span {color:#00b3ff;}
+.point_click .pointList .coord_t:hover span,
+.point_click .pointList .coord_t:focus span {background-image:url(../../../../assets/public/public_ext_comm/images/icon_coord_t.png);}
+.point_click .pointList .coord_r:hover span,
+.point_click .pointList .coord_r:focus span {background-image:url(../../../../assets/public/public_ext_comm/images/icon_coord_r.png);}
+.point_click .pointList .coord_b:hover span,
+.point_click .pointList .coord_b:focus span {background-image:url(../../../../assets/public/public_ext_comm/images/icon_coord_b.png);}
+.point_click .pointList .coord_l:hover span,
+.point_click .pointList .coord_l:focus span {background-image:url(../../../../assets/public/public_ext_comm/images/icon_coord_l.png);}
+
+/* 미디어쿼리 시작. 넓이가 800px 이하일 때 */
+@media all and (max-width:800px){
+	/* gnb */
+	/*#header .logo {top:25px;left:18px}*/
+	#header #gnb li.active {background:#00b3ff}
+
+	/* footer */
+	#footer {padding:12px 0 12px;}
+	#footer .copyright {float:none}
+}

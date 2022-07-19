@@ -3,23 +3,20 @@ import { BrowserModule } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { AppComponent } from './app.component';
-import { StreamChatModule, StreamAutocompleteTextareaModule } from 'stream-chat-angular';
-import { MessageComponent } from './message/message.component';
-import { ChannelPreviewComponent } from './channel-preview/channel-preview.component';
-import {IconComponent} from './icon/icon.component';
-import {MessageActionComponent} from './message-action/message-action.component';
-import {ThreadHeaderComponent} from './thread-header/thread-header.component';
-import {HttpClientModule} from '@angular/common/http';
+import {RouterModule} from '@angular/router';
+import {CommonModule} from '@angular/common';
+import {ChattingModule} from './layout/chatting/chatting.module';
+import {LoginModule} from './layout/login/login.module';
+import {AppRoutingModule} from './app-routing.module';
+import {MainModule} from './layout/main/main.module';
 
 @NgModule({
-  declarations: [AppComponent,
-    IconComponent,
-    MessageActionComponent,
-    ThreadHeaderComponent,
-    MessageComponent,
-    ChannelPreviewComponent],
-  imports: [BrowserModule, TranslateModule.forRoot(), StreamAutocompleteTextareaModule, StreamChatModule, HttpClientModule],
-  providers: [],
-  bootstrap: [AppComponent],
+  declarations: [AppComponent],
+  imports: [CommonModule, BrowserModule, TranslateModule.forRoot(),
+    RouterModule, ChattingModule, MainModule, LoginModule, AppRoutingModule],
+    providers: [],
+    bootstrap: [AppComponent],
+  exports: [
+  ]
 })
 export class AppModule {}

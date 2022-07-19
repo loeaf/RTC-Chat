@@ -1,16 +1,16 @@
 import {Controller, Get, Param} from '@nestjs/common';
 import { TokenService } from './token.service';
-const StreamChat = require('stream-chat').StreamChat;
-const serverClient = StreamChat.getInstance('dhefjeuw9yg5','k8n2fjatk2ms5bqr69k4rp732hrtqm6kysw8trv5t8vdq7xd4mqcjb99pt7rbe5x');
+import {AppService} from '../app.service';
 
 @Controller('token')
 export class TokenController {
-  constructor(private readonly tokenService: TokenService) {}
+  constructor(private readonly tokenService: TokenService,
+              private appSvc: AppService) {}
 
   @Get(':tokenParam')
   getToken(@Param() param): any {
     console.log(param);
-    const token = serverClient.createToken(param.tokenParam);
+    const token = this.appSvc.getServerClient().createToken(param.tokenParam);
     return {'token': token};
   }
 }

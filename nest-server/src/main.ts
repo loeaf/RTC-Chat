@@ -8,21 +8,14 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
   const API_SERVICE_URL = "http://localhost:3000";
   app.use(
-      '/mok/api',
+      '/mok-server/',
       createProxyMiddleware({
         target: API_SERVICE_URL,
         changeOrigin: true,
         pathRewrite(pathReq, req) {
-          const pathname = pathReq.split('?')[0];
-          let url = `${pathname}?`;
-          console.log(url);
-          url = Object
-              .entries(req.query)
-              .reduce(
-                  (newUrl, [key, value]) => `${newUrl}&${key}=${encodeURI(<string>value)}`,
-                  url,
-              );
-          return url;
+          const pathname = pathReq.split('/mok-server/');
+            console.log(`${API_SERVICE_URL}/${pathname[1]}`);
+          return `${API_SERVICE_URL}/${pathname[1]}`;
         }
       })
   );

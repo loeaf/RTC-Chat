@@ -25,7 +25,18 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/public/js/jquery-1.12.4.min.js",
+              "src/assets/public/js/main.js",
+              "src/assets/public/js/openWinPop.js",
+              "src/assets/public/js/jquery.powertip.min.js",
+              "src/assets/public/js/jquery-ui.min.js",
+              "src/assets/public/js/swiper.min.js",
+              "src/assets/public/js/jquery.mCustomScrollbar.concat.min.js",
+              "src/assets/public/js/jquery.ui.touch-punch.min.js",
+              "src/assets/public/js/metaverse.js",
+              "src/assets/chating/chating.js"
+            ]
           },
           "configurations": {
             "production": {

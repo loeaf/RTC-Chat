@@ -1,0 +1,326 @@
+@charset "utf-8";
+
+html, body, #wrap {height:100%;}
+body {width:100%;background:#F5F7FB}
+#wrap {position:relative;}
+body,input,textarea,button,select,table,h1,h2,h3,h4,h5,h6{line-height:1.45;outline:0 none}
+input[type="text"], input[type="password"], input[type="email"], input[type="search"], input[type="image"], input[type="tel"], textarea {appearance:none;-moz-appearance:none;-webkit-appearance:none;border-radius:0;-webkit-border-radius:0;-moz-border-radius:0;}
+
+.winpop {height:100%}
+
+/* 스크롤 */
+#wrap, .account_form .select_style ul {position:relative;width:100%;height:100%;overflow-y:auto;scrollbar-color:#D7DAE0 transparent;}
+#wrap::-webkit-scrollbar,
+.select_style ul::-webkit-scrollbar,
+.bank_pop .pop_area_cont::-webkit-scrollbar,
+.select_style .select_ul::-webkit-scrollbar {position:absolute;top:0;right:0;width:4px;margin-right:10px} /* 스크롤바의 너비 */
+#wrap::-webkit-scrollbar-thumb,
+.select_style ul::-webkit-scrollbar-thumb,
+.bank_pop .pop_area_cont::-webkit-scrollbar-thumb,
+.select_style .select_ul::-webkit-scrollbar-thumb {background-color:#D7DAE0;} /* 스크롤바의 색상 */
+#wrap::-webkit-scrollbar-track,
+.select_style ul::-webkit-scrollbar-track,
+.bank_pop .pop_area_cont::-webkit-scrollbar-track,
+.select_style .select_ul::-webkit-scrollbar-track {background-color:transparent;margin-right:15px} /* 스크롤바 트랙 색상 */
+
+/* input style */
+.input_area {position:relative;}
+.input_area label,
+.input_area .label {display:inline-block;margin-bottom:12px;font-size:13px;}
+.input_area input,
+.input_area .input_style {position:relative;display:block;width:100%;height:60px;line-height:58px;padding:0 62px 4px 15px;font-weight:700;font-size:24px;color:#171B27;border:1px solid #D7DAE0;background:#FAFBFC;border-radius:5px;text-align:right}
+.input_area .won {position:absolute;top:16px;right:25px;color:#303640;font-size:18px;}
+.input_area button {width:100px;height:50px;line-height:48px;margin-left:14px;color:#061437;border:1px solid #061437;border-radius:5px;font-size:15px;}
+.input_area button.active {border:1px solid #061437;background:#061437;color:#fff;}
+.input_area .mark {height:50px;line-height:44px;margin:0 10px;}
+.input_area.error input {border:1px solid #FF5857;}
+.input_area.text_left input,
+.input_area.text_left .input_style {text-align:left}
+
+/* placeholder */
+input:placeholder-shown {padding-bottom:7px;}
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {color:#828B99;font-size:18px;font-weight:500;} /* WebKit browsers */
+input::-moz-placeholder,
+textarea::-moz-placeholder {color:#828B99;font-size:18px;font-weight:500;} /* Mozilla Firefox 19+ */
+input:-moz-placeholder,
+textarea:-moz-placeholder {color:#828B99;font-size:18px;font-weight:500;} /* Mozilla Firefox 18- */
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {color:#828B99;font-size:18px;font-weight:500;} /* Internet Explorer 10+ */
+
+/* 윈도우 팝업 하단 버튼 공통 스타일 */
+.btn_fixed .btn_area {position:fixed;left:0;bottom:0;width:100%;}
+.btn_area {font-size:0}
+.btn_area a,
+.btn_area button,
+.btn_area .tr_box {display:block;width:100%;height:70px;padding:22px 25px;font-size:17px;color:#fff;background-color:#0012B8;font-weight:500;text-align:center}
+.btn_area .tr_box {font-weight:400;}
+.btn_area.btntwo::after {content:"";display:block;clear:both}
+.btn_area.btntwo a,
+.btn_area.btntwo button,
+.btn_area .tr_box {display:inline-block;width:50%;float:left}
+.btn_area .tr_box,
+.btn_area.btntwo a:first-child,
+.btn_area.btntwo button:first-child {color:#0012B8;border:1px solid #0012B8;background-color:#fff;font-weight:500;}
+.btn_area .tr_box {border:0 none;border-top:1px solid #D7DAE0;}
+.btn_area.btntwo a:last-child,
+.btn_area.btntwo button:last-child {margin-right:0;}
+.btn_area a.light_gray,
+.btn_area button.light_gray,
+.btn_area .disabled {color:#828B99;background-color:#D7DAE0}
+.btn_area a.dark_blue,
+.btn_area button.dark_blue {background-color:#0c3980}
+.btn_area .tr_box {padding:11px 25px 9px;text-align:left}
+.btn_area .tr_box .sub_tit {display:block;color:#5C6575;font-size:13px;font-weight:500}
+.btn_area .tr_box .tr {color:#171B27;font-size:21px;font-weight:700;letter-spacing:-1.5px}
+.btn_area .tr_box.error .tr {color:#FF5857}
+.more_btn {margin-top:20px}
+.more_btn button {display:block;width:100%;padding:3px 0 2px;font-size:14px;color:#5C6575;border:1px solid #D7DAE0;border-radius:5px;}
+.more_btn button i {color:#5C6575;font-size:15px;font-size:26px;vertical-align:middle}
+
+/* 라디오박스 공통 스타일 */
+.radiobox_area {position:relative;margin-top:-15px;overflow:hidden;font-size:0}
+.radiobox_area::after {content:"";display:block;clear:both;}
+.radiobox_area li{display:inline-block;float:left;margin-top:15px;margin-right:70px}
+.radiobox_area li::after {content:"";display:block;clear:both;}
+.radiobox_area li:last-child{margin-right:0;}
+.radiobox_area input[type="radio"]{ position:absolute; left:0; width:0px; height:0px; padding:0; overflow:hidden; clip:rect(0,0,0,0); border:0 none; }
+.radiobox_area input[type="radio"] + label{position:relative;float:left;display:inline-block;width:auto;padding:1px 0 1px 30px;font-size:15px;color:#5C6575;line-height:1.3;font-weight:400;cursor:pointer;min-height:20px;}
+.radiobox_area input[type="radio"] + label:before{content:'';position:absolute;left:0;top:1px;width:20px;height:20px;background-image:url("../../../../assets/public/public_ext_basic/images/setting_radio.png");background-position:left top;background-repeat:no-repeat;}
+.radiobox_area input[type="radio"]:focus + label{outline:1px dotted #444;outline:5px auto -webkit-focus-ring-color;outline:0 none;}
+.radiobox_area input[type="radio"]:focus + label:before{outline:0 none;}
+.radiobox_area input[type="radio"]:checked + label:before{background-position:left -20px;}
+.radiobox_area .direct input[type="radio"] + label {width:auto;min-height:30px;}
+.radiobox_area .tip_area {display:inline-block;top:-4px;margin-left:4px;}
+.radiobox_area .tip_area .tip_box {padding:10px}
+@media all and (max-width:449px){.radiobox_area .tip_area {display:none;}}
+@media all and (min-width:451px){.radiobox_area .tip_area {display:none;}}
+
+/* select 스타일의 a,button */
+.result_tit {margin-top:16px;}
+.result_tit .select_style {float:left;}
+.result_tit::after {content:"";display:block;clear:both}
+.select_style {position:relative;width:60px;margin-left:10px;margin-right:19px;font-weight:500;letter-spacing:-0.5px;border:0 none; background:#e7e7e7;}
+.select_style.open .label::after {-webkit-transform:rotate(180deg); transform:rotate(180deg);}
+.select_style .label {display:block;position:relative;width:100%;height:24px;font-size:13px;color:#303640;font-weight:400;background-color:#F5F7FB;text-align:left}
+.select_style .label::after {content:'';position:absolute;top:50%;right:0;width:10px;height:6px;margin-top:-3px;vertical-align:top;-webkit-transition:all 0.2s;transition:all 0.2s;background:url("../../../../assets/public/public_ext_basic/images/icon_select_gray.png") center no-repeat;}
+.select_style ul,
+.select_style .select_ul {display:none;position:absolute;top:30px;right:-10px;width:calc(100% + 20px);padding:10px 0 5px;background-color:#fff;border:1px solid #D7DAE0;-moz-box-shadow:3px 3px 3px rgba(0,0,0,0.1);-webkit-box-shadow:3px 3px 3px rgba(0,0,0,0.1);box-shadow:3px 3px 3px rgba(0,0,0,0.1);z-index:11;border-radius:5px}
+.select_style li a,
+.select_style li button {display:block;width:100%;padding:3px 10px 3px;margin-bottom:5px;color:#171B27;font-size:13px;font-weight:500;z-index:1;-webkit-transition:all 0.2s;transition:all 0.2s;border:0 none;text-align:left;}
+.select_style li a:hover,
+.select_style li button:hover {background-color:#F6F8FF;}
+
+/* 카테고리 공통 스타일 */
+.inline_cate {font-size:0;}
+.inline_cate span,
+.inline_cate button {display:inline-block;margin:0 3px 2px 0;padding:4px 10px 4px;font-size:13px;color:#fff;border-radius:5px;background-color:#8c8c8c;}
+.inline_cate .use {margin:0;background-color:#FFE9E9;color:#FF5857;}/* 사용 */
+.inline_cate .ghks {margin:0;background-color:#EDEAFF;color:#2800F0;}/* 환전 */
+.inline_cate .cnd {margin:0;background-color:#D9F9F5;color:#07CAB5;}/* 충전 */
+.inline_cate .refund {margin:0;background-color:#FFECDB;color:#FF800B;}/* 환불 */
+.inline_cate .collect {margin:0;background-color:#E2E7EF;color:#3F5271;}/* 회수 */
+
+/* 은행 아이콘 */
+.bank_list i {display:inline-block;width:40px;height:40px;background-position:center; background-repeat:no-repeat;}
+/* .bank_list i.bank_no {background-image:url(../../../../assets/public/public_ext_basic/images/bank_no.png);} */  /* 은행 없을때 */
+.bank_list i.bank_1 {background-image:url(../../../../assets/public/public_ext_basic/images/bank_1.png);}/* KB국민은행 */
+.bank_list i.bank_2 {background-image:url(../../../../assets/public/public_ext_basic/images/bank_2.png);}/* 기업은행 */
+.bank_list i.bank_3 {background-image:url(../../../../assets/public/public_ext_basic/images/bank_3.png);}/* 농협은행 */
+.bank_list i.bank_4 {background-image:url(../../../../assets/public/public_ext_basic/images/bank_4.png);}/* 신한은행 */
+.bank_list i.bank_5 {background-image:url(../../../../assets/public/public_ext_basic/images/bank_5.png);}/* 산업은행 */
+.bank_list i.bank_6 {background-image:url(../../../../assets/public/public_ext_basic/images/bank_6.png);}/* 우리은행 */
+.bank_list i.bank_7 {background-image:url(../../../../assets/public/public_ext_basic/images/bank_7.png);}/* 한국씨티은행 */
+.bank_list i.bank_8 {background-image:url(../../../../assets/public/public_ext_basic/images/bank_8.png);}/* 하나은행 */
+.bank_list i.bank_9 {background-image:url(../../../../assets/public/public_ext_basic/images/bank_9.png);}/* SC제일은행 */
+.bank_list i.bank_10 {background-image:url(../../../../assets/public/public_ext_basic/images/bank_10.png);}/* 경남은행 */
+.bank_list i.bank_11 {background-image:url(../../../../assets/public/public_ext_basic/images/bank_11.png);}/* 광주은행 */
+.bank_list i.bank_12 {background-image:url(../../../../assets/public/public_ext_basic/images/bank_12.png);}/* 대구은행 */
+.bank_list i.bank_13 {background-image:url(../../../../assets/public/public_ext_basic/images/bank_13.png);}/* 도이치은행 */
+.bank_list i.bank_14 {background-image:url(../../../../assets/public/public_ext_basic/images/bank_14.png);}/* 뱅크오브아메리카 */
+.bank_list i.bank_15 {background-image:url(../../../../assets/public/public_ext_basic/images/bank_15.png);}/* 부산은행 */
+.bank_list i.bank_16 {background-image:url(../../../../assets/public/public_ext_basic/images/bank_16.png);}/* 산림조합중앙회 */
+.bank_list i.bank_17 {background-image:url(../../../../assets/public/public_ext_basic/images/bank_17.png);}/* 저축은행 */
+.bank_list i.bank_18 {background-image:url(../../../../assets/public/public_ext_basic/images/bank_18.png);}/* 새마을금고 */
+.bank_list i.bank_19 {background-image:url(../../../../assets/public/public_ext_basic/images/bank_19.png);}/* 수협은행 */
+.bank_list i.bank_20 {background-image:url(../../../../assets/public/public_ext_basic/images/bank_20.png);}/* 신협중앙회 */
+.bank_list i.bank_21 {background-image:url(../../../../assets/public/public_ext_basic/images/bank_21.png);}/* 우체국 */
+.bank_list i.bank_22 {background-image:url(../../../../assets/public/public_ext_basic/images/bank_22.png);}/* 전북은행 */
+.bank_list i.bank_23 {background-image:url(../../../../assets/public/public_ext_basic/images/bank_23.png);}/* 제주은행 */
+.bank_list i.bank_24 {background-image:url(../../../../assets/public/public_ext_basic/images/bank_24.png);}/* 중국건설은행 */
+.bank_list i.bank_25 {background-image:url(../../../../assets/public/public_ext_basic/images/bank_25.png);}/* 중국공상은행 */
+.bank_list i.bank_26 {background-image:url(../../../../assets/public/public_ext_basic/images/bank_26.png);}/* 중국은행 */
+.bank_list i.bank_27 {background-image:url(../../../../assets/public/public_ext_basic/images/bank_27.png);}/* BNP파리바은행 */
+.bank_list i.bank_28 {background-image:url(../../../../assets/public/public_ext_basic/images/bank_28.png);}/* HSBC은행 */
+.bank_list i.bank_29 {background-image:url(../../../../assets/public/public_ext_basic/images/bank_29.png);}/* JP모간체이스은행 */
+.bank_list i.bank_30 {background-image:url(../../../../assets/public/public_ext_basic/images/bank_30.png);}/* 카카오뱅크 */
+.bank_list i.bank_31 {background-image:url(../../../../assets/public/public_ext_basic/images/bank_31.png);}/* 케이뱅크 */
+.bank_list i.bank_32 {background-image:url(../../../../assets/public/public_ext_basic/images/bank_32.png);}/* 토스뱅크 */
+
+/* 완료 페이지 */
+.complete_area {display:table;width:100%;height:100%;padding-bottom:70px;text-align:center}
+.complete_area .complete_box {display:table-cell;vertical-align:middle}
+.complete_area .complete_box i {display:inline-block;width:70px;height:70px;line-height:70px;margin-bottom:20px;font-size:40px;border-radius:100%}
+.complete_area .complete_box .ri-check-line {background:#DBE8FF;color:#0012B8;}/* 성공 아이콘 */
+.complete_area .complete_box .ri-close-line {background:#FFE9E9;color:#FF5857;}/* 실패 아이콘 */
+/* .complete_area .complete_box .ri-exclamation-mark-line {position:relative;background:url("../../../../assets/public/public_ext_basic/images/exclamation_mark_bg.png") center no-repeat;color:#0012B8;} *//* 실패 아이콘 */
+/* .complete_area .complete_box .ri-exclamation-mark-line::before {content:"";display:block;position:absolute;top:50%;left:50%;width:4px;height:30px;margin:-15px 0 0 -2px;background:url("../../../../assets/public/public_ext_basic/images/exclamation_mark.png") center no-repeat;} */
+.complete_area .complete_box .tit {font-size:21px;font-weight:700;}
+.complete_area .complete_box .txt {margin-top:16px;font-size:17px;font-weight:500;color:#5C6575}
+
+/* 충전하기 */
+.btn_fixed .pop_content {padding-bottom:70px;}
+.pop_content {}
+.pop_content h1 {padding:20px 25px;font-size:17px;font-weight:700;border-bottom:1px solid #D7DAE0;background:#fff}
+.pop_content h2 {margin-bottom:17px;font-size:21px;font-weight:700;line-height:1.45;}
+.pop_content .cont {padding:20px 25px;}
+.pop_content .cont .tr_box {padding:24px 25px;background:#D7FF3C;border-radius:5px;}
+.pop_content .cont .tr_box::after {content:"";display:block;clear:both}
+.pop_content .cont .tr_box .tit {float:left;margin-top:8px;color:#061437;font-weight:700;}
+.pop_content .cont .tr_box .tr {float:right;font-size:27px;color:#061437;font-weight:700;line-height:1.4;letter-spacing:-2px}
+.pop_content .cont .tr_box .tr span {font-size:25px;font-weight:500;color:#061437;letter-spacing:-1.5px}
+.pop_content .cont .step_box {margin-top:35px}
+.pop_content .cont .step_tit {position:relative;padding-left:30px;margin-bottom:20px;font-size:17px;font-weight:700;line-height:1.2}
+.pop_content .cont .step_tit span {position:absolute;left:0;top:0;display:inline-block;width:22px;height:22px;padding:2px 0 3px;font-size:16px;color:#fff;font-weight:700;background:#232933;border-radius:100%;text-align:center;line-height:1;}
+.pop_content .cont .dot_txt,
+.exchange_info p {position:relative;margin:7px 0 5px;padding-left:10px;color:#828B99;font-size:13px;font-weight:500}
+.pop_content .cont .dot_txt::after,
+.exchange_info p::after {content:"";position:absolute;top:6px;left:0;width:5px;height:5px;background:#828B99;border-radius:100%;}
+.exchange_info p {margin:0 0 10px 0}
+.exchange_info p:last-child {margin-bottom:0}
+.exchange_info p::after {top:7px;}
+.pop_content .cont .dot_txt.error {color:#FF5857;}
+.pop_content .cont .dot_txt.error::after {background:#FF5857;}
+
+/* 내역보기 */
+.breakdown_area {background:#F5F7FB}
+.breakdown_area .pop_content {padding-bottom:0;}
+.breakdown_area .pop_content .cont {padding:20px 25px 24px}
+.pop_content .list {margin-top:15px;padding:11px 20px 15px;border:1px solid #EDEFF2;border-radius:5px;background:#fff}
+.pop_content .list .top::after {content:"";display:block;clear:both}
+.pop_content .list .top span {margin-right:9px;color:#5C6575;font-size:13px;font-weight:400}
+.pop_content .list .top .process_ment {float:right;font-size:12px;color:#828B99;font-weight:400;border-bottom:1px solid #828B99;margin-top:2px}
+.pop_content .list .top span.process_ment {border-bottom:0 none;margin-right:0}
+.pop_content .list .bottom {position:relative;margin-top:10px;padding-left:30px;}
+.pop_content .list .bottom::after {content:"";display:block;clear:both}
+.pop_content .list .bottom .inline_cate {position:absolute;left:0;top:0;}
+.pop_content .list .bottom .box_area {position:relative;}
+.pop_content .list .bottom .box {float:left;width:calc(50% - 26px);color:#828B99;text-align:right;margin-right:17px}
+.pop_content .list .bottom .box.right {float:right;margin-right:0;margin-left:15px;}
+.pop_content .list .bottom .box span {margin-right:3px;color:#171B27;font-size:17px;font-weight:400}
+.pop_content .list .bottom i {display:inline-block;color:#BDC4D1;font-size:20px;}
+.pop_content .list .nft_link {color:#828B99;text-decoration:underline}
+.pop_content .list.list_no {padding:30px 20px;}
+.pop_content .list.list_no p {font-size:15px;color:#171B27;text-align:center;font-weight:400;}
+.user_guide_load .basics_pop.popuplayer .popuplayer_area {width:400px;}
+
+/* 환전 - 계좌등록 */
+.account_form {margin-top:40px}
+.bank_select .select_style {width:100%;height:60px;line-height:58px;margin-left:0;padding:0 62px 0 25px;border:1px solid #D7DAE0;background:#FAFBFC;border-radius:5px;}
+.bank_select .select_style .select_label {display:block;width:100%;line-height:58px;font-size:17px;color:#232933;text-align:left}
+.bank_select .select_style .select_label i,
+.account_form .bank_list_box .list i {width:26px;height:26px;margin-right:10px;background-size:cover;vertical-align:middle}
+.bank_select .select_style .select_label i {vertical-align:sub}
+.bank_select .select_style .select_label .s_arrow {position:absolute;right:22px;top:0;font-size:24px;width:auto;height:auto;}
+.bank_select .select_style.open .select_label {font-weight:700}
+.bank_select .select_style.open .select_label .s_arrow {-webkit-transform:rotate(180deg); transform:rotate(180deg);-webkit-transition:all 0.4s;transition:all 0.4s;}
+.select_style .select_ul {top:53px;left:-1px;right:auto;width:calc(100% + 2px);height:200px;padding:2px 0 0 0;border-top:0 none;background:#FAFBFC;-moz-box-shadow:0 0 0 rgba(0,0,0,0);-webkit-box-shadow:0 0 0 rgba(0,0,0,0);box-shadow:0 0 0 rgba(0,0,0,0);}
+.account_form .select_style .select_ul {overflow-y:auto}
+.account_form .bank_list_box {padding:10px 25px 10px}
+.account_form .bank_list_box::after {content:"";display:block;clear:both}
+.account_form .bank_list_box .list {float:left;width:50%;border:0 none;background:none;padding:0;margin:0 0 13px 0;min-height:26px;line-height:1}
+.account_form .bank_list_box input[type="radio"] {position:absolute;left:0;width:0px;height:0px;padding:0;overflow:hidden; clip:rect(0,0,0,0);border:0 none;}
+.account_form .bank_list_box input[type="radio"] + label {position:relative;display:inline-block;padding:1px 0;font-size:15px;font-weight:400;cursor:pointer}
+.account_form .check {vertical-align:middle}
+.account_form .b_name {display:inline-block}
+/* .account_form .bank_list_box input[type="radio"]:checked + label{position:relative;font-weight:700;}
+.account_form .bank_list_box input[type="radio"]:checked + label::before {content:"";display:block;position:absolute;bottom:0;left:30px;width:calc(100% - 30px);height:1px;background-color:#3c3c3c;}
+.account_form .bank_list_box input[type="radio"]:checked + label i {vertical-align:middle} */
+.account_form .input_area {margin-top:20px}
+.account_form .input_area input,
+.account_form .input_area .input_style {padding:0 25px;line-height:58px;font-size:17px}
+.account_form .input_area input::-webkit-input-placeholder {font-size:17px;font-weight:500;} /* WebKit browsers */
+.account_form .input_area input::-moz-placeholder {font-size:17px;font-weight:500;} /* Mozilla Firefox 19+ */
+.account_form .input_area input:-moz-placeholder {font-size:17px;font-weight:500;} /* Mozilla Firefox 18- */
+.account_form .input_area input:-ms-input-placeholder {font-size:17px;font-weight:500;} /* Internet Explorer 10+ */
+
+/* 환전하기 */
+.input_area.account_result {position:relative;display:block;width:100%;height:60px;padding:0 25px;border:1px solid #D7DAE0;background:#FAFBFC;border-radius:5px;}
+.input_area.account_result label {position:absolute;top:16px;left:25px;display:block;margin:0;font-size:17px;color:#828B99;line-height:1.4;-webkit-transition:all 0.4s;transition:all 0.4s;}
+.input_area.account_result input {margin-top:24px;font-size:17px;color:#171B27;font-weight:500;border:0 none;background:none;height:auto;line-height:normal;padding:0;outline:0 none;text-align:left;}
+.input_area.account_result input:focus + label,
+.input_area.account_result.val_yes label {top:10px;font-size:12px;}
+
+.fee_box {position:relative;margin-top:30px;padding-top:38px;padding-bottom:10px}
+.fee_box::after {content:"";display:block;position:absolute;top:0;left:-25px;width:calc(100% + 50px);height:10px;background:#EDEFF2;}
+.fee_box .box {margin-bottom:15px}
+.fee_box .box::after {content:"";display:block;clear:both}
+.fee_box .box:last-child {margin-bottom:0;}
+.fee_box .tit {float:left;margin-top:2px;font-size:15px;color:#5C6575;line-height:1.6;}
+.fee_box .right {float:right;font-size:19px;color:#303640;line-height:1.5;}
+.fee_box .right span {margin-right:5px}
+.fee_box .right .blue {color:#005DFD}
+.exchange_list {margin:30px 0 16px;}
+.exchange_list ul {border-top:1px solid #D7DAE0;border-bottom:1px solid #D7DAE0;}
+.exchange_list li {margin:13px 0 13px 0;}
+.exchange_list li::after {content:"";display:block;clear:both}
+.exchange_list li .tit {float:left;margin-top:2px;color:#5C6575;font-weight:400;line-height:1.6}
+.exchange_list li .con {float:right;font-size:17px;color:#303640;font-weight:500;line-height:1.5}
+.exchange_list .exchange_result {margin-top:13px}
+.exchange_list .exchange_result::after {content:"";display:block;clear:both}
+.exchange_list .exchange_result .tit {float:left;margin-top:5px;color:#171B27;font-weight:700;line-height:1.6;}
+.exchange_list .exchange_result .con {float:right;color:#005DFD;font-size:22px;}
+.exchange_info {position:relative;padding:19px 25px;background:#F5F7FB;}
+.txt_s_1 {margin-top:20px;font-size:17px;color:#5C6575}
+.input4 {margin-top:70px;text-align:center}
+.input4 .box::after {content:"";display:block;clear:both}
+.input4 .box {position:relative;display:inline-block}
+.input4 .box input {margin:0 5px;width:70px;height:80px;line-height:80px;font-size:40px;color:#005DFD;border:1px solid #D7DAE0;border-radius:5px;text-align:center}
+.input4 .box.error input {border:1px solid #FF5857}
+.input4 .box .dot_txt {margin-top:20px;text-align:left}
+
+/* 520px 이하 */
+@media all and (max-width:520px){
+  /* placeholder */
+  input:placeholder-shown {padding-bottom:1px;}
+  /* 환전 - 계좌등록 */
+  .bank_select .select_style {padding:0 62px 0 20px}
+  .bank_select .select_style .select_label .s_arrow {right:6px}
+  .account_form .bank_list_box {padding:10px 20px 10px}
+  .select_style .select_ul {height:180px}
+  .input_area.account_result {padding:0 20px}
+}
+
+/* 420px 이하 */
+@media all and (max-width:420px){
+  .pop_content .cont .tr_box .tr {font-size:25px}
+  .pop_content .cont .tr_box .tr span {font-size:23px}
+  .user_guide_load .basics_pop.popuplayer .popuplayer_area {width:90%;}
+}
+
+/* 410px 이하 */
+@media all and (max-width:410px){
+  /*환전 내역보기*/
+  .pop_content .list .bottom {padding-left:0;}
+  .pop_content .list .bottom .inline_cate {position:relative;left:auto;top:auto;display:block;width:100%;margin:0 0 10px 0}
+  .pop_content .list .bottom .box {text-align:left}
+  .pop_content .list .bottom .box.right {text-align:right}
+}
+
+/* 380px 이하 */
+@media all and (max-width:380px){
+  /* 환전 - 계좌등록 */
+  .account_form .bank_list_box .list {width:100%;}
+
+  /* 환전하기 */
+  .input4 {margin-top:50px}
+  .input4 .box input {width:50px;height:60px;}
+}
+
+/* 320px 이하 */
+@media all and (max-width:320px){
+  /* 충전하기 */
+  .pop_content .cont .tr_box {padding:15px 25px 15px 25px;}
+  .pop_content .cont .tr_box .tit {float:none;}
+  .pop_content .cont .tr_box .tr {width:100%;}
+}
