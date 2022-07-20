@@ -1,9 +1,28 @@
 @charset "utf-8";
 
 html, body, #metaverse_wrap {height:100%;width:100%;}
-body {overflow:hidden;}
+body {overflow:hidden;touch-action:pan-x;touch-action:pan-y;position:fixed}
 a {cursor:pointer}
-#metaverse_wrap {position:relative;overflow:hidden;background:#DCDCDC}
+#metaverse_wrap {position:relative;overflow:hidden;}
+
+
+/* 공통 틀 */
+.menu_view_open {position:fixed;top:0;left:-390px;width:390px;height:100%;background:#fff;-webkit-transition:all 0.3s ease-in-out;transition:all 0.3s ease-in-out;z-index:0;-moz-box-shadow:3px 3px 7px rgba(0,0,0,0.3);-webkit-box-shadow:3px 3px 7px rgba(0,0,0,0.3);box-shadow:3px 3px 7px rgba(0,0,0,0.3);}
+.menu_view_open.open {left:63px;z-index:999;}
+
+.tabArea .tab_cont {visibility:hidden;overflow:hidden;height:0;opacity:0;}
+.tabArea .tab_cont.active {visibility:visible;overflow:visible;opacity:1;height:100%;}
+
+/* 스크롤 */
+.scroll_box {position:relative;width:100%;height:100%;overflow-y:auto;overflow-x:hidden; scrollbar-color:#BDC4D1 transparent;}
+.scroll_box::-webkit-scrollbar {position:absolute;top:0;right:0;width:7px;margin-right:10px} /* 스크롤바의 너비 */
+.scroll_box::-webkit-scrollbar-thumb {background-color:#BDC4D1;} /* 스크롤바의 색상 */
+.scroll_box::-webkit-scrollbar-track {background-color:#EDEFF2;margin-right:15px} /* 스크롤바 트랙 색상 */
+.scroll_x {position:relative;width:100%;height:100%;overflow-y:auto;overflow-x:hidden; scrollbar-color:#BDC4D1 transparent;}
+.scroll_x::-webkit-scrollbar {position:absolute;top:0;right:0;width:7px;} /* 스크롤바의 너비 */
+.scroll_x::-webkit-scrollbar-thumb {background-color:#BDC4D1;} /* 스크롤바의 색상 */
+.scroll_x::-webkit-scrollbar-track {background-color:#EDEFF2;} /* 스크롤바 트랙 색상 */
+.scroll_x::-webkit-scrollbar:horizontal {height:8px;}/* 가로 스크롤 높이 */
 
 /* 각 모서리의 버튼 들 */
 .meta_btn_style {position:fixed;font-size:0;}
@@ -13,26 +32,26 @@ a {cursor:pointer}
 .meta_btn_style.bottomright {bottom:35px;right:40px;}
 .meta_btn_style button {display:inline-block;width:54px;height:54px;margin-right:16px;background-color:rgba(0, 0, 0, 0.3);background-position:center;background-repeat:no-repeat;border-radius:100%;text-indent:-9999px}
 .meta_btn_style button:last-child {margin-right:0;}
-.meta_btn_style .meta_menu_open_btn {background-image:url(../../../assets/public/public_ext_basic/images/metaverse/meta_menu_open_btn.png);background-size:23px 23px;background-position:15px 14px;}
-.meta_btn_style .meta_viewpoint_btn {background-image:url(../../../assets/public/public_ext_basic/images/metaverse/meta_viewpoint01_btn.png);background-size:32px 23px;background-position:11px 14px;}
-.meta_btn_style .meta_viewpoint_btn.viewpoint03 {background-image:url(../../../assets/public/public_ext_basic/images/metaverse/meta_viewpoint03_btn.png);background-size:16px 36px;background-position:center}
-.meta_btn_style .meta_room_move_btn {background-image:url(../../../assets/public/public_ext_basic/images/metaverse/meta_room_move_btn.png);background-size:30px 32px;}
-.meta_btn_style .meta_mapview_btn {background-image:url(../../../assets/public/public_ext_basic/images/metaverse/meta_mapview_btn.png);background-size:33px 28px;background-position:10px 12px;}
-.meta_btn_style .meta_friend_btn {background-image:url(../../../assets/public/public_ext_basic/images/metaverse/meta_friend_btn.png);background-size:33px 28px;}
-.meta_btn_style .meta_filming_btn {background-image:url(../../../assets/public/public_ext_basic/images/metaverse/meta_filming_btn.png);background-size:33px 26px;background-position:11px 12px;}
-.meta_btn_style .meta_event_btn {background-image:url(../../../assets/public/public_ext_basic/images/metaverse/meta_event_btn.png);background-size:33px 34px;background-position:9px 10px;}
-.meta_btn_style .meta_chat_open_btn {background-image:url(../../../assets/public/public_ext_basic/images/metaverse/meta_chat_open_btn.png);background-size:30px 25px;}
-.meta_btn_style .meta_myhome_open_btn {background-image:url(../../../assets/public/public_ext_basic/images/metaverse/meta_myhome_open_btn.png);background-size:28px 33px;}
-.meta_btn_style .meta_sound_btn {background-image:url(../../../assets/public/public_ext_basic/images/metaverse/meta_sound_btn.png);background-size:28px 21px;background-position:13px 15px;}
-.meta_btn_style button.on.meta_sound_btn {background-image:url(../../../assets/public/public_ext_basic/images/metaverse/meta_sound_btn_on.png);background-size:26px 20px;background-position:15px 16px;}
-.meta_btn_style .meta_mike_btn {background-image:url(../../../assets/public/public_ext_basic/images/metaverse/meta_mike_btn.png);background-size:21px 26px;background-position:16px 12px;}
-.meta_btn_style button.on.meta_mike_btn {background-image:url(../../../assets/public/public_ext_basic/images/metaverse/meta_mike_btn_on.png);background-size:18px 26px;background-position:18px 12px;}
-.meta_btn_style .meta_feeling_open_btn {background-image:url(../../../assets/public/public_ext_basic/images/metaverse/meta_feeling_open_btn.png);background-size:31px 31px;background-position:11px 11px;}
+.meta_btn_style .meta_menu_open_btn {background-image:url(../../../assets/public/images/metaverse/meta_menu_open_btn.png);background-size:23px 23px;background-position:15px 14px;}
+.meta_btn_style .meta_viewpoint_btn {background-image:url(../../../assets/public/images/metaverse/meta_viewpoint01_btn.png);background-size:32px 23px;background-position:11px 14px;}
+.meta_btn_style .meta_viewpoint_btn.viewpoint03 {background-image:url(../../../assets/public/images/metaverse/meta_viewpoint03_btn.png);background-size:16px 36px;background-position:center}
+.meta_btn_style .meta_room_move_btn {background-image:url(../../../assets/public/images/metaverse/meta_room_move_btn.png);background-size:30px 32px;}
+.meta_btn_style .meta_mapview_btn {background-image:url(../../../assets/public/images/metaverse/meta_mapview_btn.png);background-size:33px 28px;background-position:10px 12px;}
+.meta_btn_style .meta_friend_btn {background-image:url(../../../assets/public/images/metaverse/meta_friend_btn.png);background-size:33px 28px;}
+.meta_btn_style .meta_filming_btn {background-image:url(../../../assets/public/images/metaverse/meta_filming_btn.png);background-size:33px 26px;background-position:11px 12px;}
+.meta_btn_style .meta_event_btn {background-image:url(../../../assets/public/images/metaverse/meta_event_btn.png);background-size:33px 34px;background-position:9px 10px;}
+.meta_btn_style .meta_chat_open_btn {background-image:url(../../../assets/public/images/metaverse/meta_chat_open_btn.png);background-size:30px 25px;}
+.meta_btn_style .meta_myhome_open_btn {background-image:url(../../../assets/public/images/metaverse/meta_myhome_open_btn.png);background-size:28px 33px;}
+.meta_btn_style .meta_sound_btn {background-image:url(../../../assets/public/images/metaverse/meta_sound_btn.png);background-size:28px 21px;background-position:13px 15px;}
+.meta_btn_style button.on.meta_sound_btn {background-image:url(../../../assets/public/images/metaverse/meta_sound_btn_on.png);background-size:26px 20px;background-position:15px 16px;}
+.meta_btn_style .meta_mike_btn {background-image:url(../../../assets/public/images/metaverse/meta_mike_btn.png);background-size:21px 26px;background-position:16px 12px;}
+.meta_btn_style button.on.meta_mike_btn {background-image:url(../../../assets/public/images/metaverse/meta_mike_btn_on.png);background-size:18px 26px;background-position:18px 12px;}
+.meta_btn_style .meta_feeling_open_btn {background-image:url(../../../assets/public/images/metaverse/meta_feeling_open_btn.png);background-size:31px 31px;background-position:11px 11px;}
 .meta_btn_style button.on {background-color:rgba(255, 138, 31, 0.8);}
-.meta_btn_style .studio_go_btn {width:auto;padding:0 28px 0 62px;;font-size:20px;color:#39A0FF;font-weight:700;border-radius:30px;background-color:#18275B;background-image:url(../../../assets/public/public_ext_basic/images/metaverse/studio_go_btn.png);background-size:25px 24px;background-position:30px center;text-indent:0;}
+.meta_btn_style .studio_go_btn {width:auto;padding:0 28px 0 62px;;font-size:20px;color:#39A0FF;font-weight:700;border-radius:30px;background-color:#18275B;background-image:url(../../../assets/public/images/metaverse/studio_go_btn.png);background-size:25px 24px;background-position:30px center;text-indent:0;}
 
-.meta_btn_style .icon_updown_btn {display:none;background-image:url(../../../assets/public/public_ext_basic/images/metaverse/icon_updown_btn.png);background-size:28px 18px;background-position:center 20px;}
-.meta_btn_style .icon_updown_btn.on {background-color:#595959;background-image:url(../../../assets/public/public_ext_basic/images/metaverse/icon_updown_btn_on.png);background-size:28px 18px;background-position:center 18px;}
+.meta_btn_style .icon_updown_btn {display:none;background-image:url(../../../assets/public/images/metaverse/icon_updown_btn.png);background-size:28px 18px;background-position:center 20px;}
+.meta_btn_style .icon_updown_btn.on {background-color:#595959;background-image:url(../../../assets/public/images/metaverse/icon_updown_btn_on.png);background-size:28px 18px;background-position:center 18px;}
 .meta_btn_style .updown_box {}
 
 .chating_room_active_no .meta_btn_style button.on {background-color:rgba(0, 0, 0, 0.3);}
@@ -49,8 +68,8 @@ a {cursor:pointer}
 .metar_menu .metar_menu_head .logo a {display:block;}
 .metar_menu .metar_menu_head .tit {height:38px;line-height:36px;padding:0 90px 0 60px;font-size:20px;font-weight:700;word-break:break-all;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .metar_menu .metar_menu_head button {position:absolute;background-position:center;background-repeat:no-repeat;text-indent:-9999px}
-.metar_menu .metar_menu_head .my_position_btn {top:3px;right:50px;width:23px;height:30px;background-image:url(../../../assets/public/public_ext_basic/images/metaverse/my_position.png);background-size:23px 30px;}
-.metar_menu .metar_menu_head .metar_menu_close_btn {top:8px;right:0;width:21px;height:22px;background-image:url(../../../assets/public/public_ext_basic/images/metaverse/icon_close.png);background-size:21px 22px;}
+.metar_menu .metar_menu_head .my_position_btn {top:3px;right:50px;width:23px;height:30px;background-image:url(../../../assets/public/images/metaverse/my_position.png);background-size:23px 30px;}
+.metar_menu .metar_menu_head .metar_menu_close_btn {top:8px;right:0;width:21px;height:22px;background-image:url(../../../assets/public/images/metaverse/icon_close.png);background-size:21px 22px;}
 .metar_menu .scroll_box {height:calc(100% - 184px);padding:48px 56px;}
 .metar_menu .tab_list {margin:7px 0 24px;}
 .metar_menu .tab_list::after {content:"";display:block;clear:both;}
@@ -75,33 +94,33 @@ a {cursor:pointer}
 .menu_footer_btns.right {right:0;}
 .menu_footer_btns button {display:inline-block;margin-right:35px;background-position:center;background-repeat:no-repeat;text-indent:-9999px}
 .menu_footer_btns button:last-child {margin-right:0;}
-.menu_footer_btns .meta_out_btn {width:28px;height:21px;background-image:url(../../../assets/public/public_ext_basic/images/metaverse/meta_out_btn.png);background-size:28px 21px;}
-.menu_footer_btns .meta_conversation_btn {width:27px;height:24px;background-image:url(../../../assets/public/public_ext_basic/images/metaverse/meta_conversation_btn.png);background-size:27px 24px;}
-.menu_footer_btns .meta_conversation_btn.on {background-image:url(../../../assets/public/public_ext_basic/images/metaverse/meta_conversation_btn_on.png);background-size:27px 24px;}
-.menu_footer_btns .meta_setting_btn {width:23px;height:24px;background-image:url(../../../assets/public/public_ext_basic/images/metaverse/meta_setting_btn.png);background-size:23px 24px;}
+.menu_footer_btns .meta_out_btn {width:28px;height:21px;background-image:url(../../../assets/public/images/metaverse/meta_out_btn.png);background-size:28px 21px;}
+.menu_footer_btns .meta_conversation_btn {width:27px;height:24px;background-image:url(../../../assets/public/images/metaverse/meta_conversation_btn.png);background-size:27px 24px;}
+.menu_footer_btns .meta_conversation_btn.on {background-image:url(../../../assets/public/images/metaverse/meta_conversation_btn_on.png);background-size:27px 24px;}
+.menu_footer_btns .meta_setting_btn {width:23px;height:24px;background-image:url(../../../assets/public/images/metaverse/meta_setting_btn.png);background-size:23px 24px;}
 
 
 /* 설정 메뉴 */
 .metar_menu.meta_setting .metar_menu_list {margin-top:0;}
-.metar_menu.meta_setting .metar_menu_head .meta_setting_back_btn {top:9px;left:0;width:15px;height:18px;background-image:url(../../../assets/public/public_ext_basic/images/metaverse/meta_setting_back_btn.png);background-size:15px 18px;}
+.metar_menu.meta_setting .metar_menu_head .meta_setting_back_btn {top:9px;left:0;width:15px;height:18px;background-image:url(../../../assets/public/images/metaverse/meta_setting_back_btn.png);background-size:15px 18px;}
 .metar_menu.meta_setting .metar_menu_head .tit {padding:0 40px 0 40px}
 
 /* 감정표현 레이어 */
 .emoticon_box {position:fixed;bottom:37px;left:50%;width:640px;height:136px;background:#fff;border-radius:8px;-webkit-transform:translate(-50%,200px);-ms-transform:translate(-50%,200px);transform:translate(-50%,200px);-webkit-transition:all 0.2s;transition:all 0.2s;}
 .emoticon_box.on {-webkit-transform:translate(-50%,0);-ms-transform:translate(-50%,0);transform:translate(-50%,0);-webkit-transition:all 0.2s;transition:all 0.2s;z-index:2;}
 .emoticon_box {}
-.emoticon_box ul {padding:25px 25px 0 25px;}
+.emoticon_box ul {padding:25px 15px 0 20px;}
 .emoticon_box ul::after {content:"";display:block;clear:both;}
 .emoticon_box li {float:left;}
 .emoticon_box li button {display:inline-block;padding:0 30px;background-position:center top;background-repeat:no-repeat;}
 .emoticon_box li button span {display:block;width:100%;padding-top:66px;color:#232323;font-size:14px;font-weight:700;text-align:center}
-.emoticon_box li .emoticon_hi {background-image:url(../../../assets/public/public_ext_basic/images/metaverse/emoticon_hi.png);background-size:39px 52px;background-position:center top 4px;}
-.emoticon_box li .emoticon_happy {background-image:url(../../../assets/public/public_ext_basic/images/metaverse/emoticon_happy.png);background-size:47px 54px;background-position:center top 2px;}
-.emoticon_box li .emoticon_amazing {background-image:url(../../../assets/public/public_ext_basic/images/metaverse/emoticon_amazing.png);background-size:32px 52px;background-position:center top 4px;}
-.emoticon_box li .emoticon_laugh {background-image:url(../../../assets/public/public_ext_basic/images/metaverse/emoticon_laugh.png);background-size:39px 56px;background-position:center top;}
-.emoticon_box li .emoticon_applause {background-image:url(../../../assets/public/public_ext_basic/images/metaverse/emoticon_applause.png);background-size:42px 49px;background-position:center top 7px;}
-.emoticon_box li .emoticon_despair {background-image:url(../../../assets/public/public_ext_basic/images/metaverse/emoticon_despair.png);background-size:51px 49px;background-position:center top 7px;}
-.emoticon_box li .emoticon_angry {background-image:url(../../../assets/public/public_ext_basic/images/metaverse/emoticon_angry.png);background-size:49px 53px;background-position:center top 3px;}
+.emoticon_box li .emoticon_hi {background-image:url(../../../assets/public/images/metaverse/emoticon_hi.png);background-size:39px 52px;background-position:center top 4px;}
+.emoticon_box li .emoticon_happy {background-image:url(../../../assets/public/images/metaverse/emoticon_happy.png);background-size:47px 54px;background-position:center top 2px;}
+.emoticon_box li .emoticon_amazing {background-image:url(../../../assets/public/images/metaverse/emoticon_amazing.png);background-size:32px 52px;background-position:center top 4px;}
+.emoticon_box li .emoticon_laugh {background-image:url(../../../assets/public/images/metaverse/emoticon_laugh.png);background-size:39px 56px;background-position:center top;}
+.emoticon_box li .emoticon_applause {background-image:url(../../../assets/public/images/metaverse/emoticon_applause.png);background-size:42px 49px;background-position:center top 7px;}
+.emoticon_box li .emoticon_despair {background-image:url(../../../assets/public/images/metaverse/emoticon_despair.png);background-size:51px 49px;background-position:center top 7px;}
+.emoticon_box li .emoticon_angry {background-image:url(../../../assets/public/images/metaverse/emoticon_angry.png);background-size:49px 53px;background-position:center top 3px;}
 
 /* 채팅방 아이프래임 열기 */
 .chating_widget_container {display:inline-block;margin-right:16px;}
@@ -145,7 +164,7 @@ a {cursor:pointer}
   .emoticon_box {left:20px;bottom:104px;width:calc(100% - 40px);height:116px;}
   .emoticon_box.on {-webkit-transform:translate(0,0);-ms-transform:translate(0,0);transform:translate(0,0);}
   .emoticon_box .scroll_x {overflow-x:auto}
-  .emoticon_box ul {display:block;width:590px;padding:15px 0 0 0;margin:0 auto;}
+  .emoticon_box ul {display:block;width:600px;padding:15px 0 0 0;margin:0 auto;}
 }
 
 /* 360px 이하 */

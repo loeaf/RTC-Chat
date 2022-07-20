@@ -3,6 +3,7 @@
 
   <!-- friend_list 친구목록 -->
   <div class="chating_list friend_list">
+
     <!-- top_close_area -->
     <div class="top_close_area">
       <div class="top_tit_box">
@@ -43,8 +44,8 @@
             <div class="list">
               <div class="left">
                 <div class="img_box">
-                  <div class="img_bg" style="background-image:url(/assets/chating/my_profile.png)">
-                    <img src="/assets/chating/my_profile.png" alt="내 프로필 사진">
+                  <div class="img_bg" style="background-image:url(my_profile.png)">
+                    <img src="my_profile.png" alt="내 프로필 사진">
                   </div>
                 </div>
                 <div class="cont">
@@ -64,8 +65,8 @@
             <div class="list">
               <div class="left">
                 <div class="img_box">
-                  <div class="img_bg" style="background-image:url(/assets/chating/my_profile.png)">
-                    <img src="/assets/chating/my_profile.png" alt="내 프로필 사진">
+                  <div class="img_bg" style="background-image:url(my_profile.png)">
+                    <img src="my_profile.png" alt="내 프로필 사진">
                   </div>
                 </div>
                 <div class="cont">
@@ -86,8 +87,8 @@
             <div class="list">
               <div class="left">
                 <div class="img_box">
-                  <div class="img_bg" style="background-image:url(/assets/chating/my_profile.png)">
-                    <img src="/assets/chating/my_profile.png" alt="내 프로필 사진">
+                  <div class="img_bg" style="background-image:url(my_profile.png)">
+                    <img src="my_profile.png" alt="내 프로필 사진">
                   </div>
                 </div>
                 <div class="cont">
@@ -107,8 +108,8 @@
             <div class="list">
               <div class="left">
                 <div class="img_box">
-                  <div class="img_bg" style="background-image:url(/assets/chating/my_profile.png)">
-                    <img src="/assets/chating/my_profile.png" alt="내 프로필 사진">
+                  <div class="img_bg" style="background-image:url(my_profile.png)">
+                    <img src="my_profile.png" alt="내 프로필 사진">
                   </div>
                 </div>
                 <div class="cont">
@@ -145,8 +146,8 @@
             <div class="list">
               <div class="left">
                 <div class="img_box">
-                  <div class="img_bg" style="background-image:url(/assets/chating/my_profile.png)">
-                    <img src="/assets/chating/my_profile.png" alt="내 프로필 사진">
+                  <div class="img_bg" style="background-image:url(my_profile.png)">
+                    <img src="my_profile.png" alt="내 프로필 사진">
                   </div>
                 </div>
                 <div class="cont">
@@ -166,8 +167,8 @@
             <div class="list">
               <div class="left">
                 <div class="img_box">
-                  <div class="img_bg" style="background-image:url(/assets/chating/my_profile.png)">
-                    <img src="/assets/chating/my_profile.png" alt="내 프로필 사진">
+                  <div class="img_bg" style="background-image:url(my_profile.png)">
+                    <img src="my_profile.png" alt="내 프로필 사진">
                   </div>
                 </div>
                 <div class="cont">
@@ -187,8 +188,8 @@
             <div class="list">
               <div class="left">
                 <div class="img_box">
-                  <div class="img_bg" style="background-image:url(/assets/chating/my_profile.png)">
-                    <img src="/assets/chating/my_profile.png" alt="내 프로필 사진">
+                  <div class="img_bg" style="background-image:url(my_profile.png)">
+                    <img src="my_profile.png" alt="내 프로필 사진">
                   </div>
                 </div>
                 <div class="cont">
@@ -208,8 +209,8 @@
             <div class="list">
               <div class="left">
                 <div class="img_box">
-                  <div class="img_bg" style="background-image:url(/assets/chating/my_profile.png)">
-                    <img src="/assets/chating/my_profile.png" alt="내 프로필 사진">
+                  <div class="img_bg" style="background-image:url(my_profile.png)">
+                    <img src="my_profile.png" alt="내 프로필 사진">
                   </div>
                 </div>
                 <div class="cont">
@@ -245,8 +246,10 @@
         <!-- chating_room_tab -->
         <div class="chating_room_tab">
           <ul>
-            <li class="active"><button type="button" data-tab="chating_room_tab_01"><span>1</span></button></li><!-- 맨 처음 tab의 li 에 active 선언 필요 -->
-            <li class="noti_icon"><button type="button" data-tab="chating_room_tab_02"><span>2</span></button></li>
+            <li #chattingRoomEle [ngClass]="setSelectCls(i)" *ngFor="let obj of channels; let i = index"
+                (click)="channelClick(i);setActiveRoom($event, i)">
+              <button type="button" data-tab="chating_room_tab_02"><span>{{i+1}}</span></button>
+            </li>
           </ul>
         </div>
         <!-- //chating_room_tab -->
@@ -265,26 +268,20 @@
 
         <!-- scroll_box chating_room_people -->
         <div class="scroll_box chating_room_people">
-          <div class="people_list">
-            <div class="img_bg" style="background-image:url(/assets/chating/my_profile.png)">
-              <img src="/assets/chating/my_profile.png" alt="내 프로필 사진">
+          <div class="people_list" *ngFor="let _user of channelMembers">
+            <div class="img_bg" [ngStyle]="setProfileImg(_user.user)">
+              <img src="my_profile.png" alt="내 프로필 사진">
             </div>
-            <p>소통왕</p>
+            <p>{{_user.user.name}}</p>
             <button type="button" class="add_friend" onclick="layerClickOpenM('basics_pop');">친구추가</button>
           </div>
-          <div class="people_list">
-            <div class="img_bg" style="background-image:url(/assets/chating/my_profile.png)">
-              <img src="/assets/chating/my_profile.png" alt="내 프로필 사진">
-            </div>
-            <p>소통왕</p>
-            <button type="button" class="out_friend" onclick="layerClickOpenM('basics_pop');">내보내기</button>
-          </div>
-          <div class="people_list">
-            <div class="img_bg" style="background-image:url(/assets/chating/my_profile.png)">
-              <img src="/assets/chating/my_profile.png" alt="내 프로필 사진">
-            </div>
-            <p>인생은즐거워</p>
-          </div>
+<!--          <div class="people_list">-->
+<!--            <div class="img_bg" style="background-image:url(my_profile.png)">-->
+<!--              <img src="my_profile.png" alt="내 프로필 사진">-->
+<!--            </div>-->
+<!--            <p>소통왕</p>-->
+<!--            <button type="button" class="out_friend" onclick="layerClickOpenM('basics_pop');">내보내기</button>-->
+<!--          </div>-->
         </div><!-- //scroll_box chating_room_people -->
 
         <!-- scroll_box chating_room_talk -->
@@ -294,101 +291,40 @@
             <p>나야나님이 대화방에 입장하였습니다.</p>
           </div>
           <!-- //inside_notify -->
-
-          <!-- my_party_box 내 글 표시 -->
-          <div class="my_party_box">
-            <div class="row_line">
-              <p class="txt">이따가 신랑신부 사진촬영방에서 봐!</p>
-            </div>
-            <div class="row_line">
-              <p class="txt">이따가 신랑신부 사진촬영방에서 봐! 이따가 신랑신부 사진촬영방에서 봐! 이따가 신랑신부 사진촬영방에서 봐! 이따가 신랑신부 사진촬영방에서 봐!</p>
-            </div>
-          </div>
-          <!-- //my_party_box 내 글 표시 -->
-
-          <!-- other_party_box 상대방 글 표시 -->
-          <div class="other_party_box">
-            <!-- people_list 상대방 프로필 표시 -->
-            <div class="people_list">
-              <div class="img_bg" style="background-image:url(/assets/chating/my_profile.png)">
-                <img src="/assets/chating/my_profile.png" alt="프로필 사진">
+          <ng-container *ngFor="let message of messages">
+            <ng-container *ngIf="user?.id === message.user.id; else otherPartyBox">
+              <!-- my_party_box 내 글 표시 -->
+              <div class="my_party_box">
+                <div class="row_line">
+                  <p class="txt">{{message.text}}</p>
+                </div>
               </div>
-              <p>[나야나]</p>
-            </div>
-            <!-- //people_list 상대방 프로필 표시 -->
-            <div class="row_line">
-              <p class="txt">이따가 신랑신부 사진촬영방에서 봐!</p>
-            </div>
-            <div class="row_line">
-              <p class="txt">이따가 신랑신부 사진촬영방에서 봐! 이따가 신랑신부 사진촬영방에서 봐! 이따가 신랑신부 사진촬영방에서 봐! 이따가 신랑신부 사진촬영방에서 봐!</p>
-            </div>
-            <div class="row_line">
-              <p class="txt"><a href="http://www.naver.com" target="_blank">http://www.naver.com</a></p>
-            </div>
-          </div>
-          <!-- //other_party_box 상대방 글 표시 -->
-
-          <!-- my_party_box 내 글 표시 -->
-          <div class="my_party_box">
-            <div class="row_line">
-              <p class="txt"><a href="http://www.naver.com" target="_blank">http://www.naver.com</a></p>
-            </div>
-          </div>
-          <!-- //my_party_box 내 글 표시 -->
-
-          <!-- my_party_box 내 글 표시 -->
-          <div class="my_party_box">
-            <!-- 이미지 올렷을 경우 view -->
-            <div class="add_img">
-              <a href="javascript:void(0);"><img src="/assets/chating/chating_room_talk_test.png" alt=""></a>
-            </div>
-            <!-- //이미지 올렷을 경우 view -->
-          </div>
-          <!-- //my_party_box 내 글 표시 -->
-
-
-          <!-- inside_notify 입장알림 -->
-          <div class="inside_notify">
-            <p>나야나님이 대화방에 입장하였습니다.</p>
-          </div>
-          <!-- //inside_notify -->
-
-          <!-- other_party_box 상대방 글 표시 -->
-          <div class="other_party_box">
-            <!-- people_list 상대방 프로필 표시 -->
-            <div class="people_list">
-              <div class="img_bg" style="background-image:url(/assets/chating/my_profile.png)">
-                <img src="/assets/chating/my_profile.png" alt="프로필 사진">
-              </div>
-              <p>[나야나]</p>
-            </div>
-            <!-- //people_list 상대방 프로필 표시 -->
-            <div class="row_line">
-              <p class="txt"><a href="http://www.naver.com" target="_blank">http://www.naver.com</a></p>
-            </div>
-          </div>
-          <!-- //other_party_box 상대방 글 표시 -->
-
-          <!-- other_party_box 상대방 글 표시 -->
-          <div class="other_party_box">
-            <!-- people_list 상대방 프로필 표시 -->
-            <div class="people_list">
-              <div class="img_bg" style="background-image:url(/assets/chating/my_profile.png)">
-                <img src="/assets/chating/my_profile.png" alt="프로필 사진">
-              </div>
-              <p>[나야나]</p>
-            </div>
-            <!-- //people_list 상대방 프로필 표시 -->
-            <div class="row_line">
-              <!-- 이미지 올렷을 경우 view -->
               <div class="add_img">
-                <a href="javascript:void(0);"><img src="/assets/chating/chating_room_talk_test.png" alt=""></a>
+                <a href="javascript:void(0);"><img src="chating_room_talk_test.png" alt=""></a>
               </div>
-              <!-- //이미지 올렷을 경우 view -->
-            </div>
-          </div>
-          <!-- //other_party_box 상대방 글 표시 -->
-
+              <!-- //my_party_box 내 글 표시 -->
+            </ng-container>
+            <ng-template #otherPartyBox>
+              <!-- other_party_box 상대방 글 표시 -->
+              <div class="other_party_box">
+                <!-- people_list 상대방 프로필 표시 -->
+                <div class="people_list">
+                  <div class="img_bg" style="background-image:url(my_profile.png)">
+                    <img [src]="setProfileImg(message.user)" alt="프로필 사진">
+                  </div>
+                  <p>{{message.user.name}}</p>
+                </div>
+                <!-- //people_list 상대방 프로필 표시 -->
+                <div class="row_line">
+                  <p class="txt">{{message.text}}</p>
+                </div>
+                <div class="img_bg" style="background-image:url(my_profile.png)">
+                  <img src="my_profile.png" alt="프로필 사진">
+                </div>
+              </div>
+              <!-- //other_party_box 상대방 글 표시 -->
+            </ng-template>
+          </ng-container>
         </div>
         <!-- //scroll_box chating_room_talk -->
 
@@ -409,7 +345,7 @@
             </ul>
           </div>
           <div class="talk_input">
-            <input type="text" placeholder="대화를 입력하세요">
+            <input #textVal type="text" placeholder="대화를 입력하세요">
 
             <!-- 파일을 선택 후 업로드할 파일명 표시되는 영역(위의 인풋박스는 가려야 함) -->
             <!--
@@ -421,7 +357,7 @@
             </div>
             -->
           </div>
-          <button type="button" class="talk_send_btn">보내기</button>
+          <button (click)="sendMessage(textVal.value)" type="button" class="talk_send_btn">보내기</button>
         </div>
         <!-- //talk_send_box -->
       </div>
@@ -526,8 +462,8 @@
                   <input type="checkbox" id="check01" checked><label for="check01">선택</label>
                 </div>
                 <div class="img_box">
-                  <div class="img_bg" style="background-image:url(/assets/chating/my_profile.png)">
-                    <img src="/assets/chating/my_profile.png" alt="내 프로필 사진">
+                  <div class="img_bg" style="background-image:url(my_profile.png)">
+                    <img src="my_profile.png" alt="내 프로필 사진">
                   </div>
                 </div>
                 <div class="cont">
@@ -546,8 +482,8 @@
                   <input type="checkbox" id="check02"><label for="check02">선택</label>
                 </div>
                 <div class="img_box">
-                  <div class="img_bg" style="background-image:url(/assets/chating/my_profile.png)">
-                    <img src="/assets/chating/my_profile.png" alt="내 프로필 사진">
+                  <div class="img_bg" style="background-image:url(my_profile.png)">
+                    <img src="my_profile.png" alt="내 프로필 사진">
                   </div>
                 </div>
                 <div class="cont">
@@ -566,8 +502,8 @@
                   <input type="checkbox" id="check03"><label for="check03">선택</label>
                 </div>
                 <div class="img_box">
-                  <div class="img_bg" style="background-image:url(/assets/chating/my_profile.png)">
-                    <img src="/assets/chating/my_profile.png" alt="내 프로필 사진">
+                  <div class="img_bg" style="background-image:url(my_profile.png)">
+                    <img src="my_profile.png" alt="내 프로필 사진">
                   </div>
                 </div>
                 <div class="cont">
@@ -586,8 +522,8 @@
                   <input type="checkbox" id="check04"><label for="check04">선택</label>
                 </div>
                 <div class="img_box">
-                  <div class="img_bg" style="background-image:url(/assets/chating/my_profile.png)">
-                    <img src="/assets/chating/my_profile.png" alt="내 프로필 사진">
+                  <div class="img_bg" style="background-image:url(my_profile.png)">
+                    <img src="my_profile.png" alt="내 프로필 사진">
                   </div>
                 </div>
                 <div class="cont">
@@ -623,8 +559,8 @@
                   <input type="checkbox" id="check05"><label for="check05">선택</label>
                 </div>
                 <div class="img_box">
-                  <div class="img_bg" style="background-image:url(/assets/chating/my_profile.png)">
-                    <img src="/assets/chating/my_profile.png" alt="내 프로필 사진">
+                  <div class="img_bg" style="background-image:url(my_profile.png)">
+                    <img src="my_profile.png" alt="내 프로필 사진">
                   </div>
                 </div>
                 <div class="cont">
@@ -643,8 +579,8 @@
                   <input type="checkbox" id="check06" checked><label for="check06">선택</label>
                 </div>
                 <div class="img_box">
-                  <div class="img_bg" style="background-image:url(/assets/chating/my_profile.png)">
-                    <img src="/assets/chating/my_profile.png" alt="내 프로필 사진">
+                  <div class="img_bg" style="background-image:url(my_profile.png)">
+                    <img src="my_profile.png" alt="내 프로필 사진">
                   </div>
                 </div>
                 <div class="cont">
@@ -663,8 +599,8 @@
                   <input type="checkbox" id="check07"><label for="check07">선택</label>
                 </div>
                 <div class="img_box">
-                  <div class="img_bg" style="background-image:url(/assets/chating/my_profile.png)">
-                    <img src="/assets/chating/my_profile.png" alt="내 프로필 사진">
+                  <div class="img_bg" style="background-image:url(my_profile.png)">
+                    <img src="my_profile.png" alt="내 프로필 사진">
                   </div>
                 </div>
                 <div class="cont">
@@ -683,8 +619,8 @@
                   <input type="checkbox" id="check08"><label for="check08">선택</label>
                 </div>
                 <div class="img_box">
-                  <div class="img_bg" style="background-image:url(/assets/chating/my_profile.png)">
-                    <img src="/assets/chating/my_profile.png" alt="내 프로필 사진">
+                  <div class="img_bg" style="background-image:url(my_profile.png)">
+                    <img src="my_profile.png" alt="내 프로필 사진">
                   </div>
                 </div>
                 <div class="cont">
@@ -738,3 +674,27 @@
 
 </div>
 <!-- //chating_wrap -->
+
+<!--<div style="display: flex; align-content: center; justify-content: center">-->
+<!--  <button  *ngFor="let obj of channels; let i = index" (click)="channelClick(obj)" style="width: 50px; height: 50px" type="button">{{i+1}}</button>-->
+<!--</div>-->
+<!--<strong class="top_tit">{{setChannelName()}}</strong>-->
+<!--<div  *ngFor="let _user of channelMembers">-->
+<!--  <p>{{_user.user.name}}</p>-->
+<!--</div>-->
+<!--<div style="background-color: #0B4992; width: 100%; height: 500px;">-->
+<!--  <div style="display: flex; flex-direction: column" *ngFor="let message of messages">-->
+<!--    <div style="display: flex;">-->
+<!--      <strong>{{message.user.name}}</strong>-->
+<!--      <div class="img_bg" [ngStyle]="setProfileImg(message.user)">-->
+<!--        <img src="/assets/chating/my_profile.png" alt="내 프로필 사진">-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div>{{message.text}}</div>-->
+<!--  </div>-->
+<!--</div>-->
+<!--<div style="display: flex">-->
+<!--  <input type="file" (change)="attachFile($event)">-->
+<!--  <input #textVal style="width: 100%; height: 80px;" type="text">-->
+<!--  <button (click)="sendMessage(textVal.value)"> 확인 </button>-->
+<!--</div>-->

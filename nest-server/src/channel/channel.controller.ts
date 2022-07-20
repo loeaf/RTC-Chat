@@ -7,6 +7,7 @@ export class ChannelController {
   constructor(private readonly channelService: ChannelService,
               private appSvc: AppService) {}
 
+    // @todo 수정하던지 지우던지...
   @Get(':user')
   async getChannel(@Param() param) {
       console.log(param.user);
