@@ -23,9 +23,8 @@ declare const $: any;
   styleUrls: ['./chatting.component.css']
 })
 export class ChattingComponent implements OnInit, AfterViewInit {
-  @ViewChild('a', { static: true }) messageTemplate!: TemplateRef<MessageContext>;
-  @ViewChild('b', { static: true }) channelPreviewTemplate!: TemplateRef<ChannelPreviewContext>;
-  @ViewChild('threadHeaderTemplate', { static: true }) threadHeaderTemplate!: TemplateRef<ThreadHeaderContext>;
+  @ViewChild('filesEle') filesEle!: ElementRef;
+  @ViewChild('textValEle') textValEle!: ElementRef;
   @ViewChildren('chattingRoomEle') chattingRoomEle!: ElementRef[];
   client: any;
   nowChannel: any;
@@ -170,12 +169,24 @@ export class ChattingComponent implements OnInit, AfterViewInit {
     if(text === null) {
       return;
     }
+    const attach = this.filesEle.nativeElement;
+
+    const files = this.filesEle.nativeElement.files;
+    const response = await channel.sendImage(files[0]);
+    debugger;
+    // const base64 = await this.convertBase64ByFile(attach);
+    const p = {
+      type: 'image',
+      asset_url: response.file,
+      thumb_url: response.file,
+      myCustomField: 123
+    }
     const message = await this.nowChannel.sendMessage({
       text,
+      attachments: [p]
     });
     this.message = message.message;
-    debugger;
-
+    this.clearChattingInput();
   }
   ngAfterViewInit(): void {
   }
@@ -213,8 +224,11 @@ export class ChattingComponent implements OnInit, AfterViewInit {
 
   setProfileImg(user: any) {
     const imageUrl = user.image;
+    const image = './assets/my_profile.png';
     if(imageUrl === undefined) {
-      return { 'background-image': "url(/assets/chating/my_profile.png)" }
+      return { 'background-image': `url(${image})` }
+    } else if (imageUrl.search('https') === -1) {
+      return { 'background-image': `url(${image})` }
     }
     return { 'background-image': `url(${imageUrl})` }
   }
@@ -222,13 +236,6 @@ export class ChattingComponent implements OnInit, AfterViewInit {
   channelClick(i: number) {
     this.initStreamChat(i);
 
-  }
-  async attachFile($event: any) {
-    if($event.target === null) {
-      return;
-    }
-    const files = $event.target.files;
-    const response = await this.nowChannel.sendImage(files[0]);
   }
   async messageEvent() {
     debugger;
@@ -248,5 +255,59 @@ export class ChattingComponent implements OnInit, AfterViewInit {
     const selectEle: any = this.chattingRoomEle.filter((element, index) => index === i);
     $(selectEle[0].nativeElement).addClass('active')
     debugger;
+  }
+
+  fileChanges() {
+    const file = this.filesEle.nativeElement.files[0];
+    if(file.type !== 'image/jpeg') {
+      alert('이미지가 아닌 파일은 전송할 수 없습니다');
+      this.filesEle.nativeElement.value = '';
+      return;
+    }
+  }
+
+  visibleFileAttach() {
+    if(this.filesEle === undefined) {
+      return;
+    }
+    if (this.filesEle.nativeElement.value === '') {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  getFileAttachName() {
+    if(this.filesEle === undefined) {
+      return;
+    }
+    return this.filesEle.nativeElement.value;
+  }
+
+  fileAttachDelete() {
+    if(this.filesEle === undefined) {
+      return;
+    }
+    this.filesEle.nativeElement.value = '';
+  }
+
+  clearChattingInput() {
+    this.fileAttachDelete();
+    this.textValEle.nativeElement.value = '';
+  }
+
+  convertBase64ByFile(file: any) {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
   }
 }
