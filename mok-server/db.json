@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "id": "1",
+      "id": "bd4add93-9144-4bdb-9ed0-8aa63b3488d9",
       "nickName": "푸근하고-유식한-레몬"
     },
     {
@@ -24,58 +24,62 @@
     {
       "id": "9007376a-5ed0-48e4-b342-1c84723951b3",
       "nickName": "무식해도-깐깐한-타조"
+    },
+    {
+      "id": "c990b2ae-5ea8-49ea-923c-0c3a4e85829b",
+      "nickName": "답답하지만-음울한-펠리컨"
+    },
+    {
+      "id": "f9616b29-cc6b-4ee7-9515-67a3bb906627",
+      "nickName": "복잡하고-불룩한-호박"
+    },
+    {
+      "id": "75c1ee69-985d-40a9-a8c1-5bfd8f416ec0",
+      "nickName": "깜깜한데-아늑한-청설모"
+    },
+    {
+      "id": "53f980d3-e3a2-47ab-9a82-4e1f1420a7de",
+      "nickName": "똑똑해도-졸린듯한-고래"
+    },
+    {
+      "id": "4c2a86ca-f8fa-40cf-b3ee-733eaf8191c6",
+      "nickName": "답답하고-까칠한-도마뱀"
+    },
+    {
+      "id": "zero",
+      "nickName": "응 없어~"
     }
   ],
-  "rooms": [
+  "userMetaRoom": [
     {
-      "id": "5621ae78-d334-49e3-92f6-c6bf235b88a9",
-      "ownerId": "1",
-      "roomName": "결백한데-해괴한-나무늘보"
+      "id": "1",
+      "metaRoomName": "Bubble Pop! - 현아방",
+      "users": [
+        "bd4add93-9144-4bdb-9ed0-8aa63b3488d9",
+        "4c2a86ca-f8fa-40cf-b3ee-733eaf8191c6",
+        "c990b2ae-5ea8-49ea-923c-0c3a4e85829b",
+        "53f980d3-e3a2-47ab-9a82-4e1f1420a7de",
+        "c990b2ae-5ea8-49ea-923c-0c3a4e85829b"
+
+      ]
     },
     {
-      "id": "0fdd9dda-ad3d-4d23-89fc-a7e4920d1721",
-      "ownerId": "odd-night-1",
-      "roomName": "굉장해도-완전한-올빼미"
+      "id": "2",
+      "metaRoomName": "Bad Girl Good Girl - 미쓰에이",
+      "users": [
+        "dd9cf57b-0fa2-42e9-a9e5-7fc52976a804",
+        "9007376a-5ed0-48e4-b342-1c84723951b3",
+        "cae4b2c8-da2d-4419-99b9-336b0683608f"
+      ]
     },
     {
-      "id": "c91fe010-9673-4cc5-b9a4-64685ff1fafc",
-      "ownerId": "dd9cf57b-0fa2-42e9-a9e5-7fc52976a804",
-      "roomName": "조용해도-초라한-용"
-    },
-    {
-      "id": "661c9c62-0b72-4a6b-be95-96c7157fb493",
-      "ownerId": "7f4f790e-32ad-4d4e-a8e1-ff787eda0090",
-      "roomName": "부적합해서-적나라한-비단뱀"
-    },
-    {
-      "id": "7645a40f-4387-4a0a-990e-d383cf3ee534",
-      "ownerId": "cae4b2c8-da2d-4419-99b9-336b0683608f",
-      "roomName": "다양해도-어마어마한-밤송이",
-      "mokId": "api"
+      "id": "3",
+      "metaRoomName": "Supa Dupa Dlea - 달샤벳",
+      "users": [
+        "f9616b29-cc6b-4ee7-9515-67a3bb906627",
+        "75c1ee69-985d-40a9-a8c1-5bfd8f416ec0",
+        "dd9cf57b-0fa2-42e9-a9e5-7fc52976a804"
+      ]
     }
-  ],
-  "data": {
-    "data": {
-      "tokenId": 1234,
-      "owner": "e2314159-7a4a-4ebb-b8ca-651e60b7ea1b",
-      "price": 5000,
-      "orderId": 123,
-      "orderPrice": 15000,
-      "orderStartDt": "2022-04-06T00:00:00Z",
-      "orderEendDt": "2023-04-06T00:00:00Z",
-      "offerAt": true
-    }
-  },
-  "data1": {
-    "data": {
-      "tokenId": 1234,
-      "owner": "e13841d9-f52e-4e1a-83fe-d1c24405cd24",
-      "price": 5000,
-      "orderId": 123,
-      "orderPrice": 15000,
-      "orderStartDt": "2022-04-06T00:00:00Z",
-      "orderEendDt": "2023-04-06T00:00:00Z",
-      "offerAt": true
-    }
-  }
+  ]
 }

@@ -14,6 +14,10 @@ export interface Frend {
   state: FrendRequestState;
 }
 
+export interface Frends {
+  frends: Frend[];
+}
+
 export enum FrendRequestState {
   요청,
   승인,

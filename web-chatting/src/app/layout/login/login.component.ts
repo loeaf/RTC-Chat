@@ -1,16 +1,40 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ChattingHttpService, ChattingStep, User} from '../../chatting-http.service';
 const PhraseGen = require('korean-random-words');
 import * as uuid from "uuid";
 import {ActivatedRoute, Router} from '@angular/router';
+/**
+ * Copyright(c) Live2D Inc. All rights reserved.
+ *
+ * Use of this source code is governed by the Live2D Open Software license
+ * that can be found at https://www.live2d.com/eula/live2d-open-software-license-agreement_en.html.
+ */
+
+import { LAppDelegate } from './Core/lappdelegate';
+import * as LAppDefine from './Core/lappdefine';
+
+/**
+ * 終了時の処理
+ */
+window.onbeforeunload = (): void => LAppDelegate.releaseInstance();
+
+/**
+ * Process when changing screen size.
+ */
+window.onresize = () => {
+  if (LAppDefine.CanvasSize === 'auto') {
+    LAppDelegate.getInstance().onResize();
+  }
+};
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, AfterViewInit {
   user?: User;
+  @ViewChild('characterCanvasEle') characterCanvasEle?: ElementRef;
 
   constructor(
     private chattingHttpService: ChattingHttpService,
@@ -64,6 +88,15 @@ export class LoginComponent implements OnInit {
         this.moveChatting();
       });
     }
+  }
+
+  ngAfterViewInit(): void {
+    // create the application instance
+    if (LAppDelegate.getInstance().initialize(this.characterCanvasEle) == false) {
+      return;
+    }
+
+    LAppDelegate.getInstance().run();
   }
 
 }

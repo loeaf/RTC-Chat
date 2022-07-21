@@ -41,6 +41,16 @@ export class FrendService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} frend`;
+    const result = this.frendModel.findByIdAndRemove(id);
+    return result;
+  }
+
+  findFrendByMetaRoom(id: string) {
+    return '';
+  }
+
+  findFrendsByIdAndFrendsId(id: string, createFrendDto: Frend[]) {
+    console.log('찾아라 뚝닥!');
+    console.log(createFrendDto);
   }
 }
