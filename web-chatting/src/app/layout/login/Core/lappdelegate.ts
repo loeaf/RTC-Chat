@@ -67,7 +67,6 @@ export class LAppDelegate {
     // glコンテキストを初期化
     // @ts-ignore
     gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-
     if (!gl) {
       alert('Cannot initialize WebGL. This browser does not support.');
       gl = null;
@@ -103,7 +102,6 @@ export class LAppDelegate {
       canvas.onmousemove = onMouseMoved;
       canvas.onmouseup = onClickEnded;
     }
-
     // AppViewの初期化
     this._view.initialize();
 
@@ -119,6 +117,7 @@ export class LAppDelegate {
   public onResize(): void {
     this._resizeCanvas();
     this._view.initialize();
+    // this._view.initBackground();
     this._view.initializeSprite();
   }
 
@@ -285,14 +284,15 @@ export class LAppDelegate {
     LAppPal.updateTime();
 
     this._view.initializeSprite();
+    // this._view.initBackground();
   }
 
   /**
    * Resize the canvas to fill the screen.
    */
   private _resizeCanvas(): void {
-    canvas.width = 300;
-    canvas.height = 300;
+    canvas.width = 600;
+    canvas.height = 400;
   }
 
   _cubismOption: Option; // Cubism SDK Option
