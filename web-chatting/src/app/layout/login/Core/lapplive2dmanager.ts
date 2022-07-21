@@ -198,12 +198,12 @@ export class LAppLive2DManager {
   }
 
   /**
-   * コンストラクタ
+   * 케릭터 초기화
    */
   constructor() {
     this._viewMatrix = new CubismMatrix44();
     this._models = new csmVector<LAppModel>();
-    this._sceneIndex = 0;
+    this._sceneIndex = 2;
     this.changeScene(this._sceneIndex);
   }
 

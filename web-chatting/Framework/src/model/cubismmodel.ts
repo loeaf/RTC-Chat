@@ -78,9 +78,9 @@ export class CubismModel {
   }
 
   /**
-   * パーツのインデックスを取得
-   * @param partId パーツのID
-   * @return パーツのインデックス
+   * 부품의 색인 획득
+   * @param partId 부품 ID
+   * @return 부품 인덱스
    */
   public getPartIndex(partId: CubismIdHandle): number {
     let partIndex: number;
@@ -92,12 +92,12 @@ export class CubismModel {
       }
     }
 
-    // モデルに存在していない場合、非存在パーツIDリスト内にあるかを検索し、そのインデックスを返す
+    // 모델에 존재하지 않는 경우 부재 파트 ID 목록에 있는지 검색하고 인덱스를 반환합니다.
     if (this._notExistPartId.isExist(partId)) {
       return this._notExistPartId.getValue(partId);
     }
 
-    // 非存在パーツIDリストにない場合、新しく要素を追加する
+    // 존재하지 않는 부품 ID 목록에 없으면 새 요소 추가
     partIndex = partCount + this._notExistPartId.getSize();
     this._notExistPartId.setValue(partId, partIndex);
     this._notExistPartOpacities.appendKey(partIndex);

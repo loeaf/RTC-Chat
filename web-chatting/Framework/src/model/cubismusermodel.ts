@@ -78,7 +78,7 @@ export class CubismUserModel {
   }
 
   /**
-   * マウスドラッグ情報の設定
+   * 마우스 드래그 정보 설정
    * @param ドラッグしているカーソルのX位置
    * @param ドラッグしているカーソルのY位置
    */

@@ -32,30 +32,30 @@ export const ViewLogicalMaxTop = 2.0;
 // 相対パス
 export const ResourcesPath = '../../assets/login/Resources/';
 
-// モデルの後ろにある背景の画像ファイル
+// 모델 뒤 배경이미지
 export const BackImageName = 'back_class_normal.png';
 
-// 歯車
+// 설정
 export const GearImageName = 'icon_gear.png';
 
-// 終了ボタン
+// 종료버튼
 export const PowerImageName = 'CloseNormal.png';
 
 // モデル定義---------------------------------------------
-// モデルを配置したディレクトリ名の配列
-// ディレクトリ名とmodel3.jsonの名前を一致させておくこと
+// 모델을 배치한 디렉토리 이름의 배열
+// 디렉토리 이름과 model3.json의 이름을 일치시켜야합니다.
 export const ModelDir: string[] = ['Haru', 'Hiyori', 'Mark', 'Natori', 'Rice'];
 export const ModelDirSize: number = ModelDir.length;
 
-// 外部定義ファイル（json）と合わせる
-export const MotionGroupIdle = 'Idle'; // アイドリング
-export const MotionGroupTapBody = 'TapBody'; // 体をタップしたとき
+// 외부 정의 파일(json)과 일치
+export const MotionGroupIdle = 'Idle'; // 공희전
+export const MotionGroupTapBody = 'TapBody'; // 몸탭화면
 
-// 外部定義ファイル（json）と合わせる
+// 외부 정의 파일(json)과 일치
 export const HitAreaNameHead = 'Head';
 export const HitAreaNameBody = 'Body';
 
-// モーションの優先度定数
+// 모션 우선 순위 상수
 export const PriorityNone = 0;
 export const PriorityIdle = 1;
 export const PriorityNormal = 2;
@@ -65,7 +65,7 @@ export const PriorityForce = 3;
 export const DebugLogEnable = true;
 export const DebugTouchLogEnable = false;
 
-// Frameworkから出力するログのレベル設定
+// 디버깅 로그 표시 옵션
 export const CubismLoggingLevel: LogLevel = LogLevel.LogLevel_Verbose;
 
 // デフォルトのレンダーターゲットサイズ

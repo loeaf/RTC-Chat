@@ -28,3 +28,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Cubism
 https://www.live2d.com/en/
+https://twitter.com/search?q=%23%EC%9D%B4%EC%84%B8%EB%8F%8C&f=video

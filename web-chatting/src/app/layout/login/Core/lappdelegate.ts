@@ -18,7 +18,7 @@ export let canvas: HTMLCanvasElement = null;
 export let s_instance: LAppDelegate = null;
 export let gl: WebGLRenderingContext = null;
 export let frameBuffer: WebGLFramebuffer = null;
-
+declare const $: any;
 /**
  * アプリケーションクラス。
  * Cubism SDKの管理を行う。
@@ -90,21 +90,21 @@ export class LAppDelegate {
 
     const supportTouch: boolean = 'ontouchend' in canvas;
 
+    $('body')[0].addEventListener("mousemove", onTouchMoved);
     if (supportTouch) {
       // タッチ関連コールバック関数登録
-      canvas.ontouchstart = onTouchBegan;
-      canvas.ontouchmove = onTouchMoved;
-      canvas.ontouchend = onTouchEnded;
-      canvas.ontouchcancel = onTouchCancel;
+      // canvas.ontouchstart = onTouchBegan;
+      // canvas.ontouchmove = onTouchMoved;
+      // canvas.ontouchend = onTouchEnded;
+      // canvas.ontouchcancel = onTouchCancel;
     } else {
       // マウス関連コールバック関数登録
-      canvas.onmousedown = onClickBegan;
-      canvas.onmousemove = onMouseMoved;
-      canvas.onmouseup = onClickEnded;
+      // canvas.onmousedown = onClickBegan;
+      // canvas.onmousemove = onMouseMoved;
+      // canvas.onmouseup = onClickEnded;
     }
     // AppViewの初期化
     this._view.initialize();
-
     // Cubism SDKの初期化
     this.initializeCubism();
 
@@ -118,7 +118,7 @@ export class LAppDelegate {
     this._resizeCanvas();
     this._view.initialize();
     // this._view.initBackground();
-    this._view.initializeSprite();
+    // this._view.initializeSprite();
   }
 
   /**
@@ -153,7 +153,7 @@ export class LAppDelegate {
       LAppPal.updateTime();
 
       // 画面の初期化
-      gl.clearColor(0.0, 0.0, 0.0, 1.0);
+      gl.clearColor(1.0, 1.0, 1.0, 1.0);
 
       // 深度テストを有効化
       gl.enable(gl.DEPTH_TEST);
@@ -281,9 +281,12 @@ export class LAppDelegate {
     // load model
     LAppLive2DManager.getInstance();
 
+    // @todo 모델 처리 방안 분석중
+    // const p = LAppLive2DManager.getInstance();
+
     LAppPal.updateTime();
 
-    this._view.initializeSprite();
+    // this._view.initializeSprite();
     // this._view.initBackground();
   }
 
@@ -291,8 +294,8 @@ export class LAppDelegate {
    * Resize the canvas to fill the screen.
    */
   private _resizeCanvas(): void {
-    canvas.width = 600;
-    canvas.height = 400;
+    canvas.width = $('#characterCanvasEle').width();
+    canvas.height = $('#characterCanvasEle').height();
   }
 
   _cubismOption: Option; // Cubism SDK Option
@@ -361,6 +364,7 @@ function onClickEnded(e: MouseEvent): void {
  * タッチしたときに呼ばれる。
  */
 function onTouchBegan(e: TouchEvent): void {
+  debugger;
   if (!LAppDelegate.getInstance()._view) {
     LAppPal.printMessage('view notfound');
     return;
@@ -377,7 +381,28 @@ function onTouchBegan(e: TouchEvent): void {
 /**
  * スワイプすると呼ばれる。
  */
-function onTouchMoved(e: TouchEvent): void {
+function onTouchMoved(e: MouseEvent): void {
+  debugger;
+  // if (!LAppDelegate.getInstance()._captured) {
+  //   return;
+  // }
+
+  if (!LAppDelegate.getInstance()._view) {
+    LAppPal.printMessage('view notfound');
+    return;
+  }
+
+  const rect = (e.target as Element).getBoundingClientRect();
+
+  const posX = e.clientX - rect.left
+  const posY = e.clientY - rect.top;
+
+  LAppDelegate.getInstance()._view.onTouchesMoved(posX, posY);
+}
+/**
+ * スワイプすると呼ばれる。
+ */
+function onMoved(e: TouchEvent): void {
   if (!LAppDelegate.getInstance()._captured) {
     return;
   }

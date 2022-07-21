@@ -1,19 +1,25 @@
-<div style="width: 100%; height: 100%; display: flex; align-content: center; justify-content: center">
-  <div style="width: 800px; height: 800px; background-color: #96050b;
-    display: flex; align-content: center; justify-content: center; flex-direction: column">
-    <div #characterCanvasEle style="position: relative; display: flex; align-items: center; justify-content: center; width: 100%; height: 400px;"></div>
-    <div>ID를 입력해주세요</div>
-    <input type="text" value="c360e08a-ae81-421f-bf40-8f4cc380d790" hint="c360e08a-ae81-421f-bf40-8f4cc380d790" #loginInfo>
-    <div> 1번방 1개 </div>
-    <div>bd4add93-9144-4bdb-9ed0-8aa63b3488d9</div>
-    <div>53f980d3-e3a2-47ab-9a82-4e1f1420a7de</div>
-    <div> 2번방 1개 </div>
-    <div>9007376a-5ed0-48e4-b342-1c84723951b3</div>
-    <div>75c1ee69-985d-40a9-a8c1-5bfd8f416ec0</div>
-    <div> 방 2개 </div>
-    <div>dd9cf57b-0fa2-42e9-a9e5-7fc52976a804</div>
-    <div> 방 0개 </div>
-    <div>zero</div>
-    <button type="button" style="background-color: #0B4992" (click)="login(loginInfo.value)">로그인하기</button>
+<div style="display: flex; height: 100%;">
+  <div id="characterCanvasEle" style="flex: 1;">
+    <div #characterCanvasEle style="display: flex; align-content: center; justify-content: center">
+<!--      <div style="position: absolute" class="balloon_02"></div>-->
+    </div>
   </div>
+  <div  style="flex: 1">
+    <div style="width: 800px; height: 800px; display: flex; align-content: center; justify-content: center; flex-direction: column">
+      <div>ID를 입력해주세요</div>
+      <input type="text" value="c360e08a-ae81-421f-bf40-8f4cc380d790" hint="c360e08a-ae81-421f-bf40-8f4cc380d790" #loginInfo>
+      <div> 1번방 1개 </div>
+      <div>bd4add93-9144-4bdb-9ed0-8aa63b3488d9</div>
+      <div>53f980d3-e3a2-47ab-9a82-4e1f1420a7de</div>
+      <div> 2번방 1개 </div>
+      <div>9007376a-5ed0-48e4-b342-1c84723951b3</div>
+      <div>75c1ee69-985d-40a9-a8c1-5bfd8f416ec0</div>
+      <div> 방 2개 </div>
+      <div>dd9cf57b-0fa2-42e9-a9e5-7fc52976a804</div>
+      <div> 방 0개 </div>
+      <div>zero</div>
+      <button type="button" style="background-color: #0B4992" (click)="login(loginInfo.value)">로그인하기</button>
+    </div>
+  </div>
+
 </div>

@@ -42,7 +42,7 @@ export class LAppView {
    * 初期化する。
    */
   public initialize(): void {
-    const { width, height } = canvas;
+    let { width, height } = canvas;
 
     const ratio: number = width / height;
     const left: number = -ratio;
@@ -221,6 +221,9 @@ export class LAppView {
       live2DManager.onTap(x, y);
 
       // 歯車にタップしたか
+      if(this._gear === undefined || this._gear === null) {
+        return;
+      }
       if (this._gear.isHit(pointX, pointY)) {
         live2DManager.nextScene();
       }
