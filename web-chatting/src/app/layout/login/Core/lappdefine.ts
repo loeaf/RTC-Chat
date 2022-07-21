@@ -53,7 +53,8 @@ export const MotionGroupTapBody = 'TapBody'; // 몸탭화면
 
 // 외부 정의 파일(json)과 일치
 export const HitAreaNameHead = 'Head';
-export const HitAreaNameBody = 'Body';
+export const HitAreaNameBo
+dy = 'Body';
 
 // 모션 우선 순위 상수
 export const PriorityNone = 0;
