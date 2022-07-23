@@ -394,7 +394,7 @@ function onTouchMoved(e: MouseEvent): void {
 
   const rect = (e.target as Element).getBoundingClientRect();
 
-  const posX = e.clientX - rect.left
+  const posX = e.clientX - rect.left;
   const posY = e.clientY - rect.top;
 
   LAppDelegate.getInstance()._view.onTouchesMoved(posX, posY);
