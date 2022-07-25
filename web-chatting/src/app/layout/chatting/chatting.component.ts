@@ -12,9 +12,9 @@ import {
 const PhraseGen = require('korean-random-words');
 import * as uuid from "uuid";
 import {ActivatedRoute} from '@angular/router';
-import {ClientManagerService} from './service/client-manager.service';
-import {ChannelManagerService} from './service/channel-manager.service';
-import {AttachFileDto, MessageManagerService} from './service/message-manager.service';
+import {ClientManagerService} from './user/client-manager.service';
+import {ChannelManagerService} from './channel/channel-manager.service';
+import {AttachFileDto, MessageManagerService} from './message/message-manager.service';
 import { saveAs } from 'file-saver';
 declare const $: any;
 
@@ -26,6 +26,7 @@ declare const $: any;
 export class ChattingComponent implements OnInit, AfterViewInit {
   @ViewChild('filesEle') filesEle!: ElementRef;
   @ViewChild('textValEle') textValEle!: ElementRef;
+  @ViewChild('scrollboxEle') scrollboxEle!: ElementRef;
   @ViewChildren('chattingRoomEle') chattingRoomEle!: ElementRef[];
   client: any;
   private channelList?: Array<Channel<DefaultStreamChatGenerics>> = [];
@@ -33,7 +34,7 @@ export class ChattingComponent implements OnInit, AfterViewInit {
   chattingStep: ChattingStep = ChattingStep.로그인필요;
   user?: User;
   uuid: any;
-  hasAttachment!: boolean;
+  hasAttachment: boolean = false;
   selectChannelFn: any = null;
 
 
@@ -53,14 +54,14 @@ export class ChattingComponent implements OnInit, AfterViewInit {
     this.afterLogin();
   }
   async afterLogin() {
-    this.client = await this.clientManSvc.createClient(this.user.id);
+    this.client = await this.clientManSvc.createClient(this.user);
     await this.channelManSvc.findChannelById(this.user.id);
     await this.changeChannel(0);
   }
 
   async changeChannel(index: number) {
     await this.channelManSvc.initSelectChannel(index);
-    await this.channelManSvc.getMembersByChannel(this.channelManSvc.selectChannel);
+    await this.channelManSvc.initMembersByChannel(this.channelManSvc.selectChannel);
     await this.messageManSvc.getMessageByChannel(this.channelManSvc.selectChannel);
     if(this.selectChannelFn !== null) {
       this.selectChannelFn.unsubscribe();
@@ -74,7 +75,9 @@ export class ChattingComponent implements OnInit, AfterViewInit {
     const files = this.filesEle.nativeElement.files;
     const nc = this.channelManSvc.selectChannel;
     await this.messageManSvc.sendMessagePorc(nc, text, files[0]);
+    this.hasAttachment = false;
     this.clearChattingInput();
+    $(this.scrollboxEle.nativeElement).scrollTop($(document).height());
   }
   ngAfterViewInit(): void {
   }
@@ -114,28 +117,20 @@ export class ChattingComponent implements OnInit, AfterViewInit {
   }
 
   fileChanges() {
+    debugger;
     const file = this.filesEle.nativeElement.files[0];
     if(file.type !== 'image/jpeg') {
       alert('이미지가 아닌 파일은 전송할 수 없습니다');
       this.filesEle.nativeElement.value = '';
-      return;
-    }
-  }
-
-  visibleFileAttach() {
-    if(this.filesEle === undefined) {
+      this.hasAttachment = false;
       return;
     } else {
-      if (this.filesEle.nativeElement.value === '') {
-        return false;
-      } else {
-        return true;
-      }
+      this.hasAttachment = true;
     }
   }
 
   getFileAttachName() {
-    if(this.filesEle === undefined) {
+    if(this.hasAttachment === false) {
       return;
     }
     return this.filesEle.nativeElement.value;
@@ -145,6 +140,7 @@ export class ChattingComponent implements OnInit, AfterViewInit {
     if(this.filesEle === undefined) {
       return;
     }
+    this.hasAttachment = false;
     this.filesEle.nativeElement.value = '';
   }
 
@@ -168,6 +164,9 @@ export class ChattingComponent implements OnInit, AfterViewInit {
     });
   }
   downloadImage(url: string, name: string) {
+    if(name === undefined) {
+      name = uuid.v4();
+    }
     saveAs(url, name+'.png');
   }
 }

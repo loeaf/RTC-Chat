@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {ClientManagerService} from './client-manager.service';
+import {ClientManagerService} from '../user/client-manager.service';
 const PhraseGen = require('korean-random-words');
 import * as uuid from "uuid";
 var randomProfile = require('random-profile-generator');
@@ -36,25 +36,22 @@ export class ChannelManagerService {
     this.allChannel = [];
     const filter = { type: 'messaging', members: { $in: [userId] } };
     const sort = { last_message_at: -1 };
-
+    debugger;
     const channels = await this.cliManSvc.getClient().queryChannels(filter, sort, {watch:true});
-    if(channels.length === 0) {
-      console.log('channel 이 없다...?');
-      return null;
-    }
-    // 나만 있는 방 체크
     // 방장이 나가면 방 없어짐. 즉 나만 있는 방 있으면 방을 만들필요가 없음
     for (const channel of channels) {
       const users = await this.getMembersByChannel(channel);
-      if(users.members.length === 1) {
+      if(users.length === 1) {
         this.myChannel = channel;
       } else {
         this.otherChannel.push(channel);
       }
     }
-    // 내 방이 없으면 만들어야함.
-    if (this.myChannel === null) {
-      this.myChannel = await this.createChannel(userId);
+    if(this.myChannel === null) {
+      console.log('channel 이 없다...?');
+      const channel = await this.createChannel(userId);
+      this.myChannel = channel;
+      channels.push(channel);
     }
     this.initChannel();
     return {myChannel: this.myChannel, otherChannel: this.otherChannel};
@@ -92,8 +89,13 @@ export class ChannelManagerService {
 
   public async getMembersByChannel(nowChannel: any): Promise<any> {
     const members = await nowChannel.watch();
-    this.members = members.members;
-    return members;
+    return members.members;
+  }
+
+  public async initMembersByChannel(nowChannel: any): Promise<any> {
+    const watch = await nowChannel.watch();
+    this.members = watch.members;
+    debugger;
   }
 
   public genRoomName(): string {

@@ -48,6 +48,34 @@
     {
       "id": "zero",
       "nickName": "응 없어~"
+    },
+    {
+      "id": "e401ad28-b806-46d2-b568-c575baba8da7",
+      "nickName": "청순가련하지만-앙큼한-메추리"
+    },
+    {
+      "id": "333a8a86-85f3-41f5-ad2d-7110425d9215",
+      "nickName": "허망해도-미묘한-얼룩말"
+    },
+    {
+      "id": "6aa92be2-3036-4cba-81ff-b5736efc5ebc",
+      "nickName": "독해서-궁핍한-공룡"
+    },
+    {
+      "id": "6c9d6c15-4a8c-4636-acd7-361adb615c31",
+      "nickName": "따끈하고-볼록한-반달곰"
+    },
+    {
+      "id": "cb376e80-08d4-4307-9f8d-8a23febae8c9",
+      "nickName": "탱탱해도-사악한-망고"
+    },
+    {
+      "id": "7f7ea4f1-4c07-423d-b84c-0f38886364a1",
+      "nickName": "퀴퀴해도-미흡한-배"
+    },
+    {
+      "id": "64d9c653-56f7-4a63-8b51-65304ca1d487",
+      "nickName": "퀴퀴하고-척박한-들풀"
     }
   ],
   "userMetaRoom": [
@@ -55,12 +83,8 @@
       "id": "1",
       "metaRoomName": "Bubble Pop! - 현아방",
       "users": [
-        "bd4add93-9144-4bdb-9ed0-8aa63b3488d9",
-        "4c2a86ca-f8fa-40cf-b3ee-733eaf8191c6",
-        "c990b2ae-5ea8-49ea-923c-0c3a4e85829b",
-        "53f980d3-e3a2-47ab-9a82-4e1f1420a7de",
-        "c990b2ae-5ea8-49ea-923c-0c3a4e85829b"
-
+        "7f7ea4f1-4c07-423d-b84c-0f38886364a1",
+        "64d9c653-56f7-4a63-8b51-65304ca1d487"
       ]
     },
     {

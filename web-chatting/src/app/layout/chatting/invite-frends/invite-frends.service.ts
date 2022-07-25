@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Frend, FrendHttpService, Frends} from './frend-http.service';
 import {User} from '../chatting/chatting-http.service';
-import {ChannelManagerService} from '../service/channel-manager.service';
+import {ChannelManagerService} from '../channel/channel-manager.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +18,9 @@ export class InviteFrendsService {
   }
 
   async inviteFrendsByRoom(userIds: string) {
-    const channel = this.channelManagerService.selectChannel;
-    const result = await channel.inviteMembers([userIds]);
     debugger;
+    const channel = this.channelManagerService.selectChannel;
+    const invite = await channel.inviteMembers([userIds]);
+    const invite2 = await channel.acceptInvite();
   }
 }

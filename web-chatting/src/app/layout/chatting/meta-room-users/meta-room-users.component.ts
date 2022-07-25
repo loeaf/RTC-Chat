@@ -10,7 +10,7 @@ import {InviteFrendsService} from '../invite-frends/invite-frends.service';
 })
 export class MetaRoomUsersComponent implements OnInit, AfterViewInit {
   @Input()
-  user: User;
+  userObj: User;
 
   constructor(public metaRoomUsersService: MetaRoomUsersService,
               private inviteFrendsSvc: InviteFrendsService) { }
@@ -27,5 +27,6 @@ export class MetaRoomUsersComponent implements OnInit, AfterViewInit {
 
   async inviteUserByRoom(userId: string) {
     await this.inviteFrendsSvc.inviteFrendsByRoom(userId);
+    alert(`${userId}가 초대되었습니다`)
   }
 }

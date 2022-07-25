@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
-import {ChattingHttpService} from '../chatting/chatting-http.service';
+import {ChattingHttpService, User} from '../chatting/chatting-http.service';
 import * as uuid from 'uuid';
 const StreamChat = require('stream-chat').StreamChat;
 const client = StreamChat.getInstance("dz5f4d5kzrue");
 const PhraseGen = require('korean-random-words');
+const randomProfile = require('random-profile-generator');
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientManagerService {
-  clientObj: any;
+  user: User;
 
   constructor(private ChatHttpSvc: ChattingHttpService) { }
 
@@ -23,6 +24,8 @@ export class ClientManagerService {
     const _client = await client.connectUser({
       id: clientId,
       name: nickName,
+      image: this.genProfImage()
+
     }, token); // token generated server side
     return _client;
   }
@@ -44,10 +47,11 @@ export class ClientManagerService {
    * 이때 말하는 계정이란... 연결되어 있으면 계정으로 간주
    * @param userId
    */
-  async createClient(userId: string) {
-    const clientToken = await this.ChatHttpSvc.getTokenById(userId);
-    const clientObj = await this.connection(userId, this.genNickName(), clientToken.token);
-    this.clientObj = clientObj;
+  async createClient(user: User) {
+    this.user = user;
+    const clientToken = await this.ChatHttpSvc.getTokenById(user.id);
+    const clientObj = await this.connection(user.id, user.nickName, clientToken.token);
+    this.user = clientObj;
     if(clientObj === undefined) {
       console.log('client not found');
       return null;
@@ -62,5 +66,8 @@ export class ClientManagerService {
   }
   public genClientId(): string {
     return uuid.v4();
+  }
+  public genProfImage(): string {
+    return randomProfile.avatar();
   }
 }

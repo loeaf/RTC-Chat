@@ -1,3 +1,4 @@
+
 <!-- chating_wrap  chating_room_open friend_list_open -->
 <div id="chating_wrap" class="chating_room_open">
 
@@ -130,7 +131,7 @@
         </div><!-- //친구목록 tab  -->
 
         <!-- 룸이용자 tab -->
-        <app-meta-room-users></app-meta-room-users>
+        <app-meta-room-users [userObj]="user"></app-meta-room-users>
         <!-- //룸이용자 tab -->
 
       </div><!-- //chating_tab_area -->
@@ -173,7 +174,7 @@
         <div class="scroll_box chating_room_people">
           <div class="people_list" *ngFor="let _user of channelManSvc.members">
             <div class="img_bg" [ngStyle]="setProfileImg(_user.user)">
-              <img src="my_profile.png" alt="내 프로필 사진">
+              <img src="{{_user.user?.image}}" alt="내 프로필 사진">
             </div>
             <p>{{_user.user.name}}</p>
             <button type="button" class="add_friend" onclick="layerClickOpenM('basics_pop');">친구추가</button>
@@ -182,7 +183,7 @@
         <!-- //scroll_box chating_room_people -->
 
         <!-- scroll_box chating_room_talk -->
-        <div class="scroll_box chating_room_talk">
+        <div #scrollboxEle class="scroll_box chating_room_talk">
           <!-- inside_notify 입장알림 -->
           <div class="inside_notify">
             <p>나야나님이 대화방에 입장하였습니다.</p>
@@ -219,10 +220,10 @@
                 <div class="row_line">
                   <p class="txt">{{message.text}}</p>
                 </div>
-                <ng-container *ngIf="message.attachments.length !== 0">
+                <ng-container *ngIf="message.attachFile?.length !== 0">
                   <div class="row_line">
-                    <div class="add_img" *ngFor="let attach of message.attachments">
-                      <a href="javascript:void(0);"><img src="{{attach.thumb_url}}" alt=""></a>
+                    <div class="add_img" *ngFor="let attach of message.attachFile">
+                      <a href="javascript:void(0);" (click)="downloadImage(attach.thumb_url, attach.image_name)"><img src="{{attach.thumb_url}}" alt=""></a>
                     </div>
                   </div>
                 </ng-container>
@@ -251,8 +252,7 @@
           </div>
           <div class="talk_input">
             <input #textValEle type="text" placeholder="대화를 입력하세요">
-
-            <div class="file_view" *ngIf="visibleFileAttach()">
+            <div class="file_view" *ngIf="this.hasAttachment">
               <p>
                 <button type="button" class="file_delete" (click)="fileAttachDelete()">파일 삭제하기</button>
                 {{getFileAttachName()}}
