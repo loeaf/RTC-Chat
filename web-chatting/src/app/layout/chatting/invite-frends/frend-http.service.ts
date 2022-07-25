@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {environment} from '../../../../environments/environment';
-import {Room, User} from '../http-service/chatting-http.service';
+import {Room, User} from '../chatting/chatting-http.service';
 import {HttpClient} from '@angular/common/http';
 import {firstValueFrom, lastValueFrom} from 'rxjs';
 

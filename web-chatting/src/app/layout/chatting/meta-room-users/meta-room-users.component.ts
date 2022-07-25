@@ -1,5 +1,7 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
 import {MetaRoomUsersService} from './meta-room-users.service';
+import {User} from '../chatting/chatting-http.service';
+import {InviteFrendsService} from '../invite-frends/invite-frends.service';
 
 @Component({
   selector: 'app-meta-room-users',
@@ -7,14 +9,23 @@ import {MetaRoomUsersService} from './meta-room-users.service';
   styleUrls: ['./meta-room-users.component.css']
 })
 export class MetaRoomUsersComponent implements OnInit, AfterViewInit {
+  @Input()
+  user: User;
 
-  constructor(public metaRoomUsersService: MetaRoomUsersService) { }
+  constructor(public metaRoomUsersService: MetaRoomUsersService,
+              private inviteFrendsSvc: InviteFrendsService) { }
 
   ngOnInit(): void {
   }
 
   ngAfterViewInit(): void {
-    this.metaRoomUsersService.initUserByMetaRoom(1);
+    this.initMetaRoom();
+  }
+  async initMetaRoom() {
+    await this.metaRoomUsersService.initUserByMetaRoom(1);
   }
 
+  async inviteUserByRoom(userId: string) {
+    await this.inviteFrendsSvc.inviteFrendsByRoom(userId);
+  }
 }

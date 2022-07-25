@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ElementRef, Input, OnInit, TemplateRef, ViewChild, ViewChildren} from '@angular/core';
-import {ChattingHttpService, ChattingStep, Room, User} from './http-service/chatting-http.service';
+import {ChattingHttpService, ChattingStep, Room, User} from './chatting/chatting-http.service';
 import {Channel} from 'stream-chat';
 import {
   ChannelPreviewContext,
@@ -34,6 +34,8 @@ export class ChattingComponent implements OnInit, AfterViewInit {
   user?: User;
   uuid: any;
   hasAttachment!: boolean;
+  selectChannelFn: any = null;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -52,51 +54,18 @@ export class ChattingComponent implements OnInit, AfterViewInit {
   }
   async afterLogin() {
     this.client = await this.clientManSvc.createClient(this.user.id);
-    const { myChannel, otherChannel } = await this.channelManSvc.findChannelById(this.user.id);
-    const owner = await this.channelManSvc.getMembersByChannel(this.channelManSvc.myChannel);
-    await this.channelManSvc.initSelectChannel(0);
+    await this.channelManSvc.findChannelById(this.user.id);
+    await this.changeChannel(0);
+  }
+
+  async changeChannel(index: number) {
+    await this.channelManSvc.initSelectChannel(index);
+    await this.channelManSvc.getMembersByChannel(this.channelManSvc.selectChannel);
     await this.messageManSvc.getMessageByChannel(this.channelManSvc.selectChannel);
-    this.messageManSvc.listenMessage(this.channelManSvc.selectChannel);
-  }
-
-  async initStreamChat(num: number) {
-    // await this.getChannelMembers(this.nowChannel);
-  }
-
-  async createMyRoom2() {
-    if(this.user === undefined) {
-      return;
+    if(this.selectChannelFn !== null) {
+      this.selectChannelFn.unsubscribe();
     }
-    // 내방이 있는지 확인 (내방은 default로 존재)
-    const resultRoom = await this.chattingHttpService.getRooms({id: this.user.id});
-    if (resultRoom === undefined) {
-      return;
-    }
-    if (resultRoom.length === 0) {
-      const room: Room = {
-        id: uuid.v4(),
-        ownerId: this.user.id,
-        roomName: new PhraseGen().generatePhrase()
-      };
-      await this.chattingHttpService.postRooms(room);
-    }
-    // 전체 리스트 가지고 와서 초기화
-    this.roomsList = await this.chattingHttpService.getRoomsAll();
-  }
-  createMessageChannel(roomdId: string, userSub: string, roomName: string) {
-    const channel = this.chatService.chatClient.channel('messaging', roomdId, {
-      name: roomName,
-      owner: userSub
-    });
-    return channel;
-  }
-  async destroyRoomAll() {
-    if(this.channelList === undefined) {
-      return;
-    }
-    for (const channelListElement of this.channelList) {
-      channelListElement.delete();
-    }
+    this.selectChannelFn = this.messageManSvc.listenMessage(this.channelManSvc.selectChannel);
   }
   async sendMessage(text: string | null) {
     if(text === null) {
@@ -109,22 +78,6 @@ export class ChattingComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit(): void {
   }
-  inviteClicked(channel: Channel) {
-    alert(
-      `You can add channel actions to the channel header to manage the ${
-        channel.data?.name || (channel.data?.id as string)
-      } channel`
-    );
-  }
-
-  hidden(ss: ChattingStep) {
-    if (ss === this.chattingStep) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   setSelectCls(num: number) {
     if (num === 0) {
       return 'active';
@@ -132,7 +85,6 @@ export class ChattingComponent implements OnInit, AfterViewInit {
       return '';
     }
   }
-
   setProfileImg(user: any) {
     const imageUrl = user.image;
     const image = './assets/my_profile.png';
@@ -144,9 +96,8 @@ export class ChattingComponent implements OnInit, AfterViewInit {
     return { 'background-image': `url(${imageUrl})` }
   }
 
-  channelClick(i: number) {
-    this.initStreamChat(i);
-
+  async channelClick(i: number) {
+    await this.changeChannel(i);
   }
   async messageEvent() {
     debugger;

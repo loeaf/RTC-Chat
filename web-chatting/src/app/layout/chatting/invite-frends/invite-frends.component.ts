@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
 import {InviteFrendsService} from './invite-frends.service';
-import {User} from '../http-service/chatting-http.service';
+import {User} from '../chatting/chatting-http.service';
 
 @Component({
   selector: 'app-invite-frends',

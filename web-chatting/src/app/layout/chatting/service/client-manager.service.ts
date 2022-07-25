@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {ChattingHttpService} from '../http-service/chatting-http.service';
+import {ChattingHttpService} from '../chatting/chatting-http.service';
 import * as uuid from 'uuid';
 const StreamChat = require('stream-chat').StreamChat;
 const client = StreamChat.getInstance("dz5f4d5kzrue");

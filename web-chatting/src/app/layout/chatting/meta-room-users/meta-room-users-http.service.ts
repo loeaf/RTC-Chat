@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {User} from '../http-service/chatting-http.service';
+import {User} from '../chatting/chatting-http.service';
 import {lastValueFrom} from 'rxjs';
 import {environment} from '../../../../environments/environment';
 import {Frends} from '../invite-frends/frend-http.service';
