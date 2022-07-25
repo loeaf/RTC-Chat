@@ -382,7 +382,6 @@ function onTouchBegan(e: TouchEvent): void {
  * スワイプすると呼ばれる。
  */
 function onTouchMoved(e: MouseEvent): void {
-  debugger;
   // if (!LAppDelegate.getInstance()._captured) {
   //   return;
   // }

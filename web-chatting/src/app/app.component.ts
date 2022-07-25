@@ -21,7 +21,7 @@ import {
   StreamMessage, ThreadHeaderContext,
   TypingIndicatorContext
 } from "stream-chat-angular";
-import { ChattingHttpService, ChattingStep, Room, User } from "./chatting-http.service";
+import { ChattingHttpService, ChattingStep, Room, User } from "./layout/chatting/chatting-http.service";
 import { Channel } from "stream-chat";
 
 @Component({

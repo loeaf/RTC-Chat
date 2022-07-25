@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import {environment} from '../environments/environment';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -37,12 +37,16 @@ export class ChattingHttpService {
     ).toPromise();
   }
 
-  async getTokenById(userId: string): Promise<any> {
+  async getTokenById(userId: string): Promise<Token> {
     return this.httpClient.get<any>(
       `${environment.apiServerUrl}/token/${userId}`
     ).toPromise();
 
   }
+}
+
+export interface Token {
+  token: string;
 }
 
 export interface Room {

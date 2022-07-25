@@ -246,7 +246,7 @@
         <!-- chating_room_tab -->
         <div class="chating_room_tab">
           <ul>
-            <li #chattingRoomEle [ngClass]="setSelectCls(i)" *ngFor="let obj of channels; let i = index"
+            <li #chattingRoomEle [ngClass]="setSelectCls(i)" *ngFor="let obj of channelManSvc?.allChannel; let i = index"
                 (click)="channelClick(i);setActiveRoom($event, i)">
               <button type="button" data-tab="chating_room_tab_02"><span>{{i+1}}</span></button>
             </li>
@@ -256,7 +256,7 @@
         <button type="button" class="top_close" onclick="parent.chatingRoomIframeWrap()">닫기</button>
       </div><!-- //top_back_box -->
       <div class="top_tit_box">
-        <strong class="top_tit">{{setChannelName()}}</strong>
+        <strong class="top_tit">챗팅방 쌤플</strong>
         <button type="button" class="room_delete" onclick="layerClickOpenM('basics_pop');">해당 채팅방 삭제</button>
       </div><!-- //top_tit_box -->
     </div>
@@ -268,21 +268,15 @@
 
         <!-- scroll_box chating_room_people -->
         <div class="scroll_box chating_room_people">
-          <div class="people_list" *ngFor="let _user of channelMembers">
+          <div class="people_list" *ngFor="let _user of channelManSvc.members">
             <div class="img_bg" [ngStyle]="setProfileImg(_user.user)">
               <img src="my_profile.png" alt="내 프로필 사진">
             </div>
             <p>{{_user.user.name}}</p>
             <button type="button" class="add_friend" onclick="layerClickOpenM('basics_pop');">친구추가</button>
           </div>
-<!--          <div class="people_list">-->
-<!--            <div class="img_bg" style="background-image:url(my_profile.png)">-->
-<!--              <img src="my_profile.png" alt="내 프로필 사진">-->
-<!--            </div>-->
-<!--            <p>소통왕</p>-->
-<!--            <button type="button" class="out_friend" onclick="layerClickOpenM('basics_pop');">내보내기</button>-->
-<!--          </div>-->
-        </div><!-- //scroll_box chating_room_people -->
+        </div>
+        <!-- //scroll_box chating_room_people -->
 
         <!-- scroll_box chating_room_talk -->
         <div class="scroll_box chating_room_talk">
@@ -291,18 +285,18 @@
             <p>나야나님이 대화방에 입장하였습니다.</p>
           </div>
           <!-- //inside_notify -->
-          <ng-container *ngFor="let message of messages">
-            <ng-container *ngIf="user?.id === message.user.id; else otherPartyBox">
+          <ng-container *ngFor="let message of messageManSvc?.messages">
+            <ng-container *ngIf="clientObj?.id === message.user.id; else otherPartyBox">
               <!-- my_party_box 내 글 표시 -->
               <div class="my_party_box">
                 <div class="row_line">
                   <p class="txt">{{message.text}}</p>
                 </div>
               </div>
-              <ng-container *ngIf="message.attachments.length !== 0">
+              <ng-container *ngIf="message.attachFile?.length !== 0">
                 <div class="my_party_box">
-                  <div class="add_img" *ngFor="let attach of message.attachments">
-                    <a href="javascript:void(0);"><img src="{{attach.thumb_url}}" alt=""></a>
+                  <div class="add_img" *ngFor="let attach of message.attachFile">
+                    <a href="javascript:void(0);" (click)="downloadImage(attach.thumb_url, attach.image_name)"><img src="{{attach.thumb_url}}" alt=""></a>
                   </div>
                 </div>
               </ng-container>
@@ -380,38 +374,6 @@
 
         </div>
         <!-- //scroll_box chating_room_talk -->
-
-        <!-- talk_send_box -->
-<!--        <div class="talk_send_box">-->
-<!--          <div class="talk_send_more_btn">-->
-<!--            <button type="button" class="label">선택하기</button>-->
-<!--            <ul>-->
-<!--              <li><button type="button">친구추가</button></li>-->
-<!--              <li><button type="button">내보내기</button></li>-->
-<!--              <li>-->
-<!--                <div class="upload_box">-->
-<!--                  &lt;!&ndash; file에  required 중요함... &ndash;&gt;-->
-<!--                  <input type="file" id="file_upload" class="btn_upload" required>-->
-<!--                  <label for="file_upload" class="btn_file">파일전송</label>-->
-<!--                </div>-->
-<!--              </li>-->
-<!--              <li><button type="button" class="invite_on_btn">대화초대</button></li>-->
-<!--            </ul>-->
-<!--          </div>-->
-<!--          <div class="talk_input">-->
-<!--            &lt;!&ndash; <input type="text" placeholder="대화를 입력하세요"> &ndash;&gt;-->
-
-<!--            &lt;!&ndash; 파일을 선택 후 업로드할 파일명 표시되는 영역(위의 인풋박스는 가려야 함) &ndash;&gt;-->
-<!--            <div class="file_view">-->
-<!--              <p>image0001.jpg</p>-->
-<!--              <button type="button" class="file_delete">파일 삭제하기</button>-->
-<!--            </div>-->
-
-<!--          </div>-->
-<!--          <button type="button" class="talk_send_btn">보내기</button>-->
-<!--        </div>-->
-        <!-- //talk_send_box -->
-
       </div>
       <!-- //채팅방 tab -->
 

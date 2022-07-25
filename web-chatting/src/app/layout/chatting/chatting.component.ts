@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ElementRef, Input, OnInit, TemplateRef, ViewChild, ViewChildren} from '@angular/core';
-import {ChattingHttpService, ChattingStep, Room, User} from '../../chatting-http.service';
+import {ChattingHttpService, ChattingStep, Room, User} from './chatting-http.service';
 import {Channel} from 'stream-chat';
 import {
   ChannelPreviewContext,
@@ -12,9 +12,10 @@ import {
 const PhraseGen = require('korean-random-words');
 import * as uuid from "uuid";
 import {ActivatedRoute} from '@angular/router';
-const StreamChat = require('stream-chat').StreamChat;
-const client = StreamChat.getInstance("dz5f4d5kzrue");
-
+import {ClientManagerService} from './service/client-manager.service';
+import {ChannelManagerService} from './service/channel-manager.service';
+import {AttachFileDto, MessageManagerService} from './service/message-manager.service';
+import { saveAs } from 'file-saver';
 declare const $: any;
 
 @Component({
@@ -27,20 +28,18 @@ export class ChattingComponent implements OnInit, AfterViewInit {
   @ViewChild('textValEle') textValEle!: ElementRef;
   @ViewChildren('chattingRoomEle') chattingRoomEle!: ElementRef[];
   client: any;
-  nowChannel: any;
-  channels: any[] = [];
-  channelMembers: any[] = [];
-  messages: any[] = [];
   private channelList?: Array<Channel<DefaultStreamChatGenerics>> = [];
   private roomsList?: Array<Room> = [];
   chattingStep: ChattingStep = ChattingStep.로그인필요;
-  user?: User;
+  clientObj?: User;
   uuid: any;
-  @Input() message!: StreamMessage;
   hasAttachment!: boolean;
 
   constructor(
     private route: ActivatedRoute,
+    private clientManSvc: ClientManagerService,
+    public messageManSvc: MessageManagerService,
+    public channelManSvc: ChannelManagerService,
     private chatService: ChatClientService,
     public channelService: ChannelService,
     private streamI18nService: StreamI18nService,
@@ -48,100 +47,35 @@ export class ChattingComponent implements OnInit, AfterViewInit {
     private chattingHttpService: ChattingHttpService) { }
 
   ngOnInit(): void {
-    this.user = JSON.parse(this.route.snapshot.queryParams['user']);
+    this.clientObj = JSON.parse(this.route.snapshot.queryParams['user']);
     this.afterLogin();
   }
   async afterLogin() {
-    this.client = await this.initUser();
-    // this.nowChannel = await this.createMyRoom();
-    this.channels = await this.getChannelByUser();
-    this.initStreamChat(0);
+    this.client = await this.clientManSvc.createClient(this.clientObj.id);
+    const { myChannel, otherChannel } = await this.channelManSvc.findChannelById(this.clientObj.id);
+    const owner = await this.channelManSvc.getMembersByChannel(this.channelManSvc.myChannel);
+    await this.channelManSvc.initSelectChannel(0);
+    await this.messageManSvc.getMessageByChannel(this.channelManSvc.selectChannel);
+    this.messageManSvc.listenMessage(this.channelManSvc.selectChannel);
   }
 
   async initStreamChat(num: number) {
-    await this.setNowChannel(num);
-    await this.getChannelMembers(this.nowChannel);
-    await this.getMessageByRoom();
-    await this.messageEvent();
-  }
-  async setNowChannel(num: number) {
-    this.nowChannel = this.channels[num];
-  }
-
-  async getMessageByRoom() {
-    const objWatch = await this.nowChannel.watch();
-    this.messages = objWatch.messages;
-    debugger;
-  }
-
-  async getChannelByUser() {
-    if(this.user === undefined) {
-      return;
-    }
-    const filter = { type: 'messaging', members: { $in: [this.user.id] } };
-    const sort = { last_message_at: -1 };
-
-    const channels = await client.queryChannels(filter, sort, {watch:true});
-    debugger;
-    if(channels.length === 0) {
-      console.log('channel 이 없다...?')
-    }
-    return channels;
-  }
-
-  async initUser() {
-    if (this.user === undefined) {
-      return;
-    }
-    const userToken = await this.chattingHttpService.getTokenById(this.user?.id);
-    const _client = await client.connectUser({
-      id: this.user?.id,
-      name: this.user?.nickName,
-    }, userToken.token); // token generated server side
-    if(_client === undefined) {
-      alert('client not found');
-    } else {
-      // alert('connection client');
-    }
-    return _client;
-  }
-  async createMyRoom() {
-    const channel = client.channel('messaging', uuid.v4(), {
-      name: new PhraseGen().getAdjective("-ROOM"),
-      image: "https://bit.ly/2F3KEoM",
-      members: [this.user?.id],
-      session: 8 // custom field, you can add as many as you want
-    });
-
-    const _channel = await channel.watch();
-    debugger;
-    if(_channel === undefined) {
-      alert('room not found');
-    } else {
-      // alert('room generate');
-    }
-    return _channel;
-  }
-  async getChannelMembers(channel: any) {
-    const channelMembers = await channel.queryMembers({});
-    this.channelMembers = channelMembers.members;
-    debugger;
-    console.log(`now channelMembers : ${this.channelMembers}`);
+    // await this.getChannelMembers(this.nowChannel);
   }
 
   async createMyRoom2() {
-    if(this.user === undefined) {
+    if(this.clientObj === undefined) {
       return;
     }
     // 내방이 있는지 확인 (내방은 default로 존재)
-    const resultRoom = await this.chattingHttpService.getRooms({id: this.user.id});
+    const resultRoom = await this.chattingHttpService.getRooms({id: this.clientObj.id});
     if (resultRoom === undefined) {
       return;
     }
     if (resultRoom.length === 0) {
       const room: Room = {
         id: uuid.v4(),
-        ownerId: this.user.id,
+        ownerId: this.clientObj.id,
         roomName: new PhraseGen().generatePhrase()
       };
       await this.chattingHttpService.postRooms(room);
@@ -165,27 +99,13 @@ export class ChattingComponent implements OnInit, AfterViewInit {
     }
   }
   async sendMessage(text: string | null) {
-    const channel = this.nowChannel;
     if(text === null) {
       return;
     }
-    const attach = this.filesEle.nativeElement;
-
     const files = this.filesEle.nativeElement.files;
-    const response = await channel.sendImage(files[0]);
     debugger;
-    // const base64 = await this.convertBase64ByFile(attach);
-    const p = {
-      type: 'image',
-      asset_url: response.file,
-      thumb_url: response.file,
-      myCustomField: 123
-    }
-    const message = await this.nowChannel.sendMessage({
-      text,
-      attachments: [p]
-    });
-    this.message = message.message;
+    const nc = this.channelManSvc.selectChannel;
+    await this.messageManSvc.sendMessagePorc(nc, text, files[0]);
     this.clearChattingInput();
   }
   ngAfterViewInit(): void {
@@ -205,13 +125,6 @@ export class ChattingComponent implements OnInit, AfterViewInit {
     } else {
       return false;
     }
-  }
-
-  setChannelName() {
-    if(this.nowChannel === undefined) {
-      return;
-    }
-    return this.nowChannel.data.name;
   }
 
   setSelectCls(num: number) {
@@ -239,11 +152,6 @@ export class ChattingComponent implements OnInit, AfterViewInit {
   }
   async messageEvent() {
     debugger;
-    this.nowChannel.on("message.new", (event: any) => {
-      console.log(JSON.stringify(event));
-      this.messages.push(event.message)
-      debugger;
-    });
   }
 
   setActiveRoom($event: MouseEvent, i: number) {
@@ -309,5 +217,8 @@ export class ChattingComponent implements OnInit, AfterViewInit {
         reject(error);
       };
     });
+  }
+  downloadImage(url: string, name: string) {
+    saveAs(url, name+'.png');
   }
 }
