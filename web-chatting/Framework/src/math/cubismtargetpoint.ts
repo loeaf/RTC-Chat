@@ -11,13 +11,13 @@ const FrameRate = 30;
 const Epsilon = 0.01;
 
 /**
- * 顔の向きの制御機能
+ * 얼굴 방향 제어 기능
  *
- * 顔の向きの制御機能を提供するクラス。
+ * 얼굴 방향 제어 기능을 제공하는 클래스.
  */
 export class CubismTargetPoint {
   /**
-   * コンストラクタ
+   * 생성자
    */
   public constructor() {
     this._faceTargetX = 0.0;
@@ -31,16 +31,17 @@ export class CubismTargetPoint {
   }
 
   /**
-   * 更新処理
+   * 갱신 처리
    */
   public update(deltaTimeSeconds: number): void {
-    // デルタ時間を加算する
+
+    // 델타 시간 더하기
     this._userTimeSeconds += deltaTimeSeconds;
 
-    // 首を中央から左右に振るときの平均的な速さは 秒速度。加速・減速を考慮して、その２倍を最高速度とする
-    // 顔の振り具合を、中央（0.0）から、左右は（+-1.0）とする
-    const faceParamMaxV: number = 40.0 / 10.0; // 7.5秒間に40分移動(5.3/sc)
-    const maxV: number = (faceParamMaxV * 1.0) / FrameRate; // 1frameあたりに変化できる速度の上限
+    // 목을 중앙에서 좌우로 흔들 때의 평균 속도는 초속도. 가속·감속을 고려하여 그 2배를 최고 속도로 한다
+    // 얼굴의 흔들림 상태를, 중앙(0.0)으로부터, 좌우는(+-1.0)로 한다
+    const faceParamMaxV: number = 40.0 / 10.0; // 7.5초 동안 40분 이동(5.3/sc)
+    const maxV: number = (faceParamMaxV * 1.0) / FrameRate; // 프레임당 변경할 수 있는 속도 상한
 
     if (this._lastTimeSeconds == 0.0) {
       this._lastTimeSeconds = this._userTimeSeconds;
@@ -51,56 +52,58 @@ export class CubismTargetPoint {
       (this._userTimeSeconds - this._lastTimeSeconds) * FrameRate;
     this._lastTimeSeconds = this._userTimeSeconds;
 
-    // 最高速度になるまでの時間を
+    // 최고 속도가 될 때까지의 시간
     const timeToMaxSpeed = 0.15;
     const frameToMaxSpeed: number = timeToMaxSpeed * FrameRate; // sec * frame/sec
     const maxA: number = (deltaTimeWeight * maxV) / frameToMaxSpeed; // 1frameあたりの加速度
 
-    // 目指す向きは、（dx, dy）方向のベクトルとなる
+    // 목표 방향은 (dx, dy) 방향의 벡터입니다.
     const dx: number = this._faceTargetX - this._faceX;
     const dy: number = this._faceTargetY - this._faceY;
 
     if (CubismMath.abs(dx) <= Epsilon && CubismMath.abs(dy) <= Epsilon) {
-      return; // 変化なし
+      return; // 변화 없음
     }
 
-    // 速度の最大よりも大きい場合は、速度を落とす
+    // 최대 속도보다 큰 경우 속도를 낮추십시오.
     const d: number = CubismMath.sqrt(dx * dx + dy * dy);
 
-    // 進行方向の最大速度ベクトル
+
+    // 진행 방향의 최대 속도 벡터
     const vx: number = (maxV * dx) / d;
     const vy: number = (maxV * dy) / d;
 
-    // 現在の速度から、新規速度への変化（加速度）を求める
+    // 현재 속도에서 새로운 속도로의 변화 (가속도)를 찾습니다.
     let ax: number = vx - this._faceVX;
     let ay: number = vy - this._faceVY;
 
     const a: number = CubismMath.sqrt(ax * ax + ay * ay);
 
-    // 加速のとき
+    // 가속일 때
     if (a < -maxA || a > maxA) {
       ax *= maxA / a;
       ay *= maxA / a;
     }
 
-    // 加速度を元の速度に足して、新速度とする
+    // 가속도를 원래 속도에 더하여 새로운 속도로 설정
     this._faceVX += ax;
     this._faceVY += ay;
 
-    // 目的の方向に近づいたとき、滑らかに減速するための処理
-    // 設定された加速度で止まる事の出来る距離と速度の関係から
-    // 現在とりうる最高速度を計算し、それ以上の時は速度を落とす
-    // ※本来、人間は筋力で力（加速度）を調整できるため、より自由度が高いが、簡単な処理で済ませている
+    // 원하는 방향에 가까울 때 부드럽게 감속하는 처리
+    // 설정된 가속도로 멈출 수 있는 거리와 속도의 관계로부터
+    // 현재 가능한 최고 속도를 계산하고, 그 이상일 때는 속도를 떨어뜨린다
+    // ※본래, 인간은 근력으로 힘(가속도)을 조정할 수 있기 때문에, 보다 자유도가 높지만, 간단한 처리로 끝나고 있다
     {
-      // 加速度、速度、距離の関係式。
+      // 가속도, 속도, 거리 관계식.
       //            2  6           2               3
       //      sqrt(a  t  + 16 a h t  - 8 a h) - a t
       // v = --------------------------------------
       //                    2
       //                 4 t  - 2
       // (t=1)
-      // 	時刻tは、あらかじめ加速度、速度を1/60(フレームレート、単位なし)で
-      // 	考えているので、t＝１として消してよい（※未検証）
+
+      // 시각 t는 미리 가속도, 속도를 1/60(프레임 레이트, 단위 없음)로
+      // 생각하고 있으므로, t=1로서 지울 수 있다(※미검증)
 
       const maxV: number =
         0.5 *
@@ -111,7 +114,7 @@ export class CubismTargetPoint {
       );
 
       if (curV > maxV) {
-        // 現在の速度 > 最高速度のとき、最高速度まで減速
+        // 현재 속도 > 최고 속도일 때 최고 속도로 감속
         this._faceVX *= maxV / curV;
         this._faceVY *= maxV / curV;
       }
@@ -122,42 +125,42 @@ export class CubismTargetPoint {
   }
 
   /**
-   * X軸の顔の向きの値を取得
+   * X축의 얼굴 방향의 값을 취득
    *
-   * @return X軸の顔の向きの値（-1.0 ~ 1.0）
+   * @return X축의 얼굴 방향 값(-1.0 ~ 1.0)
    */
   public getX(): number {
     return this._faceX;
   }
 
   /**
-   * Y軸の顔の向きの値を取得
+   *  Y축의 얼굴 방향의 값을 취득
    *
-   * @return Y軸の顔の向きの値（-1.0 ~ 1.0）
+   * @return Y축의 얼굴 방향 값(-1.0 ~ 1.0)
    */
   public getY(): number {
     return this._faceY;
   }
 
   /**
-   * 顔の向きの目標値を設定
+   * 얼굴 방향의 목표치를 설정
    *
-   * @param x X軸の顔の向きの値（-1.0 ~ 1.0）
-   * @param y Y軸の顔の向きの値（-1.0 ~ 1.0）
+   *  @param x X축의 얼굴 방향 값(-1.0 ~ 1.0)
+   * @param y Y축의 얼굴 방향 값(-1.0 ~ 1.0)
    */
   public set(x: number, y: number): void {
     this._faceTargetX = x;
     this._faceTargetY = y;
   }
 
-  private _faceTargetX: number; // 顔の向きのX目標値（この値に近づいていく）
-  private _faceTargetY: number; // 顔の向きのY目標値（この値に近づいていく）
-  private _faceX: number; // 顔の向きX（-1.0 ~ 1.0）
-  private _faceY: number; // 顔の向きY（-1.0 ~ 1.0）
-  private _faceVX: number; // 顔の向きの変化速度X
-  private _faceVY: number; // 顔の向きの変化速度Y
-  private _lastTimeSeconds: number; // 最後の実行時間[秒]
-  private _userTimeSeconds: number; // デルタ時間の積算値[秒]
+  private _faceTargetX: number; // 얼굴 방향의 X 목표값(이 값에 접근)
+  private _faceTargetY: number; // 얼굴 방향의 Y 목표값(이 값에 접근)
+  private _faceX: number; // 얼굴 방향 X(-1.0 ~ 1.0)
+  private _faceY: number; // 얼굴 방향 Y(-1.0 ~ 1.0)
+  private _faceVX: number; // 얼굴 방향의 변화 속도 X
+  private _faceVY: number; // 얼굴 방향의 변화 속도 Y
+  private _lastTimeSeconds: number; // 마지막 실행 시간[초]
+  private _userTimeSeconds: number; // 델타 시간 누적 값 [초]
 }
 
 // Namespace definition for compatibility.
