@@ -9,13 +9,11 @@ export class MessageManagerService {
   constructor() { }
   async getMessageByChannel(selectChannel: any) {
     const watch = await selectChannel.watch();
-    debugger;
     this.messages = watch.messages;
     return watch.messages;
   }
 
   async sendMessagePorc(selectChannel: any, text: string, file: any) {
-    debugger;
     if(file === undefined) {
       await this.sendMessage(selectChannel, {
         text: text
@@ -42,7 +40,6 @@ export class MessageManagerService {
     selectChannel.on("message.new", (event: any) => {
       console.log(JSON.stringify(event));
       this.messages.push(event.message)
-      debugger;
     });
   }
 }

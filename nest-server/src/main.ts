@@ -7,6 +7,7 @@ var apiProxy = proxy.createProxyServer();
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
   const API_SERVICE_URL = "http://localhost:3000";
+  // sample = http://localhost:3001/mok-server/users
   app.use(
       '/mok-server/**',
       createProxyMiddleware({
@@ -14,7 +15,7 @@ async function bootstrap() {
         changeOrigin: true,
         pathRewrite(pathReq, req) {
           const pathname = pathReq.split('/mok-server/');
-            console.log(`${API_SERVICE_URL}/${pathname[1]}`);
+          console.log(`${API_SERVICE_URL}/${pathname[1]}`);
           return `${API_SERVICE_URL}/${pathname[1]}`;
         }
       })

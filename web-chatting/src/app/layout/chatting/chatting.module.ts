@@ -6,6 +6,8 @@ import {BrowserModule} from '@angular/platform-browser';
 import {TranslateModule} from '@ngx-translate/core';
 import {HttpClientModule} from '@angular/common/http';
 import {RouterModule} from '@angular/router';
+import {InviteFrendsModule} from './invite-frends/invite-frends.module';
+import {MetaRoomUsersModule} from './meta-room-users/meta-room-users.module';
 
 
 
@@ -14,7 +16,7 @@ import {RouterModule} from '@angular/router';
     ChattingComponent,
   ],
   imports: [CommonModule, BrowserModule, StreamAutocompleteTextareaModule,
-    StreamChatModule, HttpClientModule, RouterModule, TranslateModule
+    StreamChatModule, HttpClientModule, RouterModule, TranslateModule, InviteFrendsModule, MetaRoomUsersModule
   ],
   exports: [
     ChattingComponent,

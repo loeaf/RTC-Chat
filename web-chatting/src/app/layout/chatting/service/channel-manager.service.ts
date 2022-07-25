@@ -38,7 +38,6 @@ export class ChannelManagerService {
     const sort = { last_message_at: -1 };
 
     const channels = await this.cliManSvc.getClient().queryChannels(filter, sort, {watch:true});
-    debugger;
     if(channels.length === 0) {
       console.log('channel 이 없다...?');
       return null;
@@ -52,7 +51,6 @@ export class ChannelManagerService {
       } else {
         this.otherChannel.push(channel);
       }
-      debugger;
     }
     // 내 방이 없으면 만들어야함.
     if (this.myChannel === null) {

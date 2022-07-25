@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {ChattingHttpService, ChattingStep, User} from '../chatting/chatting-http.service';
+import {ChattingHttpService, ChattingStep, User} from '../chatting/http-service/chatting-http.service';
 const PhraseGen = require('korean-random-words');
 import * as uuid from "uuid";
 import {ActivatedRoute, Router} from '@angular/router';
@@ -58,7 +58,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   login(value: string) {
-    debugger;
     // 아이디가 없다면 새로 만들기
     if (value === "") {
       const user = {

@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ElementRef, Input, OnInit, TemplateRef, ViewChild, ViewChildren} from '@angular/core';
-import {ChattingHttpService, ChattingStep, Room, User} from './chatting-http.service';
+import {ChattingHttpService, ChattingStep, Room, User} from './http-service/chatting-http.service';
 import {Channel} from 'stream-chat';
 import {
   ChannelPreviewContext,
@@ -31,7 +31,7 @@ export class ChattingComponent implements OnInit, AfterViewInit {
   private channelList?: Array<Channel<DefaultStreamChatGenerics>> = [];
   private roomsList?: Array<Room> = [];
   chattingStep: ChattingStep = ChattingStep.로그인필요;
-  clientObj?: User;
+  user?: User;
   uuid: any;
   hasAttachment!: boolean;
 
@@ -47,12 +47,12 @@ export class ChattingComponent implements OnInit, AfterViewInit {
     private chattingHttpService: ChattingHttpService) { }
 
   ngOnInit(): void {
-    this.clientObj = JSON.parse(this.route.snapshot.queryParams['user']);
+    this.user = JSON.parse(this.route.snapshot.queryParams['user']);
     this.afterLogin();
   }
   async afterLogin() {
-    this.client = await this.clientManSvc.createClient(this.clientObj.id);
-    const { myChannel, otherChannel } = await this.channelManSvc.findChannelById(this.clientObj.id);
+    this.client = await this.clientManSvc.createClient(this.user.id);
+    const { myChannel, otherChannel } = await this.channelManSvc.findChannelById(this.user.id);
     const owner = await this.channelManSvc.getMembersByChannel(this.channelManSvc.myChannel);
     await this.channelManSvc.initSelectChannel(0);
     await this.messageManSvc.getMessageByChannel(this.channelManSvc.selectChannel);
@@ -64,18 +64,18 @@ export class ChattingComponent implements OnInit, AfterViewInit {
   }
 
   async createMyRoom2() {
-    if(this.clientObj === undefined) {
+    if(this.user === undefined) {
       return;
     }
     // 내방이 있는지 확인 (내방은 default로 존재)
-    const resultRoom = await this.chattingHttpService.getRooms({id: this.clientObj.id});
+    const resultRoom = await this.chattingHttpService.getRooms({id: this.user.id});
     if (resultRoom === undefined) {
       return;
     }
     if (resultRoom.length === 0) {
       const room: Room = {
         id: uuid.v4(),
-        ownerId: this.clientObj.id,
+        ownerId: this.user.id,
         roomName: new PhraseGen().generatePhrase()
       };
       await this.chattingHttpService.postRooms(room);
@@ -103,7 +103,6 @@ export class ChattingComponent implements OnInit, AfterViewInit {
       return;
     }
     const files = this.filesEle.nativeElement.files;
-    debugger;
     const nc = this.channelManSvc.selectChannel;
     await this.messageManSvc.sendMessagePorc(nc, text, files[0]);
     this.clearChattingInput();
@@ -119,7 +118,6 @@ export class ChattingComponent implements OnInit, AfterViewInit {
   }
 
   hidden(ss: ChattingStep) {
-    debugger;;
     if (ss === this.chattingStep) {
       return true;
     } else {
@@ -162,7 +160,6 @@ export class ChattingComponent implements OnInit, AfterViewInit {
     });
     const selectEle: any = this.chattingRoomEle.filter((element, index) => index === i);
     $(selectEle[0].nativeElement).addClass('active')
-    debugger;
   }
 
   fileChanges() {
@@ -177,11 +174,12 @@ export class ChattingComponent implements OnInit, AfterViewInit {
   visibleFileAttach() {
     if(this.filesEle === undefined) {
       return;
-    }
-    if (this.filesEle.nativeElement.value === '') {
-      return false;
     } else {
-      return true;
+      if (this.filesEle.nativeElement.value === '') {
+        return false;
+      } else {
+        return true;
+      }
     }
   }
 

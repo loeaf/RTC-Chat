@@ -11,6 +11,7 @@ import {
 import { FrendModule } from './controller/frend/frend.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import {ConfigModule} from '@nestjs/config';
+import { MetaRoomModule } from './meta-room/meta-room.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -30,6 +31,7 @@ import {ConfigModule} from '@nestjs/config';
       }),
     ],
     }),
+    MetaRoomModule,
   ],
   controllers: [AppController],
   providers: [AppService],
