@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {ChattingHttpService, ChattingStep, User} from '../chatting/chatting/chatting-http.service';
+import {ChattingHttpService} from '../chatting/chatting/chatting-http.service';
 const PhraseGen = require('korean-random-words');
 import * as uuid from "uuid";
 import {ActivatedRoute, Router} from '@angular/router';
@@ -12,6 +12,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 
 import { LAppDelegate } from './Core/lappdelegate';
 import * as LAppDefine from './Core/lappdefine';
+import {User} from '../chatting/user/user-http.service';
 
 /**
  * 終了時の処理

@@ -7,7 +7,9 @@ import {TranslateModule} from '@ngx-translate/core';
 import {HttpClientModule} from '@angular/common/http';
 import {RouterModule} from '@angular/router';
 import {InviteFrendsModule} from './invite-frends/invite-frends.module';
-import {MetaRoomUsersModule} from './meta-room-users/meta-room-users.module';
+import {MetaRoomUsersModule} from './duple-frends/meta-room-users/meta-room-users.module';
+import {FrendListModule} from './duple-frends/frend-list/frend-list.module';
+import {ChattingTabModule} from './duple-frends/chatting-tab/chatting-tab.module';
 
 
 
@@ -16,7 +18,7 @@ import {MetaRoomUsersModule} from './meta-room-users/meta-room-users.module';
     ChattingComponent,
   ],
   imports: [CommonModule, BrowserModule, StreamAutocompleteTextareaModule,
-    StreamChatModule, HttpClientModule, RouterModule, TranslateModule, InviteFrendsModule, MetaRoomUsersModule
+    StreamChatModule, HttpClientModule, RouterModule, TranslateModule, InviteFrendsModule, MetaRoomUsersModule, FrendListModule, ChattingTabModule
   ],
   exports: [
     ChattingComponent,

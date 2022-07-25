@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
 import {MetaRoomUsersService} from './meta-room-users.service';
-import {User} from '../chatting/chatting-http.service';
-import {InviteFrendsService} from '../invite-frends/invite-frends.service';
+import {InviteFrendsService} from '../../invite-frends/invite-frends.service';
+import {User} from '../../user/user-http.service';
 
 @Component({
   selector: 'app-meta-room-users',
@@ -25,8 +25,8 @@ export class MetaRoomUsersComponent implements OnInit, AfterViewInit {
     await this.metaRoomUsersService.initUserByMetaRoom(1);
   }
 
-  async inviteUserByRoom(userId: string) {
-    await this.inviteFrendsSvc.inviteFrendsByRoom(userId);
-    alert(`${userId}가 초대되었습니다`)
+
+  addFrend(user: string) {
+
   }
 }

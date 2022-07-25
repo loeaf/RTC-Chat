@@ -1,6 +1,6 @@
 $(function(){
 
-	//하단 검색박스 화살표 클릭 
+	//하단 검색박스 화살표 클릭
 	$(".talk_send_more_btn .label").on("click",function(){
 		if( $(this).parent().hasClass("open")){
 			$(this).next("ul").stop().slideUp();
@@ -13,26 +13,26 @@ $(function(){
 	});
 
 	//tab 메뉴 (친구목록)
-	$(".friend_list .chating_tab li button").click(function(){
-		var tab_id = $(this).attr("data-tab");
+	// $(".friend_list .chating_tab li button").click(function(){
+	// 	var tab_id = $(this).attr("data-tab");
+  //
+	// 	$(".friend_list .chating_tab li").removeClass("active");
+	// 	$(".friend_list .chating_tab_area .tab_cont").removeClass("active");
+  //
+	// 	$(this).parent().addClass("active");
+	// 	$("#"+tab_id).addClass("active");
+	// });
 
-		$(".friend_list .chating_tab li").removeClass("active");
-		$(".friend_list .chating_tab_area .tab_cont").removeClass("active");
-
-		$(this).parent().addClass("active");
-		$("#"+tab_id).addClass("active");
-	});
-	
-	//tab 메뉴 (친구초대)
-	$(".chating_invite .chating_tab li button").click(function(){
-		var tab_id = $(this).attr("data-tab");
-
-		$(".chating_invite .chating_tab li").removeClass("active");
-		$(".chating_invite .chating_tab_area .tab_cont").removeClass("active");
-
-		$(this).parent().addClass("active");
-		$("#"+tab_id).addClass("active");
-	});
+	// //tab 메뉴 (친구초대)
+	// $(".chating_invite .chating_tab li button").click(function(){
+	// 	var tab_id = $(this).attr("data-tab");
+  //
+	// 	$(".chating_invite .chating_tab li").removeClass("active");
+	// 	$(".chating_invite .chating_tab_area .tab_cont").removeClass("active");
+  //
+	// 	$(this).parent().addClass("active");
+	// 	$("#"+tab_id).addClass("active");
+	// });
 
 	//tab 메뉴 (채팅방)
 	$(".chating_room_tab li button").click(function(){

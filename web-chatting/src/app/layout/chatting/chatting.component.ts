@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ElementRef, Input, OnInit, TemplateRef, ViewChild, ViewChildren} from '@angular/core';
-import {ChattingHttpService, ChattingStep, Room, User} from './chatting/chatting-http.service';
+import {ChattingHttpService, ChattingStep, Room} from './chatting/chatting-http.service';
 import {Channel} from 'stream-chat';
 import {
   ChannelPreviewContext,
@@ -16,6 +16,7 @@ import {ClientManagerService} from './user/client-manager.service';
 import {ChannelManagerService} from './channel/channel-manager.service';
 import {AttachFileDto, MessageManagerService} from './message/message-manager.service';
 import { saveAs } from 'file-saver';
+import {User} from './user/user-http.service';
 declare const $: any;
 
 @Component({
@@ -36,6 +37,9 @@ export class ChattingComponent implements OnInit, AfterViewInit {
   uuid: any;
   hasAttachment: boolean = false;
   selectChannelFn: any = null;
+  userAddFn: any = null;
+  userUpdateFn: any = null;
+  userDeleteFn: any = null;
 
 
   constructor(
@@ -55,18 +59,34 @@ export class ChattingComponent implements OnInit, AfterViewInit {
   }
   async afterLogin() {
     this.client = await this.clientManSvc.createClient(this.user);
-    await this.channelManSvc.findChannelById(this.user.id);
-    await this.changeChannel(0);
+    // await this.channelManSvc.findChannelById(this.user.id);
+    // await this.changeChannel(0);
+    this.channelManSvc.changeChannelEvt.subscribe(p => {
+      this.changeChannel(p);
+    })
   }
 
   async changeChannel(index: number) {
     await this.channelManSvc.initSelectChannel(index);
-    await this.channelManSvc.initMembersByChannel(this.channelManSvc.selectChannel);
+    const sel = this.channelManSvc.selectChannel;
+    await this.channelManSvc.initMembersByChannel(sel);
     await this.messageManSvc.getMessageByChannel(this.channelManSvc.selectChannel);
     if(this.selectChannelFn !== null) {
       this.selectChannelFn.unsubscribe();
     }
     this.selectChannelFn = this.messageManSvc.listenMessage(this.channelManSvc.selectChannel);
+    if(this.userAddFn !== null) {
+      this.userAddFn.unsubscribe();
+    }
+    this.userAddFn = this.clientManSvc.listenAddMember(this.channelManSvc.selectChannel);
+    if(this.userDeleteFn !== null) {
+      this.userDeleteFn.unsubscribe();
+    }
+    this.userDeleteFn = this.clientManSvc.listenRemoveMember(this.channelManSvc.selectChannel);
+    if(this.userUpdateFn !== null) {
+      this.userUpdateFn.unsubscribe();
+    }
+    this.userUpdateFn = this.clientManSvc.listenUpdateMember(this.channelManSvc.selectChannel);
   }
   async sendMessage(text: string | null) {
     if(text === null) {
@@ -100,7 +120,7 @@ export class ChattingComponent implements OnInit, AfterViewInit {
   }
 
   async channelClick(i: number) {
-    await this.changeChannel(i);
+    this.channelManSvc.changeChannelEvt.emit(i);
   }
   async messageEvent() {
     debugger;
@@ -147,21 +167,6 @@ export class ChattingComponent implements OnInit, AfterViewInit {
   clearChattingInput() {
     this.fileAttachDelete();
     this.textValEle.nativeElement.value = '';
-  }
-
-  convertBase64ByFile(file: any) {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
-    });
   }
   downloadImage(url: string, name: string) {
     if(name === undefined) {

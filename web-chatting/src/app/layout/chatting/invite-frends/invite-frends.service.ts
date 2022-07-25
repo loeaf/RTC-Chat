@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Frend, FrendHttpService, Frends} from './frend-http.service';
-import {User} from '../chatting/chatting-http.service';
 import {ChannelManagerService} from '../channel/channel-manager.service';
+import {User} from '../user/user-http.service';
 
 @Injectable({
   providedIn: 'root'

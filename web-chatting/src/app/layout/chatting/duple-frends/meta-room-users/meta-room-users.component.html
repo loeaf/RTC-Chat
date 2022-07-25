@@ -29,7 +29,8 @@
           </div>
         </div>
         <div class="list_btns">
-          <button type="button" class="chat_invit invite_on_btn" (click)="inviteUserByRoom(user)">초대하기</button>
+          <app-invite-chatting [userId]="userObj.id" [frendId]="user"></app-invite-chatting>
+          <button type="button" class="chat_invit invite_on_btn" (click)="addFrend(user)">친구 추가하기</button>
         </div>
       </div>
     </ng-container>

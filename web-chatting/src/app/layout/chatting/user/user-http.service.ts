@@ -17,8 +17,9 @@ export class UserHttpService {
     ));
   }
 }
+
 export interface User {
   id: string;
-  nickName: string;
+  nickName?: string;
 }
 

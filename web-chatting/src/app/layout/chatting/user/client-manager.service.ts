@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import {ChattingHttpService, User} from '../chatting/chatting-http.service';
+import {ChattingHttpService} from '../chatting/chatting-http.service';
 import * as uuid from 'uuid';
+import {User} from './user-http.service';
 const StreamChat = require('stream-chat').StreamChat;
 const client = StreamChat.getInstance("dz5f4d5kzrue");
 const PhraseGen = require('korean-random-words');
@@ -59,6 +60,27 @@ export class ClientManagerService {
       console.log('connection client');
     }
     return clientObj;
+  }
+
+  listenAddMember(selectChannel: any) {
+    return selectChannel.on("member.added", (event: any) => {
+      console.log(JSON.stringify(event));
+      // this.messages.push(event.message)
+    });
+  }
+
+  listenRemoveMember(selectChannel: any) {
+    return selectChannel.on("member.removed", (event: any) => {
+      console.log(JSON.stringify(event));
+      // this.messages.push(event.message)
+    });
+  }
+
+  listenUpdateMember(selectChannel: any) {
+    return selectChannel.on("member.updated", (event: any) => {
+      console.log(JSON.stringify(event));
+      // this.messages.push(event.message)
+    });
   }
 
   genNickName() {

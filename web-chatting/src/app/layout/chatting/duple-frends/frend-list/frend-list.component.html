@@ -1,0 +1,42 @@
+
+<div class="chating_tab_area">
+  <!-- 친구목록 tab -->
+  <div id="chating_tab_01" class="tab_cont active"><!-- 맨 처음 .tab_cont active 선언 필요 / 데이터없음 no_data_on 추가, 데이터없음 삭제할 시 no_data_on 삭제 -->
+
+    <!-- 데이터 없을 때 :: .tab_cont 에 더블 클레스로 no_data_on 추가해줘야 뜸. -->
+    <div class="no_data">
+      <div class="no_data_cell">
+        <strong class="tit">친구 목록이 없습니다.</strong>
+      </div>
+    </div>
+    <!-- //데이터 없을 때 -->
+
+    <!-- chating_list_cont -->
+    <div class="chating_list_cont">
+      <!-- list -->
+      <div class="list">
+        <div class="left">
+          <div class="img_box">
+            <div class="img_bg" style="background-image:url(my_profile.png)">
+              <img src="my_profile.png" alt="내 프로필 사진">
+            </div>
+          </div>
+          <div class="cont">
+            <p>
+              <span class="on">ON</span>
+              <span class="fri_name">나야나</span>
+            </p>
+            <p><span class="fri_status">매니저</span></p>
+          </div>
+        </div>
+        <div class="list_btns">
+          <app-invite-chatting [userId]="userObj.id"></app-invite-chatting>
+          <button type="button" class="chat_delete" (click)="deleteFrend()">친구 삭제하기</button>
+        </div>
+      </div>
+      <!-- //list -->
+    </div>
+    <!-- chating_list_cont -->
+  </div>
+  <!-- //친구목록 tab  -->
+</div>
