@@ -379,7 +379,7 @@ function onTouchBegan(e: TouchEvent): void {
 }
 
 /**
- * スワイプすると呼ばれる。
+ * 스와이프라고합니다.
  */
 function onTouchMoved(e: MouseEvent): void {
   debugger;

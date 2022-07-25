@@ -11,10 +11,10 @@ export let s_instance: LAppWavFileHandler = null;
 
 export class LAppWavFileHandler {
   /**
-   * クラスのインスタンス（シングルトン）を返す。
-   * インスタンスが生成されていない場合は内部でインスタンスを生成する。
+   * 클래스의 인스턴스 (싱글 톤)를 돌려줍니다.
+   * 인스턴스가 생성되어 있지 않은 경우는 내부에서 인스턴스를 생성한다.
    *
-   * @return クラスのインスタンス
+   * @return 클래스의 인스턴스
    */
   public static getInstance(): LAppWavFileHandler {
     if (s_instance == null) {
@@ -25,7 +25,7 @@ export class LAppWavFileHandler {
   }
 
   /**
-   * クラスのインスタンス（シングルトン）を解放する。
+   * 클래스의 인스턴스(싱글톤)를 해제한다.
    */
   public static releaseInstance(): void {
     if (s_instance != null) {

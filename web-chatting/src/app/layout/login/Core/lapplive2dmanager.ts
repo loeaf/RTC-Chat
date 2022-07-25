@@ -73,7 +73,7 @@ export class LAppLive2DManager {
   }
 
   /**
-   * 画面をドラッグした時の処理
+   * 화면을 드래그했을 때의 처리
    *
    * @param x 画面のX座標
    * @param y 画面のY座標

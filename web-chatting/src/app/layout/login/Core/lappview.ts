@@ -180,10 +180,10 @@ export class LAppView {
   }
 
   /**
-   * タッチしているときにポインタが動いたら呼ばれる。
+   * 터치하고 있을 때 포인터가 움직이면 불린다.
    *
-   * @param pointX スクリーンX座標
-   * @param pointY スクリーンY座標
+   * @param pointX 스크린 X 좌표
+   * @param pointY 화면 Y 좌표
    */
   public onTouchesMoved(pointX: number, pointY: number): void {
     const viewX: number = this.transformViewX(this._touchManager.getX());
@@ -196,31 +196,31 @@ export class LAppView {
   }
 
   /**
-   * タッチが終了したら呼ばれる。
+   * 터치가 끝나면 불린다.
    *
-   * @param pointX スクリーンX座標
-   * @param pointY スクリーンY座標
+   * @param pointX 스크린 X 좌표
+   * @param pointY 화면 Y 좌표
    */
   public onTouchesEnded(pointX: number, pointY: number): void {
-    // タッチ終了
+    // 터치 종료
     const live2DManager: LAppLive2DManager = LAppLive2DManager.getInstance();
     live2DManager.onDrag(0.0, 0.0);
 
     {
-      // シングルタップ
+      // 단일 탭
       const x: number = this._deviceToScreen.transformX(
         this._touchManager.getX()
-      ); // 論理座標変換した座標を取得。
+      ); // 논리 좌표 변환한 좌표를 취득.
       const y: number = this._deviceToScreen.transformY(
         this._touchManager.getY()
-      ); // 論理座標変化した座標を取得。
+      ); // 논리 좌표 변경된 좌표를 가져옵니다.
 
       if (LAppDefine.DebugTouchLogEnable) {
         LAppPal.printMessage(`[APP]touchesEnded x: ${x} y: ${y}`);
       }
       live2DManager.onTap(x, y);
 
-      // 歯車にタップしたか
+      // 기어를 탭했습니까?
       if(this._gear === undefined || this._gear === null) {
         return;
       }
