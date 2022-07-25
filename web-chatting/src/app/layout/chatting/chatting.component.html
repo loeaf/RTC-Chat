@@ -1,5 +1,6 @@
-<!-- chating_wrap  chating_room_open -->
-<div id="chating_wrap" class="chating_room_open">
+
+<!-- chating_wrap  chating_room_open friend_list_open -->
+<div id="chating_wrap" class="friend_list_open">
 
   <!-- friend_list 친구목록 -->
   <div class="chating_list friend_list">
@@ -8,7 +9,8 @@
     <div class="top_close_area">
       <div class="top_tit_box">
         <strong class="top_tit">듀플 친구들</strong>
-        <button type="button" class="top_close" onclick="parent.chatingFriendList()">닫기</button>
+        <button type="button" class="top_close"
+                onclick="parent.chatingFriendList()">닫기</button>
       </div>
     </div>
     <!-- //top_close_area -->
@@ -60,7 +62,8 @@
                 <button type="button" class="chat_talk chating_room_on_btn">1:1대화하기</button>
                 <button type="button" class="chat_delete">친구 삭제하기</button>
               </div>
-            </div><!-- //list -->
+            </div>
+            <!-- //list -->
             <!-- list -->
             <div class="list">
               <div class="left">
@@ -82,7 +85,8 @@
                 <button type="button" class="chat_invit invite_on_btn">초대하기</button>
                 <button type="button" class="chat_delete">친구 삭제하기</button>
               </div>
-            </div><!-- //list -->
+            </div>
+            <!-- //list -->
             <!-- list -->
             <div class="list">
               <div class="left">
@@ -130,105 +134,8 @@
         </div><!-- //친구목록 tab  -->
 
         <!-- 룸이용자 tab -->
-        <div id="chating_tab_02" class="tab_cont"><!-- 데이터없음 no_data_on 추가, 데이터없음 삭제할 시 no_data_on 삭제 -->
-
-          <!-- 데이터 없을 때 :: .tab_cont 에 더블 클레스로 no_data_on 추가해줘야 뜸. -->
-          <div class="no_data">
-            <div class="no_data_cell">
-              <strong class="tit">목록이 없습니다.</strong>
-            </div>
-          </div>
-          <!-- //데이터 없을 때 -->
-
-          <!-- chating_list_cont -->
-          <div class="chating_list_cont">
-            <!-- list -->
-            <div class="list">
-              <div class="left">
-                <div class="img_box">
-                  <div class="img_bg" style="background-image:url(my_profile.png)">
-                    <img src="my_profile.png" alt="내 프로필 사진">
-                  </div>
-                </div>
-                <div class="cont">
-                  <p>
-                    <span class="on">ON</span>
-                    <span class="fri_name">나야나</span>
-                  </p>
-                  <p><span class="fri_status">매니저</span></p>
-                </div>
-              </div>
-              <div class="list_btns">
-                <button type="button" class="chat_talk chating_room_on_btn">1:1대화하기</button>
-                <button type="button" class="chat_delete">친구 삭제하기</button>
-              </div>
-            </div><!-- //list -->
-            <!-- list -->
-            <div class="list">
-              <div class="left">
-                <div class="img_box">
-                  <div class="img_bg" style="background-image:url(my_profile.png)">
-                    <img src="my_profile.png" alt="내 프로필 사진">
-                  </div>
-                </div>
-                <div class="cont">
-                  <p>
-                    <span class="on">ON</span>
-                    <span class="fri_name">나야나</span>
-                  </p>
-                  <p><span class="fri_status">친구</span></p>
-                </div>
-              </div>
-              <div class="list_btns">
-                <button type="button" class="chat_talk chating_room_on_btn">1:1대화하기</button>
-                <button type="button" class="chat_delete">친구 삭제하기</button>
-              </div>
-            </div><!-- //list -->
-            <!-- list -->
-            <div class="list">
-              <div class="left">
-                <div class="img_box">
-                  <div class="img_bg" style="background-image:url(my_profile.png)">
-                    <img src="my_profile.png" alt="내 프로필 사진">
-                  </div>
-                </div>
-                <div class="cont">
-                  <p>
-                    <span class="on">ON</span>
-                    <span class="fri_name">나야나</span>
-                  </p>
-                  <p><span class="fri_status">매니저 / 발표자</span></p>
-                </div>
-              </div>
-              <div class="list_btns">
-                <button type="button" class="chat_talk chating_room_on_btn">1:1대화하기</button>
-                <button type="button" class="chat_delete">친구 삭제하기</button>
-              </div>
-            </div><!-- //list -->
-            <!-- list -->
-            <div class="list">
-              <div class="left">
-                <div class="img_box">
-                  <div class="img_bg" style="background-image:url(my_profile.png)">
-                    <img src="my_profile.png" alt="내 프로필 사진">
-                  </div>
-                </div>
-                <div class="cont">
-                  <p>
-                    <span class="off">OFF</span>
-                    <span class="fri_name">나야나나야나</span>
-                  </p>
-                  <p><span class="fri_status">친구 / 다른룸 이용중</span></p>
-                </div>
-              </div>
-              <div class="list_btns">
-                <button type="button" class="chat_follow" onclick="layerClickOpenM('basics_pop');">따라가기</button>
-                <button type="button" class="chat_invit invite_on_btn">초대하기</button>
-                <button type="button" class="chat_delete">친구 삭제하기</button>
-              </div>
-            </div><!-- //list -->
-          </div><!-- //chating_list_cont -->
-        </div><!-- //룸이용자 tab -->
+        <app-meta-room-users [userObj]="user"></app-meta-room-users>
+        <!-- //룸이용자 tab -->
 
       </div><!-- //chating_tab_area -->
     </div><!-- //scroll_box -->
@@ -246,7 +153,7 @@
         <!-- chating_room_tab -->
         <div class="chating_room_tab">
           <ul>
-            <li #chattingRoomEle [ngClass]="setSelectCls(i)" *ngFor="let obj of channels; let i = index"
+            <li #chattingRoomEle [ngClass]="setSelectCls(i)" *ngFor="let obj of channelManSvc?.allChannel; let i = index"
                 (click)="channelClick(i);setActiveRoom($event, i)">
               <button type="button" data-tab="chating_room_tab_02"><span>{{i+1}}</span></button>
             </li>
@@ -256,7 +163,7 @@
         <button type="button" class="top_close" onclick="parent.chatingRoomIframeWrap()">닫기</button>
       </div><!-- //top_back_box -->
       <div class="top_tit_box">
-        <strong class="top_tit">{{setChannelName()}}</strong>
+        <strong class="top_tit">챗팅방 쌤플</strong>
         <button type="button" class="room_delete" onclick="layerClickOpenM('basics_pop');">해당 채팅방 삭제</button>
       </div><!-- //top_tit_box -->
     </div>
@@ -268,30 +175,24 @@
 
         <!-- scroll_box chating_room_people -->
         <div class="scroll_box chating_room_people">
-          <div class="people_list" *ngFor="let _user of channelMembers">
+          <div class="people_list" *ngFor="let _user of channelManSvc.members">
             <div class="img_bg" [ngStyle]="setProfileImg(_user.user)">
-              <img src="my_profile.png" alt="내 프로필 사진">
+              <img src="{{_user.user?.image}}" alt="내 프로필 사진">
             </div>
             <p>{{_user.user.name}}</p>
             <button type="button" class="add_friend" onclick="layerClickOpenM('basics_pop');">친구추가</button>
           </div>
-<!--          <div class="people_list">-->
-<!--            <div class="img_bg" style="background-image:url(my_profile.png)">-->
-<!--              <img src="my_profile.png" alt="내 프로필 사진">-->
-<!--            </div>-->
-<!--            <p>소통왕</p>-->
-<!--            <button type="button" class="out_friend" onclick="layerClickOpenM('basics_pop');">내보내기</button>-->
-<!--          </div>-->
-        </div><!-- //scroll_box chating_room_people -->
+        </div>
+        <!-- //scroll_box chating_room_people -->
 
         <!-- scroll_box chating_room_talk -->
-        <div class="scroll_box chating_room_talk">
+        <div #scrollboxEle class="scroll_box chating_room_talk">
           <!-- inside_notify 입장알림 -->
           <div class="inside_notify">
             <p>나야나님이 대화방에 입장하였습니다.</p>
           </div>
           <!-- //inside_notify -->
-          <ng-container *ngFor="let message of messages">
+          <ng-container *ngFor="let message of messageManSvc?.messages">
             <ng-container *ngIf="user?.id === message.user.id; else otherPartyBox">
               <!-- my_party_box 내 글 표시 -->
               <div class="my_party_box">
@@ -299,10 +200,10 @@
                   <p class="txt">{{message.text}}</p>
                 </div>
               </div>
-              <ng-container *ngIf="message.attachments.length !== 0">
+              <ng-container *ngIf="message.attachFile?.length !== 0">
                 <div class="my_party_box">
-                  <div class="add_img" *ngFor="let attach of message.attachments">
-                    <a href="javascript:void(0);"><img src="{{attach.thumb_url}}" alt=""></a>
+                  <div class="add_img" *ngFor="let attach of message.attachFile">
+                    <a href="javascript:void(0);" (click)="downloadImage(attach.thumb_url, attach.image_name)"><img src="{{attach.thumb_url}}" alt=""></a>
                   </div>
                 </div>
               </ng-container>
@@ -322,10 +223,10 @@
                 <div class="row_line">
                   <p class="txt">{{message.text}}</p>
                 </div>
-                <ng-container *ngIf="message.attachments.length !== 0">
+                <ng-container *ngIf="message.attachFile?.length !== 0">
                   <div class="row_line">
-                    <div class="add_img" *ngFor="let attach of message.attachments">
-                      <a href="javascript:void(0);"><img src="{{attach.thumb_url}}" alt=""></a>
+                    <div class="add_img" *ngFor="let attach of message.attachFile">
+                      <a href="javascript:void(0);" (click)="downloadImage(attach.thumb_url, attach.image_name)"><img src="{{attach.thumb_url}}" alt=""></a>
                     </div>
                   </div>
                 </ng-container>
@@ -354,8 +255,7 @@
           </div>
           <div class="talk_input">
             <input #textValEle type="text" placeholder="대화를 입력하세요">
-
-            <div class="file_view" *ngIf="visibleFileAttach()">
+            <div class="file_view" *ngIf="this.hasAttachment">
               <p>
                 <button type="button" class="file_delete" (click)="fileAttachDelete()">파일 삭제하기</button>
                 {{getFileAttachName()}}
@@ -380,38 +280,6 @@
 
         </div>
         <!-- //scroll_box chating_room_talk -->
-
-        <!-- talk_send_box -->
-<!--        <div class="talk_send_box">-->
-<!--          <div class="talk_send_more_btn">-->
-<!--            <button type="button" class="label">선택하기</button>-->
-<!--            <ul>-->
-<!--              <li><button type="button">친구추가</button></li>-->
-<!--              <li><button type="button">내보내기</button></li>-->
-<!--              <li>-->
-<!--                <div class="upload_box">-->
-<!--                  &lt;!&ndash; file에  required 중요함... &ndash;&gt;-->
-<!--                  <input type="file" id="file_upload" class="btn_upload" required>-->
-<!--                  <label for="file_upload" class="btn_file">파일전송</label>-->
-<!--                </div>-->
-<!--              </li>-->
-<!--              <li><button type="button" class="invite_on_btn">대화초대</button></li>-->
-<!--            </ul>-->
-<!--          </div>-->
-<!--          <div class="talk_input">-->
-<!--            &lt;!&ndash; <input type="text" placeholder="대화를 입력하세요"> &ndash;&gt;-->
-
-<!--            &lt;!&ndash; 파일을 선택 후 업로드할 파일명 표시되는 영역(위의 인풋박스는 가려야 함) &ndash;&gt;-->
-<!--            <div class="file_view">-->
-<!--              <p>image0001.jpg</p>-->
-<!--              <button type="button" class="file_delete">파일 삭제하기</button>-->
-<!--            </div>-->
-
-<!--          </div>-->
-<!--          <button type="button" class="talk_send_btn">보내기</button>-->
-<!--        </div>-->
-        <!-- //talk_send_box -->
-
       </div>
       <!-- //채팅방 tab -->
 
@@ -421,236 +289,7 @@
 
 
   <!-- chating_list 초대하기 -->
-  <div class="chating_list chating_invite btn_fixed">
-
-    <!-- top_close_area -->
-    <div class="top_close_area">
-      <div class="top_tit_box">
-        <strong class="top_tit">초대할 대상을 선택하세요</strong>
-        <button type="button" class="top_close" onclick="parent.chatingFriendList()">닫기</button>
-      </div>
-    </div>
-    <!-- //top_close_area -->
-
-    <!-- scroll_box -->
-    <div class="scroll_box">
-      <!-- chating_tab -->
-      <div class="tab_list chating_tab">
-        <ul>
-          <li class="active"><button type="button" data-tab="chating_invite_tab_01">친구목록</button></li><!-- 맨 처음 tab의 li 에 active 선언 필요 -->
-          <li class=""><button type="button" data-tab="chating_invite_tab_02">룸이용자</button></li>
-        </ul>
-        <div class="total">
-          <p class="fri">친구 : <strong>4명</strong></p>
-          <span class="slash">/</span>
-          <p class="tot">총 <strong>6</strong>명</p>
-        </div>
-      </div>
-      <!-- //chating_tab -->
-      <div class="chating_tab_area">
-        <!-- 친구목록 tab -->
-        <div id="chating_invite_tab_01" class="tab_cont active"><!-- 맨 처음 .tab_cont active 선언 필요 / 데이터없음 no_data_on 추가, 데이터없음 삭제할 시 no_data_on 삭제 -->
-
-          <!-- 데이터 없을 때 :: .tab_cont 에 더블 클레스로 no_data_on 추가해줘야 뜸. -->
-          <div class="no_data">
-            <div class="no_data_cell">
-              <strong class="tit">친구 목록이 없습니다.</strong>
-            </div>
-          </div>
-          <!-- //데이터 없을 때 -->
-
-          <!-- chating_list_cont -->
-          <div class="chating_list_cont">
-            <!-- list -->
-            <div class="list">
-              <div class="left">
-                <div class="checkbox_area txt_no">
-                  <input type="checkbox" id="check01" checked><label for="check01">선택</label>
-                </div>
-                <div class="img_box">
-                  <div class="img_bg" style="background-image:url(my_profile.png)">
-                    <img src="my_profile.png" alt="내 프로필 사진">
-                  </div>
-                </div>
-                <div class="cont">
-                  <p>
-                    <span class="on">ON</span>
-                    <span class="fri_name">나야나</span>
-                  </p>
-                  <p><span class="fri_status">매니저</span></p>
-                </div>
-              </div>
-            </div><!-- //list -->
-            <!-- list -->
-            <div class="list">
-              <div class="left">
-                <div class="checkbox_area txt_no">
-                  <input type="checkbox" id="check02"><label for="check02">선택</label>
-                </div>
-                <div class="img_box">
-                  <div class="img_bg" style="background-image:url(my_profile.png)">
-                    <img src="my_profile.png" alt="내 프로필 사진">
-                  </div>
-                </div>
-                <div class="cont">
-                  <p>
-                    <span class="on">ON</span>
-                    <span class="fri_name">나야나</span>
-                  </p>
-                  <p><span class="fri_status">친구</span></p>
-                </div>
-              </div>
-            </div><!-- //list -->
-            <!-- list -->
-            <div class="list">
-              <div class="left">
-                <div class="checkbox_area txt_no">
-                  <input type="checkbox" id="check03"><label for="check03">선택</label>
-                </div>
-                <div class="img_box">
-                  <div class="img_bg" style="background-image:url(my_profile.png)">
-                    <img src="my_profile.png" alt="내 프로필 사진">
-                  </div>
-                </div>
-                <div class="cont">
-                  <p>
-                    <span class="on">ON</span>
-                    <span class="fri_name">나야나</span>
-                  </p>
-                  <p><span class="fri_status">매니저 / 발표자</span></p>
-                </div>
-              </div>
-            </div><!-- //list -->
-            <!-- list -->
-            <div class="list">
-              <div class="left">
-                <div class="checkbox_area txt_no">
-                  <input type="checkbox" id="check04"><label for="check04">선택</label>
-                </div>
-                <div class="img_box">
-                  <div class="img_bg" style="background-image:url(my_profile.png)">
-                    <img src="my_profile.png" alt="내 프로필 사진">
-                  </div>
-                </div>
-                <div class="cont">
-                  <p>
-                    <span class="off">OFF</span>
-                    <span class="fri_name">나야나나야나</span>
-                  </p>
-                  <p><span class="fri_status">친구 / 다른룸 이용중</span></p>
-                </div>
-              </div>
-            </div><!-- //list -->
-          </div><!-- chating_list_cont -->
-
-        </div><!-- //친구목록 tab  -->
-
-        <!-- 룸이용자 tab -->
-        <div id="chating_invite_tab_02" class="tab_cont"><!-- 데이터없음 no_data_on 추가, 데이터없음 삭제할 시 no_data_on 삭제 -->
-
-          <!-- 데이터 없을 때 :: .tab_cont 에 더블 클레스로 no_data_on 추가해줘야 뜸. -->
-          <div class="no_data">
-            <div class="no_data_cell">
-              <strong class="tit">목록이 없습니다.</strong>
-            </div>
-          </div>
-          <!-- //데이터 없을 때 -->
-
-          <!-- chating_list_cont -->
-          <div class="chating_list_cont">
-            <!-- list -->
-            <div class="list">
-              <div class="left">
-                <div class="checkbox_area txt_no">
-                  <input type="checkbox" id="check05"><label for="check05">선택</label>
-                </div>
-                <div class="img_box">
-                  <div class="img_bg" style="background-image:url(my_profile.png)">
-                    <img src="my_profile.png" alt="내 프로필 사진">
-                  </div>
-                </div>
-                <div class="cont">
-                  <p>
-                    <span class="on">ON</span>
-                    <span class="fri_name">나야나</span>
-                  </p>
-                  <p><span class="fri_status">매니저</span></p>
-                </div>
-              </div>
-            </div><!-- //list -->
-            <!-- list -->
-            <div class="list">
-              <div class="left">
-                <div class="checkbox_area txt_no">
-                  <input type="checkbox" id="check06" checked><label for="check06">선택</label>
-                </div>
-                <div class="img_box">
-                  <div class="img_bg" style="background-image:url(my_profile.png)">
-                    <img src="my_profile.png" alt="내 프로필 사진">
-                  </div>
-                </div>
-                <div class="cont">
-                  <p>
-                    <span class="on">ON</span>
-                    <span class="fri_name">나야나</span>
-                  </p>
-                  <p><span class="fri_status">친구</span></p>
-                </div>
-              </div>
-            </div><!-- //list -->
-            <!-- list -->
-            <div class="list">
-              <div class="left">
-                <div class="checkbox_area txt_no">
-                  <input type="checkbox" id="check07"><label for="check07">선택</label>
-                </div>
-                <div class="img_box">
-                  <div class="img_bg" style="background-image:url(my_profile.png)">
-                    <img src="my_profile.png" alt="내 프로필 사진">
-                  </div>
-                </div>
-                <div class="cont">
-                  <p>
-                    <span class="on">ON</span>
-                    <span class="fri_name">나야나</span>
-                  </p>
-                  <p><span class="fri_status">매니저 / 발표자</span></p>
-                </div>
-              </div>
-            </div><!-- //list -->
-            <!-- list -->
-            <div class="list">
-              <div class="left">
-                <div class="checkbox_area txt_no">
-                  <input type="checkbox" id="check08"><label for="check08">선택</label>
-                </div>
-                <div class="img_box">
-                  <div class="img_bg" style="background-image:url(my_profile.png)">
-                    <img src="my_profile.png" alt="내 프로필 사진">
-                  </div>
-                </div>
-                <div class="cont">
-                  <p>
-                    <span class="off">OFF</span>
-                    <span class="fri_name">나야나나야나</span>
-                  </p>
-                  <p><span class="fri_status">친구 / 다른룸 이용중</span></p>
-                </div>
-              </div>
-            </div><!-- //list -->
-          </div><!-- //chating_list_cont -->
-        </div><!-- //룸이용자 tab -->
-
-      </div><!-- //chating_tab_area -->
-    </div><!-- //scroll_box -->
-
-    <!-- btn_area -->
-    <div class="btn_area">
-      <button type="button" class="chating_room_on_btn disabled">초대하기</button><!-- 버튼 비활성화 → disabled 추가 -->
-    </div>
-    <!-- //btn_area -->
-
-  </div>
+  <app-invite-frends [user]="user" ></app-invite-frends>
   <!-- //chating_list 초대하기 -->
 
 

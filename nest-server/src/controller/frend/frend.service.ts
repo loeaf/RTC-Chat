@@ -29,10 +29,15 @@ export class FrendService {
     let result = undefined;
     try {
       result = await this.frendModel.findById(id);
+      console.log(result);
     } catch (e) {
       throw new NotFoundException("can't find frends");
     }
-    return result;
+    if(result === null) {
+      return [];
+    } else {
+      return result;
+    }
   }
 
   async update(id: number, updateFrendDto: Frend) {

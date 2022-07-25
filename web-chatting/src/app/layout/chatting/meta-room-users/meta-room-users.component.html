@@ -1,0 +1,38 @@
+
+<div id="chating_tab_02" class="tab_cont"><!-- 데이터없음 no_data_on 추가, 데이터없음 삭제할 시 no_data_on 삭제 -->
+
+  <!-- 데이터 없을 때 :: .tab_cont 에 더블 클레스로 no_data_on 추가해줘야 뜸. -->
+  <div class="no_data">
+    <div class="no_data_cell">
+      <strong class="tit">목록이 없습니다.</strong>
+    </div>
+  </div>
+  <!-- //데이터 없을 때 -->
+
+  <!-- chating_list_cont -->
+  <div class="chating_list_cont">
+    <!-- list -->
+    <ng-container  *ngFor="let user of metaRoomUsersService.metaRoom?.users">
+      <div class="list" *ngIf="user !== userObj.id">
+        <div class="left">
+          <div class="img_box">
+            <div class="img_bg" style="background-image:url(`my_profile.png`)">
+              <img src="my_profile.png" alt="내 프로필 사진">
+            </div>
+          </div>
+          <div class="cont">
+            <p>
+              <span class="on">ON</span>
+              <span class="fri_name">{{user}}</span>
+            </p>
+            <p><span class="fri_status">매니저</span></p>
+          </div>
+        </div>
+        <div class="list_btns">
+          <button type="button" class="chat_invit invite_on_btn" (click)="inviteUserByRoom(user)">초대하기</button>
+        </div>
+      </div>
+    </ng-container>
+    <!-- //list -->
+  </div><!-- //chating_list_cont -->
+</div>

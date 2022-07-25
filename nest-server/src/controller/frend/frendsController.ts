@@ -2,8 +2,8 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { FrendService } from './frend.service';
 import {Frend, Frends} from './entities/frend.entity';
 
-@Controller('frend')
-export class FrendController {
+@Controller('frends')
+export class FrendsController {
   constructor(private readonly frendService: FrendService) {}
 
   /**
@@ -32,7 +32,7 @@ export class FrendController {
   /**
    * 친구목록
    */
-  @Patch('/frendByMetaRoom/:id')
+  @Patch('/frendsByMetaRoom/:id')
   findFrendsByIdAndFrendsId(@Param('id') id: string,
                             @Body() frendsDto: Frends) {
     return this.frendService.findFrendsByIdAndFrendsId(id, frendsDto.frends);

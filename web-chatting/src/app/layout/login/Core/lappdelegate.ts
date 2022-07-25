@@ -55,7 +55,6 @@ export class LAppDelegate {
    */
   public initialize(charCanvasEle?: ElementRef): boolean {
     // キャンバスの作成
-    debugger;
     canvas = document.createElement('canvas');
     if (LAppDefine.CanvasSize === 'auto') {
       this._resizeCanvas();
@@ -364,7 +363,6 @@ function onClickEnded(e: MouseEvent): void {
  * タッチしたときに呼ばれる。
  */
 function onTouchBegan(e: TouchEvent): void {
-  debugger;
   if (!LAppDelegate.getInstance()._view) {
     LAppPal.printMessage('view notfound');
     return;
@@ -382,7 +380,6 @@ function onTouchBegan(e: TouchEvent): void {
  * 스와이프라고합니다.
  */
 function onTouchMoved(e: MouseEvent): void {
-  debugger;
   // if (!LAppDelegate.getInstance()._captured) {
   //   return;
   // }

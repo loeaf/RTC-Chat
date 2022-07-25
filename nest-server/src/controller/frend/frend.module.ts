@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { FrendService } from './frend.service';
-import { FrendController } from './frend.controller';
+import { FrendsController } from './frendsController';
 import {MongooseModule} from '@nestjs/mongoose';
 import {FrendSchema} from './entities/frend.entity';
 
@@ -9,7 +9,7 @@ import {FrendSchema} from './entities/frend.entity';
   imports: [MongooseModule.forFeature(
     [{name: 'Frend', schema: FrendSchema}]
   )],
-  controllers: [FrendController],
+  controllers: [FrendsController],
   providers: [FrendService]
 })
 export class FrendModule {}
