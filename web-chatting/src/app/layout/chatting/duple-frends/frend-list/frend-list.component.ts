@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {User} from '../../user/user-http.service';
+import {PopupManagerService, PopupType} from '../../component/popup/popup-manager.service';
+import {FrendRequestState} from '../../invite-frends/frend-http.service';
 
 @Component({
   selector: 'app-frend-list',
@@ -10,12 +12,20 @@ export class FrendListComponent implements OnInit {
   @Input()
   userObj: User;
 
-  constructor() { }
+  constructor(private popupManagerService: PopupManagerService) { }
 
   ngOnInit(): void {
   }
 
-  deleteFrend() {
+  deleteFrend(frendId: string) {
+    this.popupManagerService.openPopupEvt.emit(PopupType.친구삭제);
+    this.popupManagerService.frendsRecoDataEvt.emit({
+      frend: {
+        userId: this.userObj.id,
+        frendId: frendId
+      },
+      uiStatus: PopupType.친구삭제
+    });
 
   }
 }

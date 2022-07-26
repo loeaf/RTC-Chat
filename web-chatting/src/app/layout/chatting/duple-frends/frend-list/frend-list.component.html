@@ -31,7 +31,7 @@
         </div>
         <div class="list_btns">
           <app-invite-chatting [userId]="userObj.id"></app-invite-chatting>
-          <button type="button" class="chat_delete" (click)="deleteFrend()">친구 삭제하기</button>
+          <button type="button" class="chat_delete" (click)="deleteFrend(userObj.id)">친구 삭제하기</button>
         </div>
       </div>
       <!-- //list -->

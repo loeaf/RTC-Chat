@@ -12,6 +12,7 @@ import { FrendModule } from './controller/frend/frend.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import {ConfigModule} from '@nestjs/config';
 import { MetaRoomModule } from './meta-room/meta-room.module';
+// mongodb+srv://vaiv:eF4vBXcmbXBdV3tr@chatting.m60fhbe.mongodb.net/nestjs-demo
 @Module({
   imports: [
     ConfigModule.forRoot({

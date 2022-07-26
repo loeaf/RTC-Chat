@@ -21,7 +21,7 @@ export interface Frends {
 export enum FrendRequestState {
   요청,
   승인,
-  취소
+  거절
 }
 export enum FrendState {
   일반,

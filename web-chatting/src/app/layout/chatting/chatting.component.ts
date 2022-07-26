@@ -56,7 +56,13 @@ export class ChattingComponent implements OnInit, AfterViewInit {
     this.afterLogin();
   }
   async afterLogin() {
-    this.client = await this.clientManSvc.createClient(this.user);
+    try {
+      this.client = await this.clientManSvc.createClient(this.user);
+    }catch (e) {
+      console.error('에러났다')
+      console.error(e);
+      debugger;
+    }
     // await this.channelManSvc.findChannelById(this.user.id);
     // await this.changeChannel(0);
     this.channelManSvc.changeChannelEvt.subscribe(p => {

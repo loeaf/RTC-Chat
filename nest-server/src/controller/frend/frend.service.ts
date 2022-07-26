@@ -45,9 +45,12 @@ export class FrendService {
     return result;
   }
 
-  remove(id: number) {
-    const result = this.frendModel.findByIdAndRemove(id);
-    return result;
+  async remove(frend: Frend) {
+    const objects = await this.frendModel.find({userId: frend.userId, frendId: frend.frendId});
+    for (const object of objects) {
+      await this.frendModel.findByIdAndRemove((await object).id);
+    }
+    return 1;
   }
 
   findFrendByMetaRoom(id: string) {

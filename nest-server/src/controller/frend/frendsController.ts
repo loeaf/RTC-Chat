@@ -51,8 +51,8 @@ export class FrendsController {
   /**
    * 친구삭제
    */
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.frendService.remove(+id);
+  @Delete()
+  remove(@Body() updateFrendDto: Frend) {
+    return this.frendService.remove(updateFrendDto);
   }
 }

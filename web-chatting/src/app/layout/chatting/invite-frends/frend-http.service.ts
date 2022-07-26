@@ -21,10 +21,10 @@ export class FrendHttpService {
 
 
 export interface Frend {
-  id: string;
+  id?: string;
   userId: string;
   frendId: string;
-  state: FrendRequestState;
+  state?: FrendRequestState;
 }
 
 export interface Frends {
@@ -34,7 +34,7 @@ export interface Frends {
 export enum FrendRequestState {
   요청,
   승인,
-  취소
+  거절
 }
 export enum FrendState {
   일반,

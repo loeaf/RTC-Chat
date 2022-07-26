@@ -15,14 +15,14 @@ export class MoveRoomPopupComponent implements OnInit {
   constructor(private popupManSvc: PopupManagerService) { }
 
   ngOnInit(): void {
-    this.popupManSvc.openPopup.subscribe(p => {
-      if(p === PopupType.챗팅이동) {
+    this.popupManSvc.openPopupEvt.subscribe(p => {
+      if(p === PopupType.메타방이동) {
         this.popupType = p;
         layerClickOpenM('move_room');
       }
     })
-    this.popupManSvc.closePopup.subscribe(p => {
-      if(p === PopupType.챗팅이동) {
+    this.popupManSvc.closePopupEvt.subscribe(p => {
+      if(p === PopupType.메타방이동) {
         this.popupType = p;
         layerClickCloseM('move_room');
       }
@@ -30,10 +30,10 @@ export class MoveRoomPopupComponent implements OnInit {
   }
 
   onCancle() {
-    this.popupManSvc.closePopup.emit(this.popupType);
+    this.popupManSvc.closePopupEvt.emit(this.popupType);
   }
 
   onAccept() {
-    this.popupManSvc.closePopup.emit(this.popupType);
+    this.popupManSvc.closePopupEvt.emit(this.popupType);
   }
 }
