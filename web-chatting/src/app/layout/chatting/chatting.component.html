@@ -123,32 +123,7 @@
         <!-- //scroll_box chating_room_talk -->
 
         <!-- talk_send_box -->
-        <div class="talk_send_box">
-          <div class="talk_send_more_btn">
-            <button type="button" class="label">선택하기</button>
-            <ul>
-              <li><button type="button">친구추가</button></li>
-              <li><button type="button">내보내기</button></li>
-              <li>
-                <div class="upload_box">
-                  <input #filesEle id="file_upload" type="file" class="btn_upload" (change)="fileChanges()" required>
-                  <label for="file_upload" class="btn_file">파일전송</label>
-                </div>
-              </li>
-              <li><button type="button" class="invite_on_btn">대화초대</button></li>
-            </ul>
-          </div>
-          <div class="talk_input">
-            <input #textValEle type="text" placeholder="대화를 입력하세요">
-            <div class="file_view" *ngIf="this.hasAttachment">
-              <p>
-                <button type="button" class="file_delete" (click)="fileAttachDelete()">파일 삭제하기</button>
-                {{getFileAttachName()}}
-              </p>
-            </div>
-          </div>
-          <button (click)="sendMessage(textValEle.value)" type="button" class="talk_send_btn">보내기</button>
-        </div>
+        <app-talk-send-box></app-talk-send-box>
         <!-- //talk_send_box -->
       </div>
       <!-- //채팅방 tab -->
@@ -176,28 +151,12 @@
   <app-invite-frends [user]="user" ></app-invite-frends>
   <!-- //chating_list 초대하기 -->
 
-  <!-- 취소/확인 기본 팝업  -->    <!-- onclick="layerClickOpenM('basics_pop');" -->
-  <div id="basics_pop" class="basics_pop popuplayer"><!-- 활성화시 open -->
-    <div class="popuplayer_area">
-      <div class="tit">
-        <button type="button" class="close ri-close-line" onclick="layerClickCloseM('basics_pop');">닫기</button>
-      </div>
-      <!-- popuplayer_group -->
-      <div class="popuplayer_group">
-        <div class="finish_box">
-          <p class="finish_txt"><strong><em>나야나</em>님이 있는 룸으로<br> 이동합니다.</strong></p>
-          <p class="finish_txt"><strong>취소/확인 <em class="blue">기본 팝업</em></strong> 입니다.</p>
-        </div>
-      </div>
-      <!-- //popuplayer_group -->
-      <div class="next_view">
-        <div class="linkArea linkHalf">
-          <button type="button" class="" onclick="layerClickCloseM('basics_pop');">취소</button>
-          <button type="button" class="" onclick="layerClickCloseM('basics_pop');">확인</button>
-        </div>
-      </div><!-- //next_view -->
-    </div>
-  </div>
+  <!-- 취소/확인 기본 팝업  -->
+  <app-move-room-popup></app-move-room-popup>
+  <!-- 확인/취소 기본 팝업 -->
+
+  <!-- 친구 승인 팝업  -->
+  <app-frend-accept-popup></app-frend-accept-popup>
   <!-- 확인/취소 기본 팝업 -->
 
 </div>

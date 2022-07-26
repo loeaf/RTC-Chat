@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {InviteFrendsService} from '../../invite-frends/invite-frends.service';
 import {ChannelManagerService} from '../../channel/channel-manager.service';
+import {PopupManagerService, PopupType} from '../popup/popup-manager.service';
 
 declare const $: any;
 @Component({
@@ -14,7 +15,9 @@ export class InviteChattingComponent implements OnInit {
   @Input()
   frendId: string;
 
-  constructor(private inviteFrendsSvc: InviteFrendsService, private channelManSvc: ChannelManagerService) { }
+  constructor(private inviteFrendsSvc: InviteFrendsService,
+              private channelManSvc: ChannelManagerService,
+              private popupManSvc: PopupManagerService) { }
 
   ngOnInit(): void {
   }

@@ -1,16 +1,16 @@
 $(function(){
 
 	//하단 검색박스 화살표 클릭
-	$(".talk_send_more_btn .label").on("click",function(){
-		if( $(this).parent().hasClass("open")){
-			$(this).next("ul").stop().slideUp();
-			$(this).parent().removeClass("open");
-		}else{
-			$(this).next("ul").stop().slideDown();
-			$(this).parent().addClass("open");
-		}
-		return false;
-	});
+	// $(".talk_send_more_btn .label").on("click",function(){
+	// 	if( $(this).parent().hasClass("open")){
+	// 		$(this).next("ul").stop().slideUp();
+	// 		$(this).parent().removeClass("open");
+	// 	}else{
+	// 		$(this).next("ul").stop().slideDown();
+	// 		$(this).parent().addClass("open");
+	// 	}
+	// 	return false;
+	// });
 
 	//tab 메뉴 (친구목록)
 	// $(".friend_list .chating_tab li button").click(function(){

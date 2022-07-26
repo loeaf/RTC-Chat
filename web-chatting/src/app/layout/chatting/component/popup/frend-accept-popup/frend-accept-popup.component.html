@@ -1,0 +1,32 @@
+<!-- onclick="layerClickOpenM('basics_pop');" -->
+<div id="with_frend" class="basics_pop popuplayer"><!-- 활성화시 open -->
+  <div class="popuplayer_area">
+    <div class="tit">
+      <button type="button" class="close ri-close-line" onclick="layerClickCloseM('basics_pop');">닫기</button>
+    </div>
+    <!-- popuplayer_group 0 => 친구초대, 1 => 친구 승인, 2 => 친구 삭제 -->
+    <div class="popuplayer_group" *ngIf="popupType === 0">
+      <div class="finish_box">
+        <p class="finish_txt"><strong><em>OOO</em>님에게 친구 초대합니다.</strong></p>
+      </div>
+    </div>
+    <div class="popuplayer_group" *ngIf="popupType === 1">
+      <div class="finish_box">
+        <p class="finish_txt"><strong><em>OOO</em>님으로부터 <br> 친구 초대를 받았습니다.</strong></p>
+        <p class="finish_txt"><strong>승인 하시겠습니까?</strong></p>
+      </div>
+    </div>
+    <div class="popuplayer_group" *ngIf="popupType === 2">
+      <div class="finish_box">
+        <p class="finish_txt"><strong><em>OOO</em>님을 친구 삭제하시겠습니까?<br></strong></p>
+      </div>
+    </div>
+    <!-- //popuplayer_group -->
+    <div class="next_view">
+      <div class="linkArea linkHalf">
+        <button type="button" class="" (click)="onCancle()">취소</button>
+        <button type="button" class="" (click)="onAccept()">확인</button>
+      </div>
+    </div><!-- //next_view -->
+  </div>
+</div>

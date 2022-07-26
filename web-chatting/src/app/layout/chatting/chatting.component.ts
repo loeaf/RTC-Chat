@@ -25,8 +25,6 @@ declare const $: any;
   styleUrls: ['./chatting.component.css']
 })
 export class ChattingComponent implements OnInit, AfterViewInit {
-  @ViewChild('filesEle') filesEle!: ElementRef;
-  @ViewChild('textValEle') textValEle!: ElementRef;
   @ViewChild('scrollboxEle') scrollboxEle!: ElementRef;
   @ViewChildren('chattingRoomEle') chattingRoomEle!: ElementRef[];
   client: any;
@@ -88,17 +86,6 @@ export class ChattingComponent implements OnInit, AfterViewInit {
     }
     this.userUpdateFn = this.clientManSvc.listenUpdateMember(this.channelManSvc.selectChannel);
   }
-  async sendMessage(text: string | null) {
-    if(text === null) {
-      return;
-    }
-    const files = this.filesEle.nativeElement.files;
-    const nc = this.channelManSvc.selectChannel;
-    await this.messageManSvc.sendMessagePorc(nc, text, files[0]);
-    this.hasAttachment = false;
-    this.clearChattingInput();
-    $(this.scrollboxEle.nativeElement).scrollTop($(document).height());
-  }
   ngAfterViewInit(): void {
   }
   setSelectCls(num: number) {
@@ -134,39 +121,6 @@ export class ChattingComponent implements OnInit, AfterViewInit {
     });
     const selectEle: any = this.chattingRoomEle.filter((element, index) => index === i);
     $(selectEle[0].nativeElement).addClass('active')
-  }
-
-  fileChanges() {
-    debugger;
-    const file = this.filesEle.nativeElement.files[0];
-    if(file.type !== 'image/jpeg') {
-      alert('이미지가 아닌 파일은 전송할 수 없습니다');
-      this.filesEle.nativeElement.value = '';
-      this.hasAttachment = false;
-      return;
-    } else {
-      this.hasAttachment = true;
-    }
-  }
-
-  getFileAttachName() {
-    if(this.hasAttachment === false) {
-      return;
-    }
-    return this.filesEle.nativeElement.value;
-  }
-
-  fileAttachDelete() {
-    if(this.filesEle === undefined) {
-      return;
-    }
-    this.hasAttachment = false;
-    this.filesEle.nativeElement.value = '';
-  }
-
-  clearChattingInput() {
-    this.fileAttachDelete();
-    this.textValEle.nativeElement.value = '';
   }
   downloadImage(url: string, name: string) {
     if(name === undefined) {
