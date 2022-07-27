@@ -111,7 +111,7 @@ export class ChannelManagerService {
       // 방원중에 클릭한 친구가 있는지 확인
       const members = await channels[i].queryMembers({user_id: frendId});
       for (const member of members.members) {
-        if(member.user_id === frendId) {
+        if(member.user_id === frendId && channels[i].master === true) {
           channels[i].selectChannel = true;
         } else {
           channels[i].selectChannel = false;
