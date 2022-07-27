@@ -9,6 +9,12 @@ export class FrendService {
   constructor(@InjectModel('Frend') private  readonly frendModel: Model<Frend>) {
   }
   async create(createFrendDto: Frend) {
+    const exists = await this.frendModel.exists({userId: createFrendDto.userId, frendId: createFrendDto.frendId});
+    if(exists !== null) {
+      console.log(`이미 존재하는 자료 입니다. ${exists}`);
+      return null;
+    }
+    console.log(`없어서 넣습니다 넣어요~ ${exists}`);
     const newFrend = new this.frendModel(createFrendDto);
     const result = await newFrend.save();
     console.log(result);
@@ -20,15 +26,11 @@ export class FrendService {
     return result;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} frend`;
-  }
-
-  async findAllById(id: string) {
+  async findAcceptFrendListById(id: string) {
     console.log(id);
     let result = undefined;
     try {
-      result = await this.frendModel.findById(id);
+      result = await this.frendModel.find({frendId: id, state: 0});
       console.log(result);
     } catch (e) {
       throw new NotFoundException("can't find frends");
@@ -40,17 +42,48 @@ export class FrendService {
     }
   }
 
+  async findMyFrend(userId: string) {
+    console.log(userId);
+    let result: Frend[] = [];
+    try {
+      let queryResult = [];
+      // 나와 친구를 맺은 모든 애들 서치
+      queryResult = await this.frendModel.find({$or : [{userId: userId, state: 1}, {frendId: userId, state: 1}, ]});
+      const userIdWithoutMe = [...queryResult].filter(p => p.userId !== userId);
+      const frendIdWithoutMe = [...queryResult].filter(p => p.frendId !== userId);
+      const frendList = []
+      userIdWithoutMe.forEach(p => frendList.push(p.userId));
+      frendIdWithoutMe.forEach(p => frendList.push(p.frendId));
+      for (const frendId of frendList) {
+        result.push({
+          userId: userId,
+          frendId: frendId
+        })
+      }
+    } catch (e) {
+      throw new NotFoundException("can't find frends");
+    }
+    console.log(result);
+    return result;
+  }
+
   async update(id: number, updateFrendDto: Frend) {
     const result = await this.frendModel.findByIdAndUpdate(id, updateFrendDto);
+    console.log(result);
     return result;
   }
 
   async remove(frend: Frend) {
-    const objects = await this.frendModel.find({userId: frend.userId, frendId: frend.frendId});
-    for (const object of objects) {
-      await this.frendModel.findByIdAndRemove((await object).id);
-    }
+    await this.removeFrend(frend.userId, frend.frendId);
+    await this.removeFrend(frend.frendId, frend.userId);
     return 1;
+  }
+
+  async removeFrend(userId, frendId) {
+    const objects = await this.frendModel.find({userId, frendId});
+    for (const object of objects) {
+      await this.frendModel.findByIdAndRemove((await object)._id);
+    }
   }
 
   findFrendByMetaRoom(id: string) {

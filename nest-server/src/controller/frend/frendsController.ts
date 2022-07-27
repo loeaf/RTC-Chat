@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {Controller, Get, Post, Body, Patch, Param, Delete, Query} from '@nestjs/common';
 import { FrendService } from './frend.service';
 import {Frend, Frends} from './entities/frend.entity';
 
@@ -25,17 +25,22 @@ export class FrendsController {
    * id를 통해 친구목록을 가지고 온다.
    */
   @Get(':id')
-  findById(@Param('id') id: string) {
-    return this.frendService.findAllById(id);
+  async findMyFrend(@Param('id') id: string) {
+    const f: Frends = {
+      frends: await this.frendService.findMyFrend(id)
+    }
+    return f;
   }
 
   /**
-   * 친구목록
+   * id를 통해 나한테 친구 신청한 목록을 가지고 온다.
    */
-  @Patch('/frendsByMetaRoom/:id')
-  findFrendsByIdAndFrendsId(@Param('id') id: string,
-                            @Body() frendsDto: Frends) {
-    return this.frendService.findFrendsByIdAndFrendsId(id, frendsDto.frends);
+  @Get('accept-list/:id')
+  async findAcceptFrendListById(@Param('id') id: string) {
+    const f: Frends = {
+      frends: await this.frendService.findAcceptFrendListById(id)
+    }
+    return f;
   }
 
   /**
@@ -45,6 +50,7 @@ export class FrendsController {
    */
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateFrendDto: Frend) {
+    console.log(`친구 신청 결과 ===? id: ${id}, ${ JSON.stringify(updateFrendDto) }`)
     return this.frendService.update(+id, updateFrendDto);
   }
 
@@ -52,7 +58,11 @@ export class FrendsController {
    * 친구삭제
    */
   @Delete()
-  remove(@Body() updateFrendDto: Frend) {
-    return this.frendService.remove(updateFrendDto);
+  remove(@Query('userId') userId, @Query('frendId') frendId) {
+    console.log(`삭제 : userId = ${userId}, frendId = ${frendId}`)
+    return this.frendService.remove({
+      userId,
+      frendId
+    });
   }
 }

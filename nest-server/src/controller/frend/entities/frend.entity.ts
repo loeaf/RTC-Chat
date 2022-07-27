@@ -1,4 +1,5 @@
 import * as mongoose from 'mongoose';
+import {SchemaFactory} from '@nestjs/mongoose';
 
 export const FrendSchema = new mongoose.Schema({
   _id: {type: String, required: true}, // 지금은 번호로 주고 나중에 주석처리로 제거
@@ -6,12 +7,12 @@ export const FrendSchema = new mongoose.Schema({
   frendId: {type: String, required: true},
   state: {type: Number, required: true}
 });
-
+FrendSchema.index({ userId: 1,  frendId: 1}, { unique: true })
 export interface Frend {
-  id: string;
+  _id?: string;
   userId: string;
   frendId: string;
-  state: FrendRequestState;
+  state?: FrendRequestState;
 }
 
 export interface Frends {

@@ -24,7 +24,8 @@
     <!-- //popuplayer_group -->
     <div class="next_view">
       <div class="linkArea linkHalf">
-        <button type="button" class="" (click)="onCancle()">취소</button>
+        <button type="button" class="" *ngIf="popupType === 0 || popupType === 2" (click)="onCancle()">취소</button>
+        <button type="button" class="" *ngIf="popupType === 1" (click)="onDeny()">거절</button>
         <button type="button" class="" (click)="onAccept()">확인</button>
       </div>
     </div><!-- //next_view -->

@@ -1,22 +1,27 @@
-import {AfterViewInit, Component, ElementRef, Input, OnInit, TemplateRef, ViewChild, ViewChildren} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewChildren} from '@angular/core';
 import {ChattingHttpService, ChattingStep, Room} from './chatting/chatting-http.service';
 import {Channel} from 'stream-chat';
 import {
-  ChannelPreviewContext,
   ChannelService,
   ChatClientService,
-  CustomTemplatesService, DefaultStreamChatGenerics,
-  MessageContext,
-  StreamI18nService, StreamMessage, ThreadHeaderContext,
+  CustomTemplatesService,
+  DefaultStreamChatGenerics,
+  StreamI18nService,
 } from 'stream-chat-angular';
-const PhraseGen = require('korean-random-words');
 import * as uuid from "uuid";
 import {ActivatedRoute} from '@angular/router';
 import {ClientManagerService} from './user/client-manager.service';
 import {ChannelManagerService} from './channel/channel-manager.service';
-import {AttachFileDto, MessageManagerService} from './message/message-manager.service';
-import { saveAs } from 'file-saver';
+import {MessageManagerService} from './message/message-manager.service';
+import {saveAs} from 'file-saver';
 import {User} from './user/user-http.service';
+import {FrendAcceptPopupService} from './component/popup/frend-accept-popup/frend-accept-popup.service';
+import {PopupType} from './component/popup/popup-manager.service';
+import {FrendAcceptPopupHttpService} from './component/popup/frend-accept-popup/frend-accept-popup-http.service';
+import {Frend} from './invite-frends/frend-http.service';
+import {UserService} from './user/user.service';
+
+const PhraseGen = require('korean-random-words');
 declare const $: any;
 
 @Component({
@@ -47,27 +52,35 @@ export class ChattingComponent implements OnInit, AfterViewInit {
     public channelManSvc: ChannelManagerService,
     private chatService: ChatClientService,
     public channelService: ChannelService,
+    public frendAcceptPopupSvc: FrendAcceptPopupService,
+    public frendAcceptPopupHttpService: FrendAcceptPopupHttpService,
     private streamI18nService: StreamI18nService,
     private customTemplatesService: CustomTemplatesService,
     private chattingHttpService: ChattingHttpService) { }
 
   ngOnInit(): void {
     this.user = JSON.parse(this.route.snapshot.queryParams['user']);
+    UserService.user = this.user;
     this.afterLogin();
   }
   async afterLogin() {
-    try {
-      this.client = await this.clientManSvc.createClient(this.user);
-    }catch (e) {
-      console.error('에러났다')
-      console.error(e);
-      debugger;
-    }
+    this.client = await this.clientManSvc.createClient(this.user);
     // await this.channelManSvc.findChannelById(this.user.id);
     // await this.changeChannel(0);
     this.channelManSvc.changeChannelEvt.subscribe(p => {
       this.changeChannel(p);
     })
+    await this.initFecoFrendsToMe();
+  }
+
+  // 나를 추가한 친구 목록 초기화 및 1회 가시화
+  async initFecoFrendsToMe() {
+    const frendsList = await this.frendAcceptPopupHttpService.getRecoFrendsToMe(this.user.id);
+    this.frendAcceptPopupSvc.frendsAcceptListQue = frendsList.frends;
+    if(frendsList.frends.length > 0) {
+      const o = this.frendAcceptPopupSvc.frendsAcceptListQue.shift();
+      this.frendAcceptPopupSvc.frendRecProcPopUp(o, PopupType.친구승인);
+    }
   }
 
   async changeChannel(index: number) {

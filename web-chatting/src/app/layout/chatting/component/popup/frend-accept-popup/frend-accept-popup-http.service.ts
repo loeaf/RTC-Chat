@@ -11,9 +11,14 @@ import {Frend, Frends} from '../../../invite-frends/frend-http.service';
 export class FrendAcceptPopupHttpService {
 
   constructor(private httpClient: HttpClient) { }
-  getRecoFrends(userId: string): Promise<Frends[] | undefined> {
-    return lastValueFrom(this.httpClient.get<Frends[]>(
-      `${environment.apiServerUrl}/frends?id=${userId}`
+  getRecoFrends(userId: string): Promise<Frends | undefined> {
+    return lastValueFrom(this.httpClient.get<Frends>(
+      `${environment.apiServerUrl}/frends/${userId}`
+    ));
+  }
+  getRecoFrendsToMe(userId: string): Promise<Frends | undefined> {
+    return lastValueFrom(this.httpClient.get<Frends>(
+      `${environment.apiServerUrl}/frends/accept-list/${userId}`
     ));
   }
   postRecoFrends(frend: Frend): Promise<Frend | undefined> {
@@ -23,12 +28,12 @@ export class FrendAcceptPopupHttpService {
   }
   patchRecoFrends(userId: string, frend: Frend): Promise<Frend | undefined> {
     return lastValueFrom(this.httpClient.patch<Frend>(
-      `${environment.apiServerUrl}/frends?id=${userId}`, frend
+      `${environment.apiServerUrl}/frends/${userId}`, frend
     ));
   }
-  deleteRecoFrends(userId: string): Promise<Frend | undefined> {
+  deleteRecoFrends(frend: Frend): Promise<Frend | undefined> {
     return lastValueFrom(this.httpClient.delete<Frend>(
-      `${environment.apiServerUrl}/frends?id=${userId}`
+      `${environment.apiServerUrl}/frends?userId=${frend.userId}&frendId=${frend.frendId}`
     ));
   }
 }

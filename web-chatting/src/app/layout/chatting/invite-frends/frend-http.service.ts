@@ -21,7 +21,7 @@ export class FrendHttpService {
 
 
 export interface Frend {
-  id?: string;
+  _id?: string;
   userId: string;
   frendId: string;
   state?: FrendRequestState;

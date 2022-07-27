@@ -1,16 +1,17 @@
 import {EventEmitter, Injectable, Output} from '@angular/core';
-import {Frend} from '../../invite-frends/frend-http.service';
+import {Frend, FrendRequestState} from '../../invite-frends/frend-http.service';
+import {UtilsService} from '../../../../utils/utils.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PopupManagerService {
   @Output()
-  openPopupEvt = new EventEmitter<PopupType>();
+  public openPopupEvt = new EventEmitter<PopupType>();
   @Output()
-  closePopupEvt = new EventEmitter<PopupType>();
+  public closePopupEvt = new EventEmitter<PopupType>();
   @Output()
-  frendsRecoDataEvt = new EventEmitter<FrendsRecommand>();
+  public frendsRecoDataEvt = new EventEmitter<FrendsRecommand>();
 
   constructor() { }
 }

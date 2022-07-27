@@ -3,7 +3,7 @@ import {MetaRoomUsersService} from './meta-room-users.service';
 import {InviteFrendsService} from '../../invite-frends/invite-frends.service';
 import {User} from '../../user/user-http.service';
 import {PopupManagerService, PopupType} from '../../component/popup/popup-manager.service';
-import {FrendRequestState} from '../../invite-frends/frend-http.service';
+import {FrendAcceptPopupService} from '../../component/popup/frend-accept-popup/frend-accept-popup.service';
 
 @Component({
   selector: 'app-meta-room-users',
@@ -16,6 +16,7 @@ export class MetaRoomUsersComponent implements OnInit, AfterViewInit {
 
   constructor(public metaRoomUsersService: MetaRoomUsersService,
               private inviteFrendsSvc: InviteFrendsService,
+              private frendAcceptPopupSvc: FrendAcceptPopupService,
               private popupManagerService: PopupManagerService) { }
 
   ngOnInit(): void {
@@ -29,14 +30,9 @@ export class MetaRoomUsersComponent implements OnInit, AfterViewInit {
   }
 
   addFrend(user: string) {
-    this.popupManagerService.openPopupEvt.emit(PopupType.친구초대);
-    this.popupManagerService.frendsRecoDataEvt.emit({
-      frend: {
-        userId: this.userObj.id,
-        frendId: user,
-        state: FrendRequestState.요청
-      },
-      uiStatus: PopupType.친구초대
-    });
+    this.frendAcceptPopupSvc.frendRecProcPopUp({
+      userId: this.userObj.id,
+      frendId: user
+    }, PopupType.친구초대);
   }
 }
