@@ -88,6 +88,7 @@ export class ChattingComponent implements OnInit, AfterViewInit {
     const sel = this.channelManSvc.selectChannel;
     await this.channelManSvc.initMembersByChannel(sel);
     await this.messageManSvc.getMessageByChannel(this.channelManSvc.selectChannel);
+    this.setActiveRoom(index);
     if(this.selectChannelFn !== null) {
       this.selectChannelFn.unsubscribe();
     }
@@ -132,8 +133,7 @@ export class ChattingComponent implements OnInit, AfterViewInit {
     debugger;
   }
 
-  setActiveRoom($event: MouseEvent, i: number) {
-    const target = $event.target;
+  setActiveRoom(i: number) {
     const chattingRoomEle: any = this.chattingRoomEle;
     chattingRoomEle.forEach((p: any) => {
       $(p.nativeElement).removeClass('active')

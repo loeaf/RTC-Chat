@@ -33,18 +33,18 @@ $(function(){
 		}
 	});
 
-	//시점 토글 
+	//시점 토글
 	$(".meta_viewpoint_btn").on("click", function() {
 		$(".meta_viewpoint_btn").toggleClass("viewpoint03");
 		$(".meta_viewpoint_btn").toggleClass("on");
 	});
 
-	//사운드 음소거 토글 
+	//사운드 음소거 토글
 	$(".meta_sound_btn").on("click", function() {
 		$(".meta_sound_btn").toggleClass("on");
 	});
 
-	//마이크 음소거 토글 
+	//마이크 음소거 토글
 	$(".meta_mike_btn").on("click", function() {
 		$(".meta_mike_btn").toggleClass("on");
 	});
@@ -99,5 +99,5 @@ function layerClickClose(popID){
 	$(".tab_list li").removeClass("active");
 	$(".tabArea .tab_cont").removeClass("active");
 	$(".tab_list li:first-child").addClass("active");
-	$(".tabArea .tab_cont:first-child").addClass("active");	
+	$(".tabArea .tab_cont:first-child").addClass("active");
 }

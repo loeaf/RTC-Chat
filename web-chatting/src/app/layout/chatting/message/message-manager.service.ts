@@ -37,7 +37,6 @@ export class MessageManagerService {
   }
 
   listenMessage(selectChannel: any) {
-    debugger;
     return selectChannel.on("message.new", (event: any) => {
       console.log(JSON.stringify(event));
       this.messages.push(event.message)

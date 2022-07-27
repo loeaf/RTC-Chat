@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {ChattingHttpService} from '../chatting/chatting-http.service';
 import * as uuid from 'uuid';
 import {User} from './user-http.service';
+import {MessageManagerService} from '../message/message-manager.service';
 const StreamChat = require('stream-chat').StreamChat;
 const client = StreamChat.getInstance("dz5f4d5kzrue");
 const PhraseGen = require('korean-random-words');
@@ -13,7 +14,8 @@ const randomProfile = require('random-profile-generator');
 export class ClientManagerService {
   user: User;
 
-  constructor(private ChatHttpSvc: ChattingHttpService) { }
+  constructor(private ChatHttpSvc: ChattingHttpService,
+              private messageManSvc: MessageManagerService) { }
 
   /**
    * Client 전역
@@ -65,20 +67,21 @@ export class ClientManagerService {
   listenAddMember(selectChannel: any) {
     return selectChannel.on("member.added", (event: any) => {
       console.log(JSON.stringify(event));
-      // this.messages.push(event.message)
+      this.messageManSvc.messages.push(`${event.user.name}님 깨서 출근하셨습니다.`);
     });
   }
 
   listenRemoveMember(selectChannel: any) {
     return selectChannel.on("member.removed", (event: any) => {
       console.log(JSON.stringify(event));
-      // this.messages.push(event.message)
+      this.messageManSvc.messages.push(`${event.user.name}님 깨서 퇴근하셨습니다.`);
     });
   }
 
   listenUpdateMember(selectChannel: any) {
     return selectChannel.on("member.updated", (event: any) => {
       console.log(JSON.stringify(event));
+      debugger;
       // this.messages.push(event.message)
     });
   }

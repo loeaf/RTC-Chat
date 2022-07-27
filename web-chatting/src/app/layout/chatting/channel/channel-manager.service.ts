@@ -10,7 +10,7 @@ var randomProfile = require('random-profile-generator');
 })
 export class ChannelManagerService {
   myChannel: any = null;
-  otherChannel: any[] = [];
+  otherChannel:  CustomChannel[] = [];
   allChannel: any[] = [];
   members: any[] = [];
   selectChannel: any;
@@ -22,7 +22,6 @@ export class ChannelManagerService {
   constructor(private cliManSvc: ClientManagerService) { }
 
   public async initSelectChannel(index: number) {
-    debugger;
     this.selectIndex = index;
     this.selectChannel = this.allChannel[index];
     return this.selectChannel;
@@ -32,6 +31,7 @@ export class ChannelManagerService {
    * 내 개인 방이 있는지 확인하는 API
    * 있으면 채널 리턴
    * 없으면 null 리턴
+   * @deprecated
    * @param userId
    */
   public async findChannelById(userId: string) {
@@ -40,7 +40,6 @@ export class ChannelManagerService {
     this.allChannel = [];
     const filter = { type: 'messaging', members: { $in: [userId] } };
     const sort = { last_message_at: -1 };
-    debugger;
     const channels = await this.cliManSvc.getClient().queryChannels(filter, sort, {watch:true});
     // 방장이 나가면 방 없어짐. 즉 나만 있는 방 있으면 방을 만들필요가 없음
     for (const channel of channels) {
@@ -54,13 +53,13 @@ export class ChannelManagerService {
     if (this.myChannel === null) {
       console.log('channel 이 없다...?');
       const channel = await this.createChannelByUserId(userId);
-      debugger;
       this.myChannel = channel.channel;
       channels.push(channel.channel);
     }
     this.initChannel();
     return {myChannel: this.myChannel, otherChannel: this.otherChannel};
   }
+
   /**
    * 내 개인 방이 있는지 확인하는 API
    * 있으면 채널 리턴
@@ -72,16 +71,21 @@ export class ChannelManagerService {
     this.otherChannel = [];
     this.allChannel = [];
     // 내가 방장인것에 대한 채널 목록 가져오기
+    debugger;
     const masterChannels = await this.findChannelByFrendIdAndUserId(frendId, userId);
     const p = masterChannels.filter((p) => p.selectChannel === true);
+    // 내가 방장이면서 친구를 초대한 방이 없다면... 만든다
     if(p.length === 0) {
       const channel = await this.createChannelByMeAndFrend(userId, frendId);
       channel.selectChannel = true;
       masterChannels.push(channel);
     }
+    // other 목록 초기화
     masterChannels.forEach((p: any) => this.otherChannel.push(p));
+    // other 목록 초기화
     this.initChannel();
-    const index = masterChannels.findIndex((p) => p.selectChannel === true);
+    // other 목록 에서 해당 방번호 찾기
+    const index = this.otherChannel.findIndex((p) => p.selectChannel === true);
     this.changeChannelEvt.emit(index);
 
   }
@@ -93,26 +97,24 @@ export class ChannelManagerService {
    * @private
    */
   private async findChannelByFrendIdAndUserId(frendId: string, userId: string): Promise<CustomChannel[]> {
+    debugger;
     const filter = { type: 'messaging', members: {$in: [userId]}};
     const sort = {last_message_at: -1};
     const channels = await this.cliManSvc.getClient().queryChannels(filter, sort, { watch: true });
-    debugger;
-    for (const channel of channels) {
+    for (let i = 0; i < channels.length; i++) {
       // 방장이 나인지 체크
-      if(channel.data.created_by.id === userId) {
-        channel.master = true;
+      if(channels[i].data.created_by.id === userId) {
+        channels[i].master = true;
       } else {
-        channel.master = false;
+        channels[i].master = false;
       }
       // 방원중에 클릭한 친구가 있는지 확인
-      const members = await channel.queryMembers({user_id: frendId});
+      const members = await channels[i].queryMembers({user_id: frendId});
       for (const member of members.members) {
-        debugger;
         if(member.user_id === frendId) {
-          channel.selectChannel = true;
-          continue;
+          channels[i].selectChannel = true;
         } else {
-          channel.selectChannel = false;
+          channels[i].selectChannel = false;
         }
       }
     }
@@ -125,6 +127,10 @@ export class ChannelManagerService {
     for (const channel of this.otherChannel) {
       this.allChannel.push(channel)
     }
+  }
+  public async inviteUserByChannel(user: string[]) {
+    await this.selectChannel.inviteMembers(user);
+    await this.selectChannel.acceptInvite();
   }
   public async removeChannel(channel: any) {
     return channel.delete();
@@ -162,7 +168,6 @@ export class ChannelManagerService {
       session: 30 // custom field, you can add as many as you want
     });
     const create = await nowChannel.create();
-    debugger;
     return nowChannel;
   }
 

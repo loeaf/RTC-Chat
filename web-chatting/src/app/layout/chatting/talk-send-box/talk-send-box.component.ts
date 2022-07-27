@@ -2,6 +2,8 @@ import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {ClientManagerService} from '../user/client-manager.service';
 import {MessageManagerService} from '../message/message-manager.service';
 import {ChannelManagerService} from '../channel/channel-manager.service';
+import {InviteFrendsService} from '../invite-frends/invite-frends.service';
+import {User} from '../user/user-http.service';
 
 declare const $: any;
 @Component({
@@ -12,6 +14,8 @@ declare const $: any;
 export class TalkSendBoxComponent implements OnInit {
   @Input()
   hasAttachment: boolean;
+  @Input()
+  user: User
   @ViewChild('filesEle') filesEle!: ElementRef;
   @ViewChild('textValEle') textValEle!: ElementRef;
   @ViewChild('scrollboxEle') scrollboxEle!: ElementRef;
@@ -19,6 +23,7 @@ export class TalkSendBoxComponent implements OnInit {
 
   constructor(
     private clientManSvc: ClientManagerService,
+    private inviteFrendsService: InviteFrendsService,
     public messageManSvc: MessageManagerService,
     public channelManSvc: ChannelManagerService,) { }
 
@@ -57,7 +62,6 @@ export class TalkSendBoxComponent implements OnInit {
   }
 
   fileChanges() {
-    debugger;
     const file = this.filesEle.nativeElement.files[0];
     if(file.type !== 'image/jpeg') {
       alert('이미지가 아닌 파일은 전송할 수 없습니다');
@@ -80,5 +84,13 @@ export class TalkSendBoxComponent implements OnInit {
       $(talkSendMore).parent().addClass("open");
     }
 
+  }
+
+  getOut() {
+    alert('퍼블리싱이 안되었다리~');
+  }
+
+  async inviteFrend() {
+    await this.inviteFrendsService.initFrendsByHttp(this.user);
   }
 }

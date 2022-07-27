@@ -46,7 +46,6 @@ export class FrendAcceptPopupComponent implements OnInit, AfterViewInit {
   }
 
   async onAccept() {
-    debugger;
     const f = this.frend;
     if (this.popupType === PopupType.친구초대) {
       await this.frendAcepPopupHttpSvc.postRecoFrends(this.frend);

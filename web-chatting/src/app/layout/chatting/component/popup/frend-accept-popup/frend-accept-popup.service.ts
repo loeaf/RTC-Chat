@@ -40,7 +40,6 @@ export class FrendAcceptPopupService extends PopupManagerService{
     // 친구 승인 또는 거절
     await this.frendAcepPopupHttpSvc.patchRecoFrends(f._id, f);
     const frends = await this.frendAcepPopupHttpSvc.getRecoFrends(UserService.user.id);
-    debugger;
     this.frendListService.renderFrendListEvt.emit(frends);
     // 돌면서 팝업처리
     if (this.frendsAcceptListQue.length > 0) {

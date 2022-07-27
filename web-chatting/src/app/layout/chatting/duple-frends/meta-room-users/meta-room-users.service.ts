@@ -13,7 +13,6 @@ export class MetaRoomUsersService {
     const metaRoom = await this.metaRoomUsersHttpService.getUserByMetaRoomHttp(roomId);
     this.metaRoom = metaRoom[0];
     console.log(metaRoom);
-    debugger;
   }
 }
 

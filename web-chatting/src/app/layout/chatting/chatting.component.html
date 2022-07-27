@@ -1,4 +1,8 @@
-<!-- chating_wrap  chating_room_open friend_list_open -->
+<!-- chating_wrap 속성
+  chating_room_open : 챗팅방
+  friend_list_open : 듀플친구들
+  chating_invite_open : 친구초대
+-->
 <div id="chating_wrap" class="friend_list_open">
 
   <!-- friend_list 친구목록 -->
@@ -40,7 +44,7 @@
         <div class="chating_room_tab">
           <ul>
             <li #chattingRoomEle [ngClass]="setSelectCls(i)" *ngFor="let obj of channelManSvc?.allChannel; let i = index"
-                (click)="channelClick(i);setActiveRoom($event, i)">
+                (click)="channelClick(i);setActiveRoom(i)">
               <button type="button" data-tab="chating_room_tab_02"><span>{{i+1}}</span></button>
             </li>
           </ul>
@@ -123,7 +127,7 @@
         <!-- //scroll_box chating_room_talk -->
 
         <!-- talk_send_box -->
-        <app-talk-send-box></app-talk-send-box>
+        <app-talk-send-box [user]="user"></app-talk-send-box>
         <!-- //talk_send_box -->
       </div>
       <!-- //채팅방 tab -->
@@ -132,12 +136,11 @@
       <div id="chating_room_tab_02" class="tab_cont">
         <!-- scroll_box chating_room_people -->
         <div class="scroll_box chating_room_people">
-
-        </div><!-- //scroll_box chating_room_people -->
+        </div>
+        <!-- //scroll_box chating_room_people -->
 
         <!-- scroll_box chating_room_talk -->
         <div class="scroll_box chating_room_talk">
-
         </div>
         <!-- //scroll_box chating_room_talk -->
       </div>
