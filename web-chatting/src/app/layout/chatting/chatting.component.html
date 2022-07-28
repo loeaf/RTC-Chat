@@ -77,50 +77,56 @@
         <!-- scroll_box chating_room_talk -->
         <div #scrollboxEle class="scroll_box chating_room_talk">
           <!-- inside_notify 입장알림 -->
-          <div class="inside_notify">
-            <p>나야나님이 대화방에 입장하였습니다.</p>
-          </div>
           <!-- //inside_notify -->
+<!--          메세지 포문-->
           <ng-container *ngFor="let message of messageManSvc?.messages">
-            <ng-container *ngIf="user?.id === message.user.id; else otherPartyBox">
-              <!-- my_party_box 내 글 표시 -->
-              <div class="my_party_box">
-                <div class="row_line">
-                  <p class="txt">{{message.text}}</p>
-                </div>
+<!--            공지관련 메세지 확인-->
+            <ng-container *ngIf="message.user === undefined; else notUndefined">
+              <div class="inside_notify">
+                <p>{{message}}</p>
               </div>
-              <ng-container *ngIf="message.attachFile?.length !== 0">
-                <div class="my_party_box">
-                  <div class="add_img" *ngFor="let attach of message.attachFile">
-                    <a href="javascript:void(0);" (click)="downloadImage(attach.thumb_url, attach.image_name)"><img src="{{attach.thumb_url}}" alt=""></a>
-                  </div>
-                </div>
-              </ng-container>
-              <!-- //my_party_box 내 글 표시 -->
             </ng-container>
-            <ng-template #otherPartyBox>
-              <!-- other_party_box 상대방 글 표시 -->
-              <div class="other_party_box">
-                <!-- people_list 상대방 프로필 표시 -->
-                <div class="people_list">
-                  <div class="img_bg" [ngStyle]="setProfileImg(message.user)">
-                    <img alt="프로필 사진">
+            <ng-template #notUndefined>
+              <ng-container *ngIf="user?.id === message.user.id; else otherPartyBox">
+                <!-- my_party_box 내 글 표시 -->
+                <div class="my_party_box">
+                  <div class="row_line">
+                    <p class="txt">{{message.text}}</p>
                   </div>
-                  <p>{{message.user.name}}</p>
-                </div>
-                <!-- //people_list 상대방 프로필 표시 -->
-                <div class="row_line">
-                  <p class="txt">{{message.text}}</p>
                 </div>
                 <ng-container *ngIf="message.attachFile?.length !== 0">
-                  <div class="row_line">
+                  <div class="my_party_box">
                     <div class="add_img" *ngFor="let attach of message.attachFile">
                       <a href="javascript:void(0);" (click)="downloadImage(attach.thumb_url, attach.image_name)"><img src="{{attach.thumb_url}}" alt=""></a>
                     </div>
                   </div>
                 </ng-container>
-              </div>
-              <!-- //other_party_box 상대방 글 표시 -->
+                <!-- //my_party_box 내 글 표시 -->
+              </ng-container>
+              <ng-template #otherPartyBox>
+                <!-- other_party_box 상대방 글 표시 -->
+                <div class="other_party_box">
+                  <!-- people_list 상대방 프로필 표시 -->
+                  <div class="people_list">
+                    <div class="img_bg" [ngStyle]="setProfileImg(message.user)">
+                      <img alt="프로필 사진">
+                    </div>
+                    <p>{{message.user.name}}</p>
+                  </div>
+                  <!-- //people_list 상대방 프로필 표시 -->
+                  <div class="row_line">
+                    <p class="txt">{{message.text}}</p>
+                  </div>
+                  <ng-container *ngIf="message.attachFile?.length !== 0">
+                    <div class="row_line">
+                      <div class="add_img" *ngFor="let attach of message.attachFile">
+                        <a href="javascript:void(0);" (click)="downloadImage(attach.thumb_url, attach.image_name)"><img src="{{attach.thumb_url}}" alt=""></a>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+                <!-- //other_party_box 상대방 글 표시 -->
+              </ng-template>
             </ng-template>
           </ng-container>
         </div>

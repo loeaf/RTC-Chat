@@ -59,11 +59,11 @@ export class ChattingComponent implements OnInit, AfterViewInit {
     private chattingHttpService: ChattingHttpService) { }
 
   ngOnInit(): void {
-    this.user = JSON.parse(this.route.snapshot.queryParams['user']);
-    UserService.user = this.user;
     this.afterLogin();
   }
   async afterLogin() {
+    this.user = JSON.parse(this.route.snapshot.queryParams['user']);
+    UserService.user = this.user;
     this.client = await this.clientManSvc.createClient(this.user);
     // await this.channelManSvc.findChannelById(this.user.id);
     // await this.changeChannel(0);

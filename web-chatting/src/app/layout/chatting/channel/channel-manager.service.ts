@@ -86,6 +86,7 @@ export class ChannelManagerService {
     this.initChannel();
     // other 목록 에서 해당 방번호 찾기
     const index = this.otherChannel.findIndex((p) => p.selectChannel === true);
+    this.selectChannel = this.otherChannel[index];
     this.changeChannelEvt.emit(index);
 
   }
@@ -129,8 +130,10 @@ export class ChannelManagerService {
     }
   }
   public async inviteUserByChannel(user: string[]) {
-    await this.selectChannel.inviteMembers(user);
-    await this.selectChannel.acceptInvite();
+    const result1 = await this.selectChannel.inviteMembers(user);
+    const result = await this.selectChannel.acceptInvite();
+    debugger;
+    await this.initChannelMamber(this.selectChannel);
   }
   public async removeChannel(channel: any) {
     return channel.delete();
@@ -138,6 +141,10 @@ export class ChannelManagerService {
   public async getChannelMamber(selectChannel: any) {
     const selectChanMem = await selectChannel.queryMembers({});
     return selectChanMem.members;
+  }
+  public async initChannelMamber(selectChannel: any) {
+    const selectChanMem = await selectChannel.queryMembers({});
+    this.members = selectChanMem.members;
   }
 
   private async createChannelByUserId(userId: string): Promise<any> {

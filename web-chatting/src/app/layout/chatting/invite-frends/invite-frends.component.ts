@@ -22,13 +22,12 @@ export class InviteFrendsComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
   }
 
-  ngAfterViewInit(): void {
-    this.initInviteFrend();
+  async ngAfterViewInit() {
+    await this.initInviteFrend();
   }
   async initInviteFrend() {
     const tab_id = $(this.frendListEle.nativeElement).attr("data-tab");
     this.chattingtabEle.forEach(p => $(p.nativeElement).removeClass("active"));
-    // $(".friend_list .chating_tab_area .tab_cont").removeClass("active");
     $(this.frendListEle.nativeElement).parent().addClass("active");
     $("#"+tab_id).addClass("active");
   }

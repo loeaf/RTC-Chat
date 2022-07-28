@@ -91,6 +91,10 @@ export class TalkSendBoxComponent implements OnInit {
   }
 
   async inviteFrend() {
+    $("#chating_wrap").removeClass("chating_room_open");
+    $("#chating_wrap").removeClass("friend_list_open");
+    $("#chating_wrap").addClass("chating_invite_open");
+    $('.chating_widget_chat',parent.document).removeClass('chating_room_iframe_wrap');
     await this.inviteFrendsService.initFrendsByHttp(this.user);
   }
 }
