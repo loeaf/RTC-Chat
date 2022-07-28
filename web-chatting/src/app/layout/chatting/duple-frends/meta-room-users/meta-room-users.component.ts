@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MetaRoomUsersService} from './meta-room-users.service';
 import {InviteFrendsService} from '../../invite-frends/invite-frends.service';
 import {User} from '../../user/user-http.service';

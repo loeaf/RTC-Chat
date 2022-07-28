@@ -1,10 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {User} from '../../user/user-http.service';
+import {SChatUser, User} from '../../user/user-http.service';
 import {PopupType} from '../../component/popup/popup-manager.service';
 import {Frend, Frends} from '../../invite-frends/frend-http.service';
 import {FrendAcceptPopupService} from '../../component/popup/frend-accept-popup/frend-accept-popup.service';
 import {FrendAcceptPopupHttpService} from '../../component/popup/frend-accept-popup/frend-accept-popup-http.service';
 import {FrendListService} from './frend-list.service';
+import {UserService} from '../../user/user.service';
+import {ClientManagerService} from '../../user/client-manager.service';
 
 @Component({
   selector: 'app-frend-list',
@@ -14,26 +16,34 @@ import {FrendListService} from './frend-list.service';
 export class FrendListComponent implements OnInit {
   @Input()
   userObj: User;
-  frends: Frends = {
-    frends: []
-  };
+  frends: SChatUser[];
 
   constructor(private frendAcceptPopupService: FrendAcceptPopupService,
               private frendListService: FrendListService,
+              private userSvc: UserService,
+              private clientManSvc: ClientManagerService,
               private frendAcceptPopupHttpService: FrendAcceptPopupHttpService) { }
 
   ngOnInit(): void {
     this.initFrendsList();
-    this.frendListService.renderFrendListEvt.subscribe(frends => {
-      this.frends = frends;
+    this.frendListService.renderFrendListEvt.subscribe(async (frends) => {
+      const arrayFrends = frends.frends.map(p => p.frendId);
+      const response = await this.clientManSvc.getClient().queryUsers({ id: { $in: arrayFrends } });
+      this.frends = response.users;
     })
   }
   async initFrendsList() {
     const frends = await this.frendAcceptPopupHttpService.getRecoFrends(this.userObj.id);
-    this.frends = frends;
+    debugger;
+    const arrayFrends = frends.frends.map(p => p.frendId);
+    const response = await this.clientManSvc.getClient().queryUsers({ id: { $in: arrayFrends } });
+    this.frends = response.users;
   }
 
-  deleteFrend(frend: Frend) {
-    this.frendAcceptPopupService.frendRecProcPopUp(frend, PopupType.친구삭제)
+  deleteFrend(frendId: string) {
+    this.frendAcceptPopupService.frendRecProcPopUp({
+      userId: this.userObj.id,
+      frendId
+    }, PopupType.친구삭제)
   }
 }
