@@ -21,6 +21,7 @@
     "@ngx-translate/core": "^14.0.0",
     "@types/file-saver": "^2.0.5",
     "@types/mongoose": "^5.11.97",
+    "face-api.js": "^0.22.2",
     "file-saver": "^2.0.5",
     "korean-random-words": "^1.0.3",
     "random-profile-generator": "^2.3.0",
