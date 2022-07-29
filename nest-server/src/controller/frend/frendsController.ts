@@ -12,7 +12,6 @@ export class FrendsController {
    */
   @Post()
   create(@Body() createFrendDto: Frend) {
-    console.log(createFrendDto);
     return this.frendService.create(createFrendDto);
   }
 

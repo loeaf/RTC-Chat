@@ -1,17 +1,13 @@
-import { Module } from '@nestjs/common';
+import {MiddlewareConsumer, Module, NestModule} from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TokenModule } from './token/token.module';
 import { ChannelModule } from './channel/channel.module';
-import * as winston from 'winston';
-import {
-  utilities as nestWinstonModuleUtilities,
-  WinstonModule,
-} from 'nest-winston';
 import { FrendModule } from './controller/frend/frend.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import {ConfigModule} from '@nestjs/config';
 import { MetaRoomModule } from './meta-room/meta-room.module';
+import {LoggerMiddleware} from '../config/LoggerMiddleware';
 // mongodb+srv://vaiv:eF4vBXcmbXBdV3tr@chatting.m60fhbe.mongodb.net/nestjs-demo
 @Module({
   imports: [
@@ -21,23 +17,21 @@ import { MetaRoomModule } from './meta-room/meta-room.module';
       ignoreEnvFile: process.env.NODE_ENV === 'prod'
     }), TokenModule, ChannelModule, FrendModule,
     MongooseModule.forRoot(`mongodb+srv://${process.env.DATABASE_ID}:${process.env.DATABASE_PASSWORD}@chatting.m60fhbe.mongodb.net/nestjs-demo?retryWrites=true&w=majority`),
-    WinstonModule.forRoot({
-    transports: [
-      new winston.transports.Console({
-        level: process.env._ENV === 'prod' ? 'info' : 'silly',
-        format: winston.format.combine(
-            winston.format.timestamp(),
-            nestWinstonModuleUtilities.format.nestLike('nest-chatting-server', { prettyPrint: true }),
-        ),
-      }),
-    ],
-    }),
     MetaRoomModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule{
+  configure(consumer: MiddlewareConsumer): any {
+    consumer
+      .apply(LoggerMiddleware)
+      .forRoutes(
+        AppController
+      );
+  }
+
+}
 
 function EnvSetting () {
   switch (process.env._ENV) {
@@ -58,3 +52,4 @@ function EnvSetting () {
       break;
   }
 }
+
