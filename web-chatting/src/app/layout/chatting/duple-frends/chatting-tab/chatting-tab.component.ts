@@ -1,5 +1,4 @@
-import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild, ViewChildren} from '@angular/core';
-import {ChattingTabService} from './chatting-tab.service';
+import {Component, ElementRef, OnInit, ViewChild, ViewChildren} from '@angular/core';
 
 declare const $: any;
 @Component({
@@ -11,22 +10,13 @@ export class ChattingTabComponent implements OnInit {
   @ViewChild('frendListEle') frendListEle?: ElementRef;
   @ViewChild('metaRoomUserListEle') metaRoomUserListEle?: ElementRef;
   @ViewChildren('chattingtabEle') chattingtabEle?: ElementRef[];
-  chattingTabType: ChattingTabType = ChattingTabType.친구목록;
-  userCount: UserCount = {
-    userCount: 0,
-    frendCount: 0
-  };
 
-  constructor(private chattingTabSvc: ChattingTabService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.chattingTabSvc.userCountEvt.subscribe(p => {
-      this.userCount = p;
-    })
   }
 
   clickFrandList() {
-    this.chattingTabType = ChattingTabType.친구목록;
     const tab_id = $(this.frendListEle.nativeElement).attr("data-tab");
     this.chattingtabEle.forEach(p => $(p.nativeElement).removeClass("active"));
     $(".friend_list .chating_tab_area .tab_cont").removeClass("active");
@@ -35,7 +25,6 @@ export class ChattingTabComponent implements OnInit {
   }
 
   clickMetaRoomUserList() {
-    this.chattingTabType = ChattingTabType.룸이용자;
     const tab_id = $(this.metaRoomUserListEle.nativeElement).attr("data-tab");
     this.chattingtabEle.forEach(p => $(p.nativeElement).removeClass("active"));
     $(".friend_list .chating_tab_area .tab_cont").removeClass("active");
@@ -43,14 +32,4 @@ export class ChattingTabComponent implements OnInit {
     $("#"+tab_id).addClass("active");
 
   }
-}
-
-export enum ChattingTabType {
-  친구목록,
-  룸이용자
-}
-
-export interface UserCount {
-  frendCount: number,
-  userCount: number
 }
