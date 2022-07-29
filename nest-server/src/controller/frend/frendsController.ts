@@ -1,6 +1,8 @@
 import {Controller, Get, Post, Body, Patch, Param, Delete, Query} from '@nestjs/common';
 import { FrendService } from './frend.service';
 import {Frend, Frends} from './entities/frend.entity';
+import {RuntimeException} from '@nestjs/core/errors/exceptions/runtime.exception';
+import {NotFoundError} from 'rxjs';
 
 @Controller('frends')
 export class FrendsController {
@@ -49,7 +51,7 @@ export class FrendsController {
    */
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateFrendDto: Frend) {
-    console.log(`친구 신청 결과 ===? id: ${id}, ${ JSON.stringify(updateFrendDto) }`)
+    console.info(`친구 신청 결과 ===? id: ${id}, ${ JSON.stringify(updateFrendDto) }`)
     return this.frendService.update(+id, updateFrendDto);
   }
 
@@ -58,7 +60,7 @@ export class FrendsController {
    */
   @Delete()
   remove(@Query('userId') userId, @Query('frendId') frendId) {
-    console.log(`삭제 : userId = ${userId}, frendId = ${frendId}`)
+    console.info(`삭제 : userId = ${userId}, frendId = ${frendId}`)
     return this.frendService.remove({
       userId,
       frendId

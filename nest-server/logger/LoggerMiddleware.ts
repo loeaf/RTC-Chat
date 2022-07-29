@@ -7,8 +7,6 @@ import {LoggerService} from './LoggerService';
 export class LoggerMiddleware implements NestMiddleware {
   constructor() {}
   use(req: Request, res: Response, next: Function) {
-    console.log(req)
-    console.log(res)
     const loggerService = new LoggerService(req.url.slice(1).split('/')[0]);
     const tempUrl = req.method + ' ' + req.url.split('?')[0];
     const _headers = JSON.stringify(req.headers ? req.headers : {});

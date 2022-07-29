@@ -10,7 +10,7 @@ export class ChannelController {
     // @todo 수정하던지 지우던지...
   @Get(':user')
   async getChannel(@Param() param) {
-      console.log(param.user);
+      console.info(param.user);
       const filter = { type: 'messaging', members: { $in: [param.user] } };
       const sort = [{ last_message_at: -1 }];
       const channels = await this.appSvc.getServerClient().queryChannels(filter, sort, {
@@ -18,7 +18,7 @@ export class ChannelController {
         state: true,
       });
       channels.map((channel) => {
-        console.log(channel.data.name, channel.cid)
+        console.info(channel.data.name, channel.cid)
       })
       return channels;
   }

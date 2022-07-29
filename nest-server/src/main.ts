@@ -26,7 +26,7 @@ async function bootstrap() {
         // },
         pathRewrite(pathReq, req) {
           const pathname = pathReq.split('/mok-server/');
-          console.log(`${API_SERVICE_URL}/${pathname[1]}`);
+          console.info(`${API_SERVICE_URL}/${pathname[1]}`);
           return `${API_SERVICE_URL}/${pathname[1]}`;
         }
       })
@@ -40,7 +40,7 @@ async function bootstrap() {
   //     target: 'http://localhost:4201',
   //     changeOrigin: true,
   //     pathRewrite(pathReq, req) {
-  //       console.log(`http://localhost:4201${pathReq}`);
+  //       console.info(`http://localhost:4201${pathReq}`);
   //       return `http://localhost:4201${pathReq}`;
   //     }
   //   })

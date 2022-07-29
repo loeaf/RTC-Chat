@@ -9,7 +9,7 @@ export class TokenController {
 
   @Get(':tokenParam')
   getToken(@Param() param): any {
-    console.log(param);
+    console.info(param);
     const token = this.appSvc.getServerClient().createToken(param.tokenParam);
     return {'token': token};
   }

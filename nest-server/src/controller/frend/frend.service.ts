@@ -9,12 +9,13 @@ export class FrendService {
   constructor(@InjectModel('Frend') private  readonly frendModel: Model<Frend>) {
   }
   async create(createFrendDto: Frend) {
-    const exists = await this.frendModel.exists({userId: createFrendDto.userId, frendId: createFrendDto.frendId});
-    if(exists !== null) {
-      console.log(`이미 존재하는 자료 입니다. ${exists}`);
+    const exists = await this.frendModel.find({userId: createFrendDto.userId, frendId: createFrendDto.frendId});
+    console.info(`============= ${JSON.stringify(exists)}`)
+    if(exists.length !== 0) {
+      console.info(`이미 존재하는 자료 입니다. ${exists}`);
       return null;
     }
-    console.log(`없어서 넣습니다 넣어요~ ${exists}`);
+    console.info(`없어서 넣습니다 넣어요~ ${exists}`);
     const newFrend = new this.frendModel(createFrendDto);
     const result = await newFrend.save();
     console.info(result);
@@ -27,11 +28,11 @@ export class FrendService {
   }
 
   async findAcceptFrendListById(id: string) {
-    console.log(id);
+    console.info(id);
     let result = undefined;
     try {
       result = await this.frendModel.find({frendId: id, state: 0});
-      console.log(result);
+      console.info(result);
     } catch (e) {
       throw new NotFoundException("can't find frends");
     }
@@ -43,7 +44,7 @@ export class FrendService {
   }
 
   async findMyFrend(userId: string) {
-    console.log(userId);
+    console.info(userId);
     let result: Frend[] = [];
     try {
       let queryResult = [];
@@ -63,13 +64,13 @@ export class FrendService {
     } catch (e) {
       throw new NotFoundException("can't find frends");
     }
-    console.log(result);
+    console.info(result);
     return result;
   }
 
   async update(id: number, updateFrendDto: Frend) {
     const result = await this.frendModel.findByIdAndUpdate(id, updateFrendDto);
-    console.log(result);
+    console.info(result);
     return result;
   }
 
@@ -91,7 +92,7 @@ export class FrendService {
   }
 
   findFrendsByIdAndFrendsId(id: string, createFrendDto: Frend[]) {
-    console.log('찾아라 뚝닥!');
-    console.log(createFrendDto);
+    console.info('찾아라 뚝닥!');
+    console.info(createFrendDto);
   }
 }
