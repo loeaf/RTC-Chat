@@ -17,7 +17,7 @@ export class FrendService {
     console.log(`없어서 넣습니다 넣어요~ ${exists}`);
     const newFrend = new this.frendModel(createFrendDto);
     const result = await newFrend.save();
-    console.log(result);
+    console.info(result);
     return result;
   }
 

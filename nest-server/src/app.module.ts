@@ -2,12 +2,14 @@ import {MiddlewareConsumer, Module, NestModule} from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TokenModule } from './token/token.module';
-import { ChannelModule } from './channel/channel.module';
+import { ChannelModule } from './controller/channel/channel.module';
 import { FrendModule } from './controller/frend/frend.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import {ConfigModule} from '@nestjs/config';
 import { MetaRoomModule } from './meta-room/meta-room.module';
-import {LoggerMiddleware} from '../config/LoggerMiddleware';
+import {LoggerMiddleware} from '../logger/LoggerMiddleware';
+import {ChannelController} from './controller/channel/channel.controller';
+import {FrendsController} from './controller/frend/frendsController';
 // mongodb+srv://vaiv:eF4vBXcmbXBdV3tr@chatting.m60fhbe.mongodb.net/nestjs-demo
 @Module({
   imports: [
@@ -27,7 +29,9 @@ export class AppModule implements NestModule{
     consumer
       .apply(LoggerMiddleware)
       .forRoutes(
-        AppController
+        AppController,
+        ChannelController,
+        FrendsController
       );
   }
 

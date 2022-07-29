@@ -1,6 +1,6 @@
 import {Controller, Get, Param} from '@nestjs/common';
 import { ChannelService } from './channel.service';
-import {AppService} from '../app.service';
+import {AppService} from '../../app.service';
 
 @Controller('channel')
 export class ChannelController {

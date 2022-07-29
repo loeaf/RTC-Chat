@@ -10,6 +10,7 @@ export class LoggerService implements LS {
   private static LOGGER: winston.Logger;
 
   constructor(service?) {
+    console.info(service);
     this.logger = winston.createLogger({
       format: combine(
         errors({ stack: true }),

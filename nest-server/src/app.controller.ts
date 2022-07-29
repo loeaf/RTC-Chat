@@ -2,7 +2,7 @@ import {Controller, Get, NotFoundException} from '@nestjs/common';
 import { AppService } from './app.service';
 import {RuntimeException} from '@nestjs/core/errors/exceptions/runtime.exception';
 import winston, {loggers} from 'winston';
-import {LoggerService} from '../config/LoggerService';
+import {LoggerService} from '../logger/LoggerService';
 
 @Controller()
 export class AppController {
