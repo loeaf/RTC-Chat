@@ -9,12 +9,10 @@ export class MetaRoomController {
   /**
    * id를 통해 친구목록을 가지고 온다.
    */
-  @Get(':id')
-  async findMetaRoomById(@Param('id') id: string) {
-    const f: Frends = {
-      frends: await this.metaRoomService.findMetaRoomById(id)
-    }
-    return f;
+  @Get(':userId/:roomId')
+  async findMetaRoomById(@Param('userId') userId: string,
+                         @Param('roomId') roomId: string) {
+    return await this.metaRoomService.findMetaRoomById(userId, roomId);
   }
 }
 
