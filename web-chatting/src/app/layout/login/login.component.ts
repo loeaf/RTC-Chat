@@ -67,6 +67,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
       };
       this.chattingHttpService.postUser(user).then(p => {
         this.user = p;
+        localStorage.setItem("token_value", user.id);
         this.loginAlert();
         this.moveChatting();
       });

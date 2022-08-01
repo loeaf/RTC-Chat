@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MetaRoomUsersComponent } from './meta-room-users.component';
 import {InviteChattingModule} from '../../component/invite-chatting/invite-chatting.module';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
 
 
 

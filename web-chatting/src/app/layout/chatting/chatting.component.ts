@@ -62,7 +62,8 @@ export class ChattingComponent implements OnInit, AfterViewInit {
     this.afterLogin();
   }
   async afterLogin() {
-    this.user = JSON.parse(this.route.snapshot.queryParams['user']);
+    // this.user = JSON.parse(this.route.snapshot.queryParams['user']);
+    this.user = JSON.parse(localStorage.getItem("token_value"));
     UserService.user = this.user;
     this.client = await this.clientManSvc.createClient(this.user);
     // await this.channelManSvc.findChannelById(this.user.id);
