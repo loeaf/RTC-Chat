@@ -9,10 +9,10 @@ import {ActivatedRoute, Router} from '@angular/router';
  * Use of this source code is governed by the Live2D Open Software license
  * that can be found at https://www.live2d.com/eula/live2d-open-software-license-agreement_en.html.
  */
-
 import { LAppDelegate } from './Core/lappdelegate';
 import * as LAppDefine from './Core/lappdefine';
 import {User} from '../chatting/user/user-http.service';
+
 
 /**
  * 終了時の処理
@@ -36,6 +36,7 @@ window.onresize = () => {
 export class LoginComponent implements OnInit, AfterViewInit {
   user?: User;
   @ViewChild('characterCanvasEle') characterCanvasEle?: ElementRef;
+  test: any;
 
   constructor(
     private chattingHttpService: ChattingHttpService,
@@ -98,6 +99,18 @@ export class LoginComponent implements OnInit, AfterViewInit {
     }
 
     LAppDelegate.getInstance().run();
+    const window: any = self.window;
+    window.api.receive("main", (data: any) => {
+      console.log(`Received ${data} from main process`);
+    });
   }
 
+  click() {
+    alert('click');
+    const window: any = self.window;
+    window.api.test(1)
+    console.info(window.api);
+
+    // require('electron').ipcRenderer.send('gpu', document.body.innerHTML);
+  }
 }
