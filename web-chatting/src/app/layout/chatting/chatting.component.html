@@ -43,8 +43,9 @@
         <!-- chating_room_tab -->
         <div class="chating_room_tab">
           <ul>
-            <li #chattingRoomEle [ngClass]="setSelectCls(i)" *ngFor="let obj of channelManSvc?.allChannel; let i = index"
-                (click)="channelClick(i);setActiveRoom(i)">
+            <li #chattingRoomEle [ngClass]="setSelectCls(i)"
+                *ngFor="let obj of channelManSvc?.allChannel; let i = index"
+                (click)="channelClick(i);">
               <button type="button" data-tab="chating_room_tab_02"><span>{{i+1}}</span></button>
             </li>
           </ul>
@@ -75,11 +76,11 @@
         <!-- //scroll_box chating_room_people -->
 
         <!-- scroll_box chating_room_talk -->
-        <div #scrollboxEle class="scroll_box chating_room_talk">
+        <div id="scrollboxEle" class="scroll_box chating_room_talk">
           <!-- inside_notify 입장알림 -->
           <!-- //inside_notify -->
 <!--          메세지 포문-->
-          <ng-container *ngFor="let message of messageManSvc?.messages">
+          <ng-container *ngFor="let message of messageManSvc?.messages" >
             <ng-container *ngIf="user?.id === message.user.id; else otherPartyBox">
               <!-- my_party_box 내 글 표시 -->
               <div class="my_party_box">
@@ -90,7 +91,8 @@
               <ng-container *ngIf="message.attachFile?.length !== 0">
                 <div class="my_party_box">
                   <div class="add_img" *ngFor="let attach of message.attachFile">
-                    <a href="javascript:void(0);" (click)="downloadImage(attach.thumb_url, attach.image_name)"><img src="{{attach.thumb_url}}" alt=""></a>
+                    <a href="javascript:void(0);" (click)="downloadImage(attach.thumb_url, attach.image_name)">
+                      <img style="max-height: 350px;" src="{{attach.thumb_url}}" alt=""></a>
                   </div>
                 </div>
               </ng-container>
@@ -113,7 +115,8 @@
                 <ng-container *ngIf="message.attachFile?.length !== 0">
                   <div class="row_line">
                     <div class="add_img" *ngFor="let attach of message.attachFile">
-                      <a href="javascript:void(0);" (click)="downloadImage(attach.thumb_url, attach.image_name)"><img src="{{attach.thumb_url}}" alt=""></a>
+                      <a href="javascript:void(0);" (click)="downloadImage(attach.thumb_url, attach.image_name)">
+                        <img style="max-height: 350px;" src="{{attach.thumb_url}}" alt=""></a>
                     </div>
                   </div>
                 </ng-container>

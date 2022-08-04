@@ -4,6 +4,7 @@ import {MessageManagerService} from '../message/message-manager.service';
 import {ChannelManagerService} from '../channel/channel-manager.service';
 import {InviteFrendsService} from '../invite-frends/invite-frends.service';
 import {User} from '../user/user-http.service';
+import {ChattingService} from '../chatting/chatting.service';
 
 declare const $: any;
 @Component({
@@ -18,13 +19,13 @@ export class TalkSendBoxComponent implements OnInit {
   user: User
   @ViewChild('filesEle') filesEle!: ElementRef;
   @ViewChild('textValEle') textValEle!: ElementRef;
-  @ViewChild('scrollboxEle') scrollboxEle!: ElementRef;
   @ViewChild('talkSendMoreEle') talkSendMoreEle!: ElementRef;
 
   constructor(
     private clientManSvc: ClientManagerService,
     private inviteFrendsService: InviteFrendsService,
     public messageManSvc: MessageManagerService,
+    private chattingSvc: ChattingService,
     public channelManSvc: ChannelManagerService,) { }
 
   ngOnInit(): void {
@@ -46,7 +47,7 @@ export class TalkSendBoxComponent implements OnInit {
   clearChattingInput() {
     this.fileAttachDelete();
     this.textValEle.nativeElement.value = '';
-    $(this.scrollboxEle.nativeElement).scrollTop($(document).height());
+    this.chattingSvc.moveScrollDown();
   }
 
   async sendMessage(text: string | null) {

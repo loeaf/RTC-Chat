@@ -21,7 +21,7 @@ export class ChannelManagerService {
 
   constructor(private cliManSvc: ClientManagerService) { }
 
-  public async initSelectChannel(index: number) {
+  public initSelectChannel(index: number) {
     this.selectIndex = index;
     this.selectChannel = this.allChannel[index];
     return this.selectChannel;

@@ -251,7 +251,7 @@ a {cursor:pointer}
 .chating_room .chating_room_talk .other_party_box .people_list .img_bg {display:inline-block;width:20px;height:20px;margin-right:6px;background-color:#C4C4C4;background-position:center;background-size:cover;background-repeat:no-repeat;border-radius:100%;overflow:hidden;vertical-align:middle}
 .chating_room .chating_room_talk .other_party_box .people_list .img_bg img {display:none;}
 .chating_room .chating_room_talk .other_party_box .people_list p {padding:0}
-.chating_room .chating_room_talk .add_img {margin-top:10px}
+.chating_room .chating_room_talk .add_img {margin-top:10px;}
 .chating_room .chating_room_talk .add_img a {display:inline-block}
 .chating_room .chating_room_talk .add_img img {}
 .chating_room .talk_send_box {position:relative;clear:both;height:57px;padding:0 92px 0 60px;border-top:1px solid rgba(0, 0, 0, 0.1);}
@@ -292,6 +292,6 @@ a {cursor:pointer}
 
 /* 380px 이하 */
 @media all and (max-width:380px){
-  
+
 }
 

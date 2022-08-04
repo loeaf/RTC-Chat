@@ -7,7 +7,7 @@ export class AppService {
     return 'Hello World225125!';
   }
   getServerClient() {
-    const serverClient = StreamChat.getInstance('dhefjeuw9yg5','k8n2fjatk2ms5bqr69k4rp732hrtqm6kysw8trv5t8vdq7xd4mqcjb99pt7rbe5x');
+    const serverClient = StreamChat.getInstance('kxajvk5xnkg9','4ezvyjb9566bjdxkpv2ejuwqhhggzacwgg5jvjxser94vmjyjtj77n4g8uvu5j3b');
     return serverClient;
   }
 }

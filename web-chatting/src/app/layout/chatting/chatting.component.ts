@@ -21,6 +21,7 @@ import {FrendAcceptPopupHttpService} from './component/popup/frend-accept-popup/
 import {Frend} from './invite-frends/frend-http.service';
 import {UserService} from './user/user.service';
 import {AuthService} from '../../auth/auth.service';
+import {ChattingService} from './chatting/chatting.service';
 
 const PhraseGen = require('korean-random-words');
 declare const $: any;
@@ -31,7 +32,6 @@ declare const $: any;
   styleUrls: ['./chatting.component.css']
 })
 export class ChattingComponent implements OnInit, AfterViewInit {
-  @ViewChild('scrollboxEle') scrollboxEle!: ElementRef;
   @ViewChildren('chattingRoomEle') chattingRoomEle!: ElementRef[];
   client: any;
   private channelList?: Array<Channel<DefaultStreamChatGenerics>> = [];
@@ -54,6 +54,7 @@ export class ChattingComponent implements OnInit, AfterViewInit {
     public channelService: ChannelService,
     public frendAcceptPopupSvc: FrendAcceptPopupService,
     public frendAcceptPopupHttpService: FrendAcceptPopupHttpService,
+    private chattingSvc: ChattingService,
     private authSvc: AuthService) { }
 
   ngOnInit(): void {
@@ -85,8 +86,8 @@ export class ChattingComponent implements OnInit, AfterViewInit {
   }
 
   async changeChannel(index: number) {
-    await this.channelManSvc.initSelectChannel(index);
-    const sel = this.channelManSvc.selectChannel;
+    const sel = this.channelManSvc.initSelectChannel(index);
+    // const sel = this.channelManSvc.selectChannel;
     await this.channelManSvc.initMembersByChannel(sel);
     await this.messageManSvc.getMessageByChannel(this.channelManSvc.selectChannel);
     this.setActiveRoom(index);
@@ -127,8 +128,12 @@ export class ChattingComponent implements OnInit, AfterViewInit {
     return { 'background-image': `url(${imageUrl})` }
   }
 
-  async channelClick(i: number) {
+  channelClick(i: number) {
     this.channelManSvc.changeChannelEvt.emit(i);
+    this.setActiveRoom(i);
+    setTimeout(() => {
+      this.chattingSvc.moveScrollDown()
+    }, 1000);
   }
   async messageEvent() {
     debugger;
@@ -140,7 +145,7 @@ export class ChattingComponent implements OnInit, AfterViewInit {
       $(p.nativeElement).removeClass('active')
     });
     const selectEle: any = this.chattingRoomEle.filter((element, index) => index === i);
-    $(selectEle[0].nativeElement).addClass('active')
+    $(selectEle[0].nativeElement).addClass('active');
   }
   downloadImage(url: string, name: string) {
     if(name === undefined) {

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import {ChattingService} from '../chatting/chatting.service';
 
 @Injectable({
   providedIn: 'root'
@@ -6,11 +7,11 @@ import { Injectable } from '@angular/core';
 export class MessageManagerService {
   messages: any[] = [];
 
-  constructor() { }
+  constructor(private chattingSvc: ChattingService) { }
   async getMessageByChannel(selectChannel: any) {
     const watch = await selectChannel.watch();
     this.messages = watch.messages;
-    return watch.messages;
+    return this.messages;
   }
 
   async sendMessagePorc(selectChannel: any, text: string, file: any) {
