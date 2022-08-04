@@ -14,13 +14,13 @@ async function bootstrap() {
   app.use(
       '/mok-server/**',
       createProxyMiddleware({
-        target: API_SERVICE_URL,
+        target: `${process.env.PROXY_URI}`,
         changeOrigin: true,
         logLevel: "error",
         pathRewrite(pathReq, req) {
           const pathname = pathReq.split('/mok-server/');
-          console.info(`${API_SERVICE_URL}/${pathname[1]}`);
-          return `${API_SERVICE_URL}/${pathname[1]}`;
+          console.info(`pathRewrite : ${process.env.PROXY_URI}/${pathname[1]}`);
+          return `${process.env.PROXY_URI}/${pathname[1]}`;
         }
       })
   );

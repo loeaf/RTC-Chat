@@ -1,10 +1,13 @@
-import {Controller, Get, Post, Body, Patch, Param, Delete, Query} from '@nestjs/common';
+import {Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards, Res, Req} from '@nestjs/common';
 import { FrendService } from './frend.service';
 import {Frend, Frends} from './entities/frend.entity';
 import {RuntimeException} from '@nestjs/core/errors/exceptions/runtime.exception';
 import {NotFoundError} from 'rxjs';
+import {AuthGuard} from '../../auth/AuthGuard';
+import {Request} from 'express';
 
 @Controller('frends')
+@UseGuards(AuthGuard)
 export class FrendsController {
   constructor(private readonly frendService: FrendService) {}
 
@@ -26,7 +29,7 @@ export class FrendsController {
    * id를 통해 친구목록을 가지고 온다.
    */
   @Get(':id')
-  async findMyFrend(@Param('id') id: string) {
+  async findMyFrend(@Req() req: Request, @Param('id') id: string) {
     const f: Frends = {
       frends: await this.frendService.findMyFrend(id)
     }

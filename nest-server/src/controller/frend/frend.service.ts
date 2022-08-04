@@ -47,9 +47,8 @@ export class FrendService {
     console.info(userId);
     let result: Frend[] = [];
     try {
-      let queryResult = [];
       // 나와 친구를 맺은 모든 애들 서치
-      queryResult = await this.frendModel.find({$or : [{userId: userId, state: 1}, {frendId: userId, state: 1}, ]});
+      const queryResult = await this.frendModel.find({$or : [{userId: userId, state: 1}, {frendId: userId, state: 1}, ]});
       const userIdWithoutMe = [...queryResult].filter(p => p.userId !== userId);
       const frendIdWithoutMe = [...queryResult].filter(p => p.frendId !== userId);
       const frendList = []

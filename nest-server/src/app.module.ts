@@ -10,6 +10,7 @@ import { MetaRoomModule } from './meta-room/meta-room.module';
 import {LoggerMiddleware} from '../logger/LoggerMiddleware';
 import {ChannelController} from './controller/channel/channel.controller';
 import {FrendsController} from './controller/frend/frendsController';
+import {MetaRoomController} from './meta-room/meta-room.controller';
 // mongodb+srv://vaiv:eF4vBXcmbXBdV3tr@chatting.m60fhbe.mongodb.net/nestjs-demo
 @Module({
   imports: [
@@ -31,7 +32,8 @@ export class AppModule implements NestModule{
       .forRoutes(
         AppController,
         ChannelController,
-        FrendsController
+        FrendsController,
+        MetaRoomController
       );
   }
 

@@ -21,5 +21,6 @@ export class UserHttpService {
 export interface User {
   id: string;
   nickName?: string;
+  isFrend?: boolean;
 }
 

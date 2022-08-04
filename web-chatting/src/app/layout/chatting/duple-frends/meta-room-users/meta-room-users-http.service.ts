@@ -14,7 +14,7 @@ export class MetaRoomUsersHttpService {
 
   getUserByMetaRoomHttp(roomId: number): Promise<MetaRoom[] | undefined> {
     return lastValueFrom(this.httpClient.get<MetaRoom[]>(
-      `${environment.mokServerUrl}/userMetaRoom?id=${roomId}`
+      `${environment.apiServerUrl}/meta-room/${roomId}`
     ));
   }
 }
