@@ -20,6 +20,7 @@ import {PopupType} from './component/popup/popup-manager.service';
 import {FrendAcceptPopupHttpService} from './component/popup/frend-accept-popup/frend-accept-popup-http.service';
 import {Frend} from './invite-frends/frend-http.service';
 import {UserService} from './user/user.service';
+import {AuthService} from '../../auth/auth.service';
 
 const PhraseGen = require('korean-random-words');
 declare const $: any;
@@ -50,21 +51,20 @@ export class ChattingComponent implements OnInit, AfterViewInit {
     private clientManSvc: ClientManagerService,
     public messageManSvc: MessageManagerService,
     public channelManSvc: ChannelManagerService,
-    private chatService: ChatClientService,
     public channelService: ChannelService,
     public frendAcceptPopupSvc: FrendAcceptPopupService,
     public frendAcceptPopupHttpService: FrendAcceptPopupHttpService,
-    private streamI18nService: StreamI18nService,
-    private customTemplatesService: CustomTemplatesService,
-    private chattingHttpService: ChattingHttpService) { }
+    private authSvc: AuthService) { }
 
   ngOnInit(): void {
+    debugger;
     this.afterLogin();
   }
   async afterLogin() {
     // this.user = JSON.parse(this.route.snapshot.queryParams['user']);
-    this.user = JSON.parse(localStorage.getItem("token_value"));
-    UserService.user = this.user;
+    UserService.user = this.authSvc.getLocalStorageAuth();
+    this.user = UserService.user;
+    debugger;
     this.client = await this.clientManSvc.createClient(this.user);
     // await this.channelManSvc.findChannelById(this.user.id);
     // await this.changeChannel(0);

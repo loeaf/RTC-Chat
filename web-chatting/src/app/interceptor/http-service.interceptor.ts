@@ -16,9 +16,9 @@ export class HttpServiceInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     let request: HttpRequest<any>;
-    const auth: User = JSON.parse(localStorage.getItem("token_value"));
-    console.log(auth);
-    if(auth !== undefined) {
+    const localstgVal = localStorage.getItem("token_value");
+    if(localstgVal !== null) {
+      const auth: User = JSON.parse(localstgVal.split(' ')[1]);
       request = req.clone({
         setHeaders: {
           Authorization: `Bearer ${auth.id}`
@@ -32,7 +32,8 @@ export class HttpServiceInterceptor implements HttpInterceptor {
         /**
          * 여기서 Error 원하는 방식으로 에러를 처리하자
          */
-        alert(e.error.error.message);
+        // alert(e.error.error.message);
+        console.log('에러가 있다')
         return throwError(e);
       })
     )

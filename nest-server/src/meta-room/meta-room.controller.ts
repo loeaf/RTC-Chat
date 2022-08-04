@@ -2,7 +2,7 @@ import {Controller, Get, Param, Req, UseGuards} from '@nestjs/common';
 import { MetaRoomService } from './meta-room.service';
 import {Frends} from '../controller/frend/entities/frend.entity';
 import {Request} from 'express';
-import {AuthGuard, CustomRequest} from '../auth/AuthGuard';
+import {AuthGuard, CustomRequest} from '../auth/auth-guard';
 
 @Controller('meta-room')
 @UseGuards(AuthGuard)
@@ -15,6 +15,7 @@ export class MetaRoomController {
   @Get(':roomId')
   async findMetaRoomById(@Req() req: CustomRequest,
                          @Param('roomId') roomId: string) {
+    console.info('메타룸 진입');
     return await this.metaRoomService.findMetaRoomById(req.userId, roomId);
   }
 }

@@ -12,6 +12,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import { LAppDelegate } from './Core/lappdelegate';
 import * as LAppDefine from './Core/lappdefine';
 import {User} from '../chatting/user/user-http.service';
+import {AuthService} from '../../auth/auth.service';
 
 
 /**
@@ -40,6 +41,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   constructor(
     private chattingHttpService: ChattingHttpService,
+    private authSvc: AuthService,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -68,7 +70,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
       };
       this.chattingHttpService.postUser(user).then(p => {
         this.user = p;
-        localStorage.setItem("token_value", user.id);
+        this.authSvc.setLocalStorageAuth(p);
         this.loginAlert();
         this.moveChatting();
       });
@@ -85,6 +87,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
           return;
         }
         this.user = p[0];
+        this.authSvc.setLocalStorageAuth(p[0]);
         this.loginAlert();
         alert('로그인되었습니다');
         this.moveChatting();

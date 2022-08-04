@@ -3,7 +3,7 @@ import { FrendService } from './frend.service';
 import {Frend, Frends} from './entities/frend.entity';
 import {RuntimeException} from '@nestjs/core/errors/exceptions/runtime.exception';
 import {NotFoundError} from 'rxjs';
-import {AuthGuard} from '../../auth/AuthGuard';
+import {AuthGuard} from '../../auth/auth-guard';
 import {Request} from 'express';
 
 @Controller('frends')

@@ -1,4 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild, ViewChildren} from '@angular/core';
+import {ChattingTabService} from './chatting-tab.service';
 
 declare const $: any;
 @Component({
@@ -11,7 +12,9 @@ export class ChattingTabComponent implements OnInit {
   @ViewChild('metaRoomUserListEle') metaRoomUserListEle?: ElementRef;
   @ViewChildren('chattingtabEle') chattingtabEle?: ElementRef[];
 
-  constructor() { }
+  constructor(
+    private chattingTabService: ChattingTabService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -30,6 +33,6 @@ export class ChattingTabComponent implements OnInit {
     $(".friend_list .chating_tab_area .tab_cont").removeClass("active");
     $(this.metaRoomUserListEle.nativeElement).parent().addClass("active");
     $("#"+tab_id).addClass("active");
-
+    this.chattingTabService.onRoomUserTabClickEvt.emit('');
   }
 }

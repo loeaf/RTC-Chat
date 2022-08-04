@@ -19,6 +19,11 @@ export class FrendHttpService {
   }
 }
 
+export interface MetaRoomFrend {
+  userId: string;
+  userName?: string;
+  isFrend?: boolean;
+}
 
 export interface Frend {
   _id?: string;

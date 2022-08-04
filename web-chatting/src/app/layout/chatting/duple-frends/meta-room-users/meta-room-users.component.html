@@ -2,7 +2,7 @@
 <div id="chating_tab_02" class="tab_cont"><!-- 데이터없음 no_data_on 추가, 데이터없음 삭제할 시 no_data_on 삭제 -->
 
   <!-- 데이터 없을 때 :: .tab_cont 에 더블 클레스로 no_data_on 추가해줘야 뜸. -->
-  <div class="no_data" *ngIf="metaRoomUsersService.metaRoom?.users.length === 0">
+  <div class="no_data" *ngIf="metaRoomUsersService.roomUser?.length === 0">
     <div class="no_data_cell">
       <strong class="tit">목록이 없습니다.</strong>
     </div>
@@ -12,8 +12,9 @@
   <!-- chating_list_cont -->
   <div class="chating_list_cont">
     <!-- list -->
-    <ng-container  *ngFor="let user of metaRoomUsersService.metaRoom?.users">
-      <div class="list" *ngIf="user !== userObj.id">
+    <ng-container  *ngFor="let user of metaRoomUsersService.roomUser">
+      <!-- 내꺼는 표출안함 -->
+      <div class="list" *ngIf="user.userId !== userSvc.getUser().id">
         <div class="left">
           <div class="img_box">
             <div class="img_bg" style="background-image:url(`my_profile.png`)">
@@ -23,14 +24,14 @@
           <div class="cont">
             <p>
               <span class="on">ON</span>
-              <span class="fri_name">{{user}}</span>
+              <span class="fri_name">{{user.userId}}</span>
             </p>
             <p><span class="fri_status">매니저</span></p>
           </div>
         </div>
         <div class="list_btns">
-          <app-invite-chatting [userId]="userObj.id" [frendId]="user"></app-invite-chatting>
-          <button type="button" *ngIf="userObj.isFrend === true" class="chat_invit invite_on_btn" (click)="addFrend(user)">친구 추가하기</button>
+          <app-invite-chatting [userId]="userSvc.getUser().id" [frendId]="user.userId"></app-invite-chatting>
+          <button type="button" *ngIf="user.isFrend === false" class="chat_invit invite_on_btn" (click)="addFrend(user.userId)">친구 추가하기</button>
         </div>
       </div>
     </ng-container>
