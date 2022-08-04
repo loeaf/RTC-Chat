@@ -11,9 +11,14 @@ import {LoggerMiddleware} from '../logger/LoggerMiddleware';
 import {ChannelController} from './controller/channel/channel.controller';
 import {FrendsController} from './controller/frend/frendsController';
 import {MetaRoomController} from './meta-room/meta-room.controller';
+import {ServeStaticModule} from '@nestjs/serve-static';
+import { join } from 'path';
 // mongodb+srv://vaiv:eF4vBXcmbXBdV3tr@chatting.m60fhbe.mongodb.net/nestjs-demo
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '../../', 'client'),
+    }),
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: EnvSetting(),

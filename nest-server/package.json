@@ -29,6 +29,7 @@
     "@nestjs/mapped-types": "*",
     "@nestjs/mongoose": "^9.2.0",
     "@nestjs/platform-express": "^9.0.0",
+    "@nestjs/serve-static": "^3.0.0",
     "@types/axios": "^0.14.0",
     "@types/http-proxy-middleware": "^1.0.0",
     "@types/mongoose": "^5.11.97",

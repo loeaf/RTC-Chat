@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import {createProxyMiddleware} from 'http-proxy-middleware';
 import {LoggerService} from '../logger/LoggerService';
+import express from 'express';
 var proxy = require('http-proxy');
 var apiProxy = proxy.createProxyServer();
 async function bootstrap() {
