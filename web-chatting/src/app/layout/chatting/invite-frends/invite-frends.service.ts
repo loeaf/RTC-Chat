@@ -14,7 +14,9 @@ export class InviteFrendsService {
               private frendAcceptPopupHttpService: FrendAcceptPopupHttpService,
               private channelManagerService: ChannelManagerService) { }
   async initFrendsByHttp(user: User) {
+    debugger;
     const frends = await this.frendAcceptPopupHttpService.getRecoFrends(user.id);
+    debugger;
     this.frends = frends.frends;
   }
 

@@ -22,6 +22,7 @@ import {Frend} from './invite-frends/frend-http.service';
 import {UserService} from './user/user.service';
 import {AuthService} from '../../auth/auth.service';
 import {ChattingService} from './chatting/chatting.service';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 const PhraseGen = require('korean-random-words');
 declare const $: any;
@@ -55,6 +56,7 @@ export class ChattingComponent implements OnInit, AfterViewInit {
     public frendAcceptPopupSvc: FrendAcceptPopupService,
     public frendAcceptPopupHttpService: FrendAcceptPopupHttpService,
     private chattingSvc: ChattingService,
+    private spinner: NgxSpinnerService,
     private authSvc: AuthService) { }
 
   ngOnInit(): void {
@@ -62,17 +64,20 @@ export class ChattingComponent implements OnInit, AfterViewInit {
     this.afterLogin();
   }
   async afterLogin() {
+    await this.spinner.show();
     // this.user = JSON.parse(this.route.snapshot.queryParams['user']);
     UserService.user = this.authSvc.getLocalStorageAuth();
     this.user = UserService.user;
-    debugger;
     this.client = await this.clientManSvc.createClient(this.user);
     // await this.channelManSvc.findChannelById(this.user.id);
     // await this.changeChannel(0);
-    this.channelManSvc.changeChannelEvt.subscribe(p => {
-      this.changeChannel(p);
+    this.channelManSvc.changeChannelEvt.subscribe(async p => {
+      await this.spinner.show();
+      await this.changeChannel(p);
+      await this.spinner.hide();
     })
     await this.initFecoFrendsToMe();
+    await this.spinner.hide();
   }
 
   // 나를 추가한 친구 목록 초기화 및 1회 가시화

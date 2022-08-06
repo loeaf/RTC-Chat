@@ -5,6 +5,7 @@ import {Frend, Frends} from '../../invite-frends/frend-http.service';
 import {FrendAcceptPopupService} from '../../component/popup/frend-accept-popup/frend-accept-popup.service';
 import {FrendAcceptPopupHttpService} from '../../component/popup/frend-accept-popup/frend-accept-popup-http.service';
 import {FrendListService} from './frend-list.service';
+import {UserService} from '../../user/user.service';
 
 @Component({
   selector: 'app-frend-list',
@@ -12,13 +13,12 @@ import {FrendListService} from './frend-list.service';
   styleUrls: ['./frend-list.component.css']
 })
 export class FrendListComponent implements OnInit {
-  @Input()
-  userObj: User;
   frends: Frends = {
     frends: []
   };
 
   constructor(private frendAcceptPopupService: FrendAcceptPopupService,
+              private userSvc: UserService,
               private frendListService: FrendListService,
               private frendAcceptPopupHttpService: FrendAcceptPopupHttpService) { }
 
@@ -29,7 +29,9 @@ export class FrendListComponent implements OnInit {
     })
   }
   async initFrendsList() {
-    const frends = await this.frendAcceptPopupHttpService.getRecoFrends(this.userObj.id);
+    debugger;
+    const frends = await this.frendAcceptPopupHttpService.getRecoFrends(UserService.user.id);
+    debugger;
     this.frends = frends;
   }
 

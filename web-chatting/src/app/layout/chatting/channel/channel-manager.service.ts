@@ -3,6 +3,7 @@ import {ClientManagerService} from '../user/client-manager.service';
 const PhraseGen = require('korean-random-words');
 import * as uuid from "uuid";
 import {Channel, DefaultGenerics} from 'stream-chat';
+import {NgxSpinnerService} from 'ngx-spinner';
 var randomProfile = require('random-profile-generator');
 
 @Injectable({
@@ -19,7 +20,8 @@ export class ChannelManagerService {
   changeChannelEvt = new EventEmitter<number>();
 
 
-  constructor(private cliManSvc: ClientManagerService) { }
+  constructor(private cliManSvc: ClientManagerService,
+              private spinner: NgxSpinnerService,) { }
 
   public initSelectChannel(index: number) {
     this.selectIndex = index;
@@ -31,42 +33,10 @@ export class ChannelManagerService {
    * 내 개인 방이 있는지 확인하는 API
    * 있으면 채널 리턴
    * 없으면 null 리턴
-   * @deprecated
-   * @param userId
-   */
-  public async findChannelById(userId: string) {
-    this.myChannel = null;
-    this.otherChannel = [];
-    this.allChannel = [];
-    const filter = { type: 'messaging', members: { $in: [userId] } };
-    const sort = { last_message_at: -1 };
-    const channels = await this.cliManSvc.getClient().queryChannels(filter, sort, {watch:true});
-    // 방장이 나가면 방 없어짐. 즉 나만 있는 방 있으면 방을 만들필요가 없음
-    for (const channel of channels) {
-      const users = await this.getMembersByChannel(channel);
-      if(users.length === 1) {
-        this.myChannel = channel;
-      } else {
-        this.otherChannel.push(channel);
-      }
-    }
-    if (this.myChannel === null) {
-      console.log('channel 이 없다...?');
-      const channel = await this.createChannelByUserId(userId);
-      this.myChannel = channel.channel;
-      channels.push(channel.channel);
-    }
-    this.initChannel();
-    return {myChannel: this.myChannel, otherChannel: this.otherChannel};
-  }
-
-  /**
-   * 내 개인 방이 있는지 확인하는 API
-   * 있으면 채널 리턴
-   * 없으면 null 리턴
    * @param userId
    */
   public async createChannelByIdAndFrends(userId: string, frendId: string) {
+    await this.spinner.show();
     this.myChannel = null;
     this.otherChannel = [];
     this.allChannel = [];
@@ -74,6 +44,7 @@ export class ChannelManagerService {
     debugger;
     const masterChannels = await this.findChannelByFrendIdAndUserId(frendId, userId);
     const p = masterChannels.filter((p) => p.selectChannel === true);
+    debugger;
     // 내가 방장이면서 친구를 초대한 방이 없다면... 만든다
     if(p.length === 0) {
       const channel = await this.createChannelByMeAndFrend(userId, frendId);
@@ -88,7 +59,7 @@ export class ChannelManagerService {
     const index = this.otherChannel.findIndex((p) => p.selectChannel === true);
     this.selectChannel = this.otherChannel[index];
     this.changeChannelEvt.emit(index);
-
+    await this.spinner.hide();
   }
 
   /**
@@ -98,8 +69,12 @@ export class ChannelManagerService {
    * @private
    */
   private async findChannelByFrendIdAndUserId(frendId: string, userId: string): Promise<CustomChannel[]> {
+    // const filter = { type: 'messaging', members: {$in: [frendId, userId]}};
+    const filter = { type: 'messaging',
+      members: {$in: [frendId, userId]},
+      created_by_id: {$eq: userId}
+    };
     debugger;
-    const filter = { type: 'messaging', members: {$in: [userId]}};
     const sort = {last_message_at: -1};
     const channels = await this.cliManSvc.getClient().queryChannels(filter, sort, { watch: true });
     for (let i = 0; i < channels.length; i++) {
@@ -112,7 +87,7 @@ export class ChannelManagerService {
       // 방원중에 클릭한 친구가 있는지 확인
       const members = await channels[i].queryMembers({user_id: frendId});
       for (const member of members.members) {
-        if(member.user_id === frendId && channels[i].master === true) {
+        if(member.user_id === frendId && channels[i].master === true && members.members.length === 2) {
           channels[i].selectChannel = true;
         } else {
           channels[i].selectChannel = false;

@@ -29,8 +29,8 @@
           </div>
         </div>
         <div class="list_btns">
-          <app-invite-chatting [userId]="userObj.id" [frendId]="frend.frendId"></app-invite-chatting>
-          <button type="button" class="chat_delete" (click)="deleteFrend(frend)">친구 삭제하기</button>
+          <app-invite-chatting ripple [frendId]="frend.frendId"></app-invite-chatting>
+          <button type="button" ripple class="chat_delete" (click)="deleteFrend(frend)">친구 삭제하기</button>
         </div>
       </div>
       <!-- //list -->

@@ -8,6 +8,6 @@ export class ChattingService {
 
   constructor() { }
   moveScrollDown() {
-    $('#scrollboxEle').scrollTop($(document).height());
+    $('#scrollboxEle').scrollTop(999999);
   }
 }

@@ -14,6 +14,7 @@ import {TalkSendBoxModule} from './talk-send-box/talk-send-box.module';
 import {MoveRoomPopupModule} from './component/popup/move-room-popup/move-room-popup.module';
 import {FrendAcceptPopupModule} from './component/popup/frend-accept-popup/frend-accept-popup.module';
 import {HttpServiceInterceptor} from '../../interceptor/http-service.interceptor';
+import {NgxSpinnerModule} from 'ngx-spinner';
 
 
 
@@ -22,7 +23,9 @@ import {HttpServiceInterceptor} from '../../interceptor/http-service.interceptor
     ChattingComponent,
   ],
   imports: [CommonModule, BrowserModule, StreamAutocompleteTextareaModule,
-    StreamChatModule, HttpClientModule, RouterModule, TranslateModule, InviteFrendsModule, MetaRoomUsersModule, FrendListModule, ChattingTabModule, TalkSendBoxModule, MoveRoomPopupModule, FrendAcceptPopupModule
+    StreamChatModule, HttpClientModule, RouterModule, TranslateModule, InviteFrendsModule,
+    MetaRoomUsersModule, FrendListModule, ChattingTabModule, TalkSendBoxModule,
+    MoveRoomPopupModule, FrendAcceptPopupModule, NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' })
   ],
   exports: [
     ChattingComponent,

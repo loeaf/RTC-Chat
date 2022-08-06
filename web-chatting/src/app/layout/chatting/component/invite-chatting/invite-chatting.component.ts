@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {InviteFrendsService} from '../../invite-frends/invite-frends.service';
 import {ChannelManagerService} from '../../channel/channel-manager.service';
 import {PopupManagerService, PopupType} from '../popup/popup-manager.service';
+import {UserService} from '../../user/user.service';
 
 declare const $: any;
 @Component({
@@ -10,8 +11,6 @@ declare const $: any;
   styleUrls: ['./invite-chatting.component.css']
 })
 export class InviteChattingComponent implements OnInit {
-  @Input()
-  userId: string;
   @Input()
   frendId: string;
 
@@ -28,7 +27,7 @@ export class InviteChattingComponent implements OnInit {
     $("#chating_wrap").addClass("chating_room_open");
     $('.chating_widget_chat',parent.document).addClass('chating_room_iframe_wrap');
     $('#chating_room_open_btn',parent.document).addClass('on');
-    await this.channelManSvc.createChannelByIdAndFrends(this.userId, this.frendId);
+    await this.channelManSvc.createChannelByIdAndFrends(UserService.user.id, this.frendId);
     // await this.inviteFrendsSvc.inviteFrendsByRoom(this.userId);
     // alert(`${this.userId}가 초대되었습니다`);
   }

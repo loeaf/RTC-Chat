@@ -30,7 +30,7 @@
           </div>
         </div>
         <div class="list_btns">
-          <app-invite-chatting [userId]="userSvc.getUser().id" [frendId]="user.userId"></app-invite-chatting>
+          <app-invite-chatting [frendId]="user.userId"></app-invite-chatting>
           <button type="button" *ngIf="user.isFrend === false" class="chat_invit invite_on_btn" (click)="addFrend(user.userId)">친구 추가하기</button>
         </div>
       </div>

@@ -3,9 +3,9 @@
     <button #talkSendMoreEle type="button" (click)="onSendMore()" class="label">선택하기</button>
     <ul>
 <!--      <li><button type="button">친구추가</button></li>-->
-      <li><button type="button" (click)="getOut()">내보내기</button></li>
-      <li><button type="button" (click)="inviteFrend()" class="invite_on_btn">친구초대</button></li>
-      <li>
+<!--      <li><button type="button" (click)="getOut()">내보내기</button></li>-->
+      <li ripple><button type="button" (click)="inviteFrend()" class="invite_on_btn">친구초대</button></li>
+      <li ripple>
         <div class="upload_box">
           <input #filesEle id="file_upload" type="file" class="btn_upload" (change)="fileChanges()" required>
           <label for="file_upload" class="btn_file">파일전송</label>
@@ -22,5 +22,5 @@
       </p>
     </div>
   </div>
-  <button (click)="sendMessage(textValEle.value)" type="button" class="talk_send_btn">보내기</button>
+  <button ripple (click)="sendMessage(textValEle.value)" type="button" class="talk_send_btn">보내기</button>
 </div>
