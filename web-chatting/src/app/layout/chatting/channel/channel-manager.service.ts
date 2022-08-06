@@ -72,7 +72,8 @@ export class ChannelManagerService {
   private async findChannelByFrendIdAndUserId(frendId: string, userId: string): Promise<CustomChannel[]> {
     // const filter = { type: 'messaging', members: {$in: [frendId, userId]}};
     const filter = { type: 'messaging',
-      members: {$in: [frendId, userId]}
+      members: {$in: [frendId, userId]},
+      // created_by_id: {$eq: userId}
     };
     debugger;
     const sort = {last_message_at: -1};
