@@ -43,10 +43,11 @@ export class ChannelManagerService {
     // 내가 방장인것에 대한 채널 목록 가져오기
     debugger;
     const masterChannels = await this.findChannelByFrendIdAndUserId(frendId, userId);
-    const p = masterChannels.filter((p) => p.selectChannel === true);
+    // const p = masterChannels.filter((p) => p.selectChannel === true);
+    const p = masterChannels.findIndex((p) => p.selectChannel === true);
     debugger;
     // 내가 방장이면서 친구를 초대한 방이 없다면... 만든다
-    if(p.length === 0) {
+    if(p === -1) {
       const channel = await this.createChannelByMeAndFrend(userId, frendId);
       channel.selectChannel = true;
       masterChannels.push(channel);
@@ -71,26 +72,24 @@ export class ChannelManagerService {
   private async findChannelByFrendIdAndUserId(frendId: string, userId: string): Promise<CustomChannel[]> {
     // const filter = { type: 'messaging', members: {$in: [frendId, userId]}};
     const filter = { type: 'messaging',
-      members: {$in: [frendId, userId]},
-      created_by_id: {$eq: userId}
+      members: {$in: [frendId, userId]}
     };
     debugger;
     const sort = {last_message_at: -1};
     const channels = await this.cliManSvc.getClient().queryChannels(filter, sort, { watch: true });
     for (let i = 0; i < channels.length; i++) {
       // 방장이 나인지 체크
+      channels[i].selectChannel = false;
+      channels[i].master = false;
       if(channels[i].data.created_by.id === userId) {
         channels[i].master = true;
-      } else {
-        channels[i].master = false;
-      }
-      // 방원중에 클릭한 친구가 있는지 확인
-      const members = await channels[i].queryMembers({user_id: frendId});
-      for (const member of members.members) {
-        if(member.user_id === frendId && channels[i].master === true && members.members.length === 2) {
-          channels[i].selectChannel = true;
-        } else {
-          channels[i].selectChannel = false;
+        // 방원중에 클릭한 친구가 있는지 확인
+        const members = await channels[i].queryMembers({});
+        for (const member of members.members) {
+          if(member.user_id === frendId && members.members.length === 2) {
+            channels[i].selectChannel = true;
+            break;
+          }
         }
       }
     }
