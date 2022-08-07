@@ -30,7 +30,9 @@ export class FrendListComponent implements OnInit {
   }
   async initFrendsList() {
     debugger;
-    const frends = await this.frendAcceptPopupHttpService.getRecoFrends(UserService.user.id);
+    const frends = await this.frendAcceptPopupHttpService.getRecoFrends(
+      this.userSvc.getUser().id
+    );
     debugger;
     this.frends = frends;
   }

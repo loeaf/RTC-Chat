@@ -16,6 +16,7 @@ export class InviteChattingComponent implements OnInit {
 
   constructor(private inviteFrendsSvc: InviteFrendsService,
               private channelManSvc: ChannelManagerService,
+              private userSvc: UserService,
               private popupManSvc: PopupManagerService) { }
 
   ngOnInit(): void {
@@ -27,7 +28,7 @@ export class InviteChattingComponent implements OnInit {
     $("#chating_wrap").addClass("chating_room_open");
     $('.chating_widget_chat',parent.document).addClass('chating_room_iframe_wrap');
     $('#chating_room_open_btn',parent.document).addClass('on');
-    await this.channelManSvc.createChannelByIdAndFrends(UserService.user.id, this.frendId);
+    await this.channelManSvc.createChannelByIdAndFrends(this.userSvc.getUser().id, this.frendId);
     // await this.inviteFrendsSvc.inviteFrendsByRoom(this.userId);
     // alert(`${this.userId}가 초대되었습니다`);
   }

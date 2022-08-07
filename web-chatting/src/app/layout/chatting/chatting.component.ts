@@ -57,6 +57,7 @@ export class ChattingComponent implements OnInit, AfterViewInit {
     public frendAcceptPopupHttpService: FrendAcceptPopupHttpService,
     private chattingSvc: ChattingService,
     private spinner: NgxSpinnerService,
+    private userSvc: UserService,
     private authSvc: AuthService) { }
 
   ngOnInit(): void {
@@ -66,8 +67,7 @@ export class ChattingComponent implements OnInit, AfterViewInit {
   async afterLogin() {
     await this.spinner.show();
     // this.user = JSON.parse(this.route.snapshot.queryParams['user']);
-    UserService.user = this.authSvc.getLocalStorageAuth();
-    this.user = UserService.user;
+    this.user = this.userSvc.getUser();
     this.client = await this.clientManSvc.createClient(this.user);
     // await this.channelManSvc.findChannelById(this.user.id);
     // await this.changeChannel(0);

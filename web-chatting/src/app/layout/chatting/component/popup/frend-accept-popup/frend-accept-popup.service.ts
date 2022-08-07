@@ -12,6 +12,7 @@ import {UserService} from '../../../user/user.service';
 export class FrendAcceptPopupService extends PopupManagerService{
   frendsAcceptListQue: Frend[] = [];
   constructor(private frendAcepPopupHttpSvc: FrendAcceptPopupHttpService,
+              private userSvc: UserService,
               private frendListService: FrendListService) {
     super();
   }
@@ -39,7 +40,7 @@ export class FrendAcceptPopupService extends PopupManagerService{
   async frendAccept(f: Frend, popupType: PopupType) {
     // 친구 승인 또는 거절
     await this.frendAcepPopupHttpSvc.patchRecoFrends(f._id, f);
-    const frends = await this.frendAcepPopupHttpSvc.getRecoFrends(UserService.user.id);
+    const frends = await this.frendAcepPopupHttpSvc.getRecoFrends(this.userSvc.getUser().id);
     this.frendListService.renderFrendListEvt.emit(frends);
     // 돌면서 팝업처리
     if (this.frendsAcceptListQue.length > 0) {

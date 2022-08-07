@@ -1,15 +1,19 @@
 import { Injectable } from '@angular/core';
 import {User} from './user-http.service';
+import {AuthService} from '../../../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  static user: User;
+  private user: User;
 
   getUser() {
-    return UserService.user;
+    if(this.user === undefined) {
+      this.user = this.authSvc.getLocalStorageAuth();
+    }
+    return this.user;
   }
 
-  constructor() { }
+  constructor(private authSvc: AuthService) { }
 }

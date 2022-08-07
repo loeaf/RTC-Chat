@@ -35,7 +35,7 @@ export class MetaRoomUsersComponent implements OnInit, AfterViewInit {
 
   addFrend(user: string) {
     this.frendAcceptPopupSvc.frendRecProcPopUp({
-      userId: UserService.user.id,
+      userId: this.userSvc.getUser().id,
       frendId: user
     }, PopupType.친구초대);
   }

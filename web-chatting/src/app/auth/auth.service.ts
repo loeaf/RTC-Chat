@@ -12,7 +12,6 @@ export class AuthService {
 
   setLocalStorageAuth(user: User) {
     localStorage.setItem("token_value", `Bearer ${JSON.stringify(user)}`);
-    UserService.user = user;
   }
   getLocalStorageAuth(): User {
     const token = localStorage.getItem("token_value");
