@@ -44,6 +44,7 @@ export class InviteFrendsComponent implements OnInit, AfterViewInit {
         selected.push($(selectedElement.nativeElement).attr('value'));
       }
     }
+    debugger;
     await this.channelManSvc.inviteUserByChannel(selected);
   }
 }

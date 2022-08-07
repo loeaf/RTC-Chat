@@ -43,10 +43,8 @@ export class ChannelManagerService {
     this.allChannel = [];
     // 내가 방장인것에 대한 채널 목록 가져오기
     const masterChannels = await this.findChannelByFrendIdAndUserId(userId, frendId);
-    debugger;
     // const p = masterChannels.filter((p) => p.selectChannel === true);
     const p = masterChannels.findIndex((p) => p.selectChannel === true);
-    debugger;
     // 내가 방장이면서 친구를 초대한 방이 없다면... 만든다
     if(p === -1) {
       const channel = await this.createChannelByMeAndFrend(userId, frendId);
@@ -129,8 +127,8 @@ export class ChannelManagerService {
     return channel.delete();
   }
 
-  public async getChannelMamber(selectChannel: any) {
-    const selectChanMem = await selectChannel.queryMembers({});
+  public async getSelectChannelMamber() {
+    const selectChanMem = await this.selectChannel.queryMembers({});
     return selectChanMem.members;
   }
 

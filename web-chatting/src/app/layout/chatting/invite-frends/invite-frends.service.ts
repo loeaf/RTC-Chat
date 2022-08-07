@@ -14,10 +14,17 @@ export class InviteFrendsService {
               private frendAcceptPopupHttpService: FrendAcceptPopupHttpService,
               private channelManagerService: ChannelManagerService) { }
   async initFrendsByHttp(user: User) {
-    debugger;
+    const resultFrend = [];
     const frends = await this.frendAcceptPopupHttpService.getRecoFrends(user.id);
-    debugger;
-    this.frends = frends.frends;
+    const mem = await this.channelManagerService.getSelectChannelMamber();
+    for (const frend of frends.frends) {
+      let isFrend = false;
+      isFrend = mem.some((p: any) => p.user_id === frend.frendId);
+      if(isFrend === false) {
+        resultFrend.push(frend);
+      }
+    }
+    this.frends = resultFrend;
   }
 
   async inviteFrendsByRoom(userIds: string) {
