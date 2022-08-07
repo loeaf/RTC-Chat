@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RESTKit_Environment">
+    <option name="currentEnv" value="baseUrl" />
+    <option name="envList">
+      <list>
+        <EnvList>
+          <option name="env" value="baseUrl" />
+          <option name="items">
+            <list>
+              <BKV>
+                <option name="enabled" value="true" />
+                <option name="key" value="baseUrl" />
+                <option name="value" value="http://localhost:3001" />
+              </BKV>
+            </list>
+          </option>
+        </EnvList>
+      </list>
+    </option>
+    <option name="globalHeaderList">
+      <list>
+        <BKV>
+          <option name="enabled" value="true" />
+          <option name="key" value="Authorization" />
+          <option name="value" value="Bearer {&quot;id&quot;:&quot;75c1ee69-985d-40a9-a8c1-5bfd8f416ec0&quot;,&quot;nickName&quot;:&quot;깜깜한데-아늑한-청설모&quot;}" />
+        </BKV>
+      </list>
+    </option>
+  </component>
+</project>

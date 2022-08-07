@@ -13,6 +13,7 @@ import {FrendsController} from './controller/frend/frendsController';
 import {MetaRoomController} from './meta-room/meta-room.controller';
 import {ServeStaticModule} from '@nestjs/serve-static';
 import { join } from 'path';
+import { ChatRoomModule } from './controller/chat-room/chat-room.module';
 // mongodb+srv://vaiv:eF4vBXcmbXBdV3tr@chatting.m60fhbe.mongodb.net/nestjs-demo
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { join } from 'path';
     }), TokenModule, ChannelModule, FrendModule,
     MongooseModule.forRoot(`mongodb+srv://${process.env.DATABASE_ID}:${process.env.DATABASE_PASSWORD}@chatting.m60fhbe.mongodb.net/nestjs-demo?retryWrites=true&w=majority`),
     MetaRoomModule,
+    ChatRoomModule,
   ],
   controllers: [AppController],
   providers: [AppService],

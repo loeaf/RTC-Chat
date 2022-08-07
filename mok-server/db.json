@@ -228,6 +228,30 @@
     {
       "id": "1a885210-3821-4a6c-9a54-19a72b94466d",
       "nickName": "완전해서-뜨끔한-원숭이"
+    },
+    {
+      "id": "bcf087f1-837a-4193-8e84-66ecf54d19bc",
+      "nickName": "뭉뚝해서-급한-레몬"
+    },
+    {
+      "id": "f342679c-91b4-45d2-986d-b7dee498e841",
+      "nickName": "다양한데-뭉뚝한-장미"
+    },
+    {
+      "id": "70dc2a7d-a49c-4c07-beab-acb11460702e",
+      "nickName": "무시무시해서-경박한-수박"
+    },
+    {
+      "id": "2a2aa58a-9281-485f-be49-67266a7ad52f",
+      "nickName": "창대하고-싸늘한-파리지옥"
+    },
+    {
+      "id": "3226645d-2a2f-4940-a865-2c92922d6173",
+      "nickName": "홀가분해서-가뿐한-미역"
+    },
+    {
+      "id": "e833a2f2-68a8-45e2-803c-abeddbb32932",
+      "nickName": "똘똘하지만-폭신한-알로에"
     }
   ],
   "userMetaRoom": [
@@ -235,11 +259,9 @@
       "id": "1",
       "metaRoomName": "Bubble Pop! - 현아방",
       "users": [
-        "3f6fdfbb-87d2-42ed-b2d5-206e2fcb2b6b",
-        "86f45ecb-19fc-47e1-b141-fda831c28f21",
-        "cfe79765-e321-4289-b9fd-a1fcd5cd825f",
-        "573f0b34-3cae-4153-a94b-06fe311f7dbb",
-        "53443ddd-c4a3-4e8a-b4a0-befc550a441e"
+        "f342679c-91b4-45d2-986d-b7dee498e841",
+        "70dc2a7d-a49c-4c07-beab-acb11460702e",
+        "2a2aa58a-9281-485f-be49-67266a7ad52f"
       ]
     },
     {
