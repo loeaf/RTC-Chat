@@ -67,11 +67,14 @@
         <!-- scroll_box chating_room_people -->
         <div class="scroll_box chating_room_people">
           <div class="people_list" *ngFor="let _user of channelManSvc.members">
+            <img *ngIf="_user.user.id === channelManSvc.selectChannel.data.created_by.id"
+               style="color: #0B4992; margin-bottom: -5px; width: 25px"
+                 src="https://cdn-icons-png.flaticon.com/512/679/679660.png"/>
             <div class="img_bg" [ngStyle]="setProfileImg(_user.user)">
               <img src="{{_user.user?.image}}" alt="내 프로필 사진">
             </div>
             <p>{{_user.user.name}}</p>
-            <button type="button" *ngIf="_user.user.id !== user.id" class="add_friend" onclick="layerClickOpenM('basics_pop');">친구추가</button>
+            <button type="button" *ngIf="_user.user.id !== userSvc.getUser().id" class="add_friend" onclick="layerClickOpenM('basics_pop');">친구추가</button>
           </div>
         </div>
         <!-- //scroll_box chating_room_people -->
@@ -82,7 +85,7 @@
           <!-- //inside_notify -->
 <!--          메세지 포문-->
           <ng-container *ngFor="let message of messageManSvc?.messages" >
-            <ng-container *ngIf="user?.id === message.user.id; else otherPartyBox">
+            <ng-container *ngIf="userSvc.getUser().id === message.user.id; else otherPartyBox">
               <!-- my_party_box 내 글 표시 -->
               <div class="my_party_box">
                 <div class="row_line">
@@ -128,7 +131,7 @@
         </div>
         <!-- //scroll_box chating_room_talk -->
         <!-- talk_send_box -->
-        <app-talk-send-box ripple [user]="user"></app-talk-send-box>
+        <app-talk-send-box ripple [user]="userSvc.getUser()"></app-talk-send-box>
         <!-- //talk_send_box -->
       </div>
       <!-- //채팅방 tab -->
@@ -152,7 +155,7 @@
   <!-- //chating_room 채팅방 -->
 
   <!-- chating_list 초대하기 -->
-  <app-invite-frends [user]="user" ></app-invite-frends>
+  <app-invite-frends [user]="userSvc.getUser()" ></app-invite-frends>
   <!-- //chating_list 초대하기 -->
 
   <!-- 취소/확인 기본 팝업  -->

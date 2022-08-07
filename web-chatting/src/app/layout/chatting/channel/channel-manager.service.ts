@@ -26,6 +26,7 @@ export class ChannelManagerService {
   public initSelectChannel(index: number) {
     this.selectIndex = index;
     this.selectChannel = this.allChannel[index];
+    console.log(this.allChannel[index]);
     return this.selectChannel;
   }
 
@@ -41,8 +42,8 @@ export class ChannelManagerService {
     this.otherChannel = [];
     this.allChannel = [];
     // 내가 방장인것에 대한 채널 목록 가져오기
+    const masterChannels = await this.findChannelByFrendIdAndUserId(userId, frendId);
     debugger;
-    const masterChannels = await this.findChannelByFrendIdAndUserId(frendId, userId);
     // const p = masterChannels.filter((p) => p.selectChannel === true);
     const p = masterChannels.findIndex((p) => p.selectChannel === true);
     debugger;
@@ -64,38 +65,50 @@ export class ChannelManagerService {
   }
 
   /**
-   * 1. 방장이 나여야하고
    * @param frendId
    * @param userId
    * @private
    */
-  private async findChannelByFrendIdAndUserId(frendId: string, userId: string): Promise<CustomChannel[]> {
-    // const filter = { type: 'messaging', members: {$in: [frendId, userId]}};
+  private async findChannelByFrendIdAndUserId(userId: string, frendId: string): Promise<CustomChannel[]> {
     const filter = { type: 'messaging',
-      members: {$in: [frendId, userId]},
-      // created_by_id: {$eq: userId}
+      members: {$in: [userId, frendId]},
     };
-    debugger;
     const sort = {last_message_at: -1};
+    const resultChannels = [];
     const channels = await this.cliManSvc.getClient().queryChannels(filter, sort, { watch: true });
     for (let i = 0; i < channels.length; i++) {
-      // 방장이 나인지 체크
+    debugger;
+      console.log(channels[i].data.created_by);
       channels[i].selectChannel = false;
       channels[i].master = false;
+      const members = await channels[i].queryMembers({});
+      const isFrendInMember = members.members.some((p: any) => p.user_id === frendId);
+      const isUserIdInMember = members.members.some((p: any) => p.user_id === userId);
+      // 내가 방장이면서 친구가 방원
       if(channels[i].data.created_by.id === userId) {
         channels[i].master = true;
-        // 방원중에 클릭한 친구가 있는지 확인
-        const members = await channels[i].queryMembers({});
-        for (const member of members.members) {
-          if(member.user_id === frendId && members.members.length === 2) {
-            channels[i].selectChannel = true;
-            break;
-          }
+        // 방원중에 친구가 들어와 있고 2명이라면 클릭했을때 선택해야할 채널로 지정
+        if (isFrendInMember && members.members.length === 2) {
+          channels[i].selectChannel = true;
+          resultChannels.push(channels[i]);
+          continue;
         }
       }
+      // 내가 방원이면서 친구가 방장
+      if (channels[i].data.created_by.id === frendId) { // 친구가 방장인가?
+        if (isUserIdInMember) {
+          resultChannels.push(channels[i]);
+        }
+        continue;
+      }
+      // 나와 내친구 모두 방원
+      if (isFrendInMember && isUserIdInMember) {
+        resultChannels.push(channels[i]);
+      }
     }
-    return channels;
+    return resultChannels;
   }
+
   private initChannel() {
     if(this.myChannel !== null) {
       this.allChannel.push(this.myChannel);
@@ -104,19 +117,23 @@ export class ChannelManagerService {
       this.allChannel.push(channel)
     }
   }
+
   public async inviteUserByChannel(user: string[]) {
     const result1 = await this.selectChannel.inviteMembers(user);
     const result = await this.selectChannel.acceptInvite();
     debugger;
     await this.initChannelMamber(this.selectChannel);
   }
+
   public async removeChannel(channel: any) {
     return channel.delete();
   }
+
   public async getChannelMamber(selectChannel: any) {
     const selectChanMem = await selectChannel.queryMembers({});
     return selectChanMem.members;
   }
+
   public async initChannelMamber(selectChannel: any) {
     const selectChanMem = await selectChannel.queryMembers({});
     this.members = selectChanMem.members;
@@ -166,9 +183,11 @@ export class ChannelManagerService {
   public genRoomName(): string {
     return new PhraseGen().getAdjective("-ROOM");
   }
+
   public genRoomId(): string {
     return uuid.v4();
   }
+
 }
 
 export interface CustomChannel extends Channel<DefaultGenerics>{

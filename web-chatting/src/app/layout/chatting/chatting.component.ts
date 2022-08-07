@@ -38,7 +38,6 @@ export class ChattingComponent implements OnInit, AfterViewInit {
   private channelList?: Array<Channel<DefaultStreamChatGenerics>> = [];
   private roomsList?: Array<Room> = [];
   chattingStep: ChattingStep = ChattingStep.로그인필요;
-  user?: User;
   uuid: any;
   hasAttachment: boolean = false;
   selectChannelFn: any = null;
@@ -57,7 +56,7 @@ export class ChattingComponent implements OnInit, AfterViewInit {
     public frendAcceptPopupHttpService: FrendAcceptPopupHttpService,
     private chattingSvc: ChattingService,
     private spinner: NgxSpinnerService,
-    private userSvc: UserService,
+    public userSvc: UserService,
     private authSvc: AuthService) { }
 
   ngOnInit(): void {
@@ -67,8 +66,7 @@ export class ChattingComponent implements OnInit, AfterViewInit {
   async afterLogin() {
     await this.spinner.show();
     // this.user = JSON.parse(this.route.snapshot.queryParams['user']);
-    this.user = this.userSvc.getUser();
-    this.client = await this.clientManSvc.createClient(this.user);
+    this.client = await this.clientManSvc.createClient(this.userSvc.getUser());
     // await this.channelManSvc.findChannelById(this.user.id);
     // await this.changeChannel(0);
     this.channelManSvc.changeChannelEvt.subscribe(async p => {
@@ -82,7 +80,7 @@ export class ChattingComponent implements OnInit, AfterViewInit {
 
   // 나를 추가한 친구 목록 초기화 및 1회 가시화
   async initFecoFrendsToMe() {
-    const frendsList = await this.frendAcceptPopupHttpService.getRecoFrendsToMe(this.user.id);
+    const frendsList = await this.frendAcceptPopupHttpService.getRecoFrendsToMe(this.userSvc.getUser().id);
     this.frendAcceptPopupSvc.frendsAcceptListQue = frendsList.frends;
     if(frendsList.frends.length > 0) {
       const o = this.frendAcceptPopupSvc.frendsAcceptListQue.shift();
