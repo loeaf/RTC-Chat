@@ -102,10 +102,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
     }
 
     LAppDelegate.getInstance().run();
-    const window: any = self.window;
-    window.api.receive("main", (data: any) => {
-      console.log(`Received ${data} from main process`);
-    });
   }
 
   click() {
