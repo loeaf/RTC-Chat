@@ -29,7 +29,7 @@ export class InviteFrendsService {
 
   async inviteFrendsByRoom(userIds: string) {
     const channel = this.channelManagerService.selectChannel;
-    const invite = await channel.inviteMembers([userIds]);
-    const invite2 = await channel.acceptInvite();
+    await channel.inviteMembers([userIds]);
+    await channel.acceptInvite();
   }
 }

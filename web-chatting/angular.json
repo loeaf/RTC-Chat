@@ -27,6 +27,7 @@
               "node_modules/ngx-spinner/animations/ball-scale-multiple.css"
             ],
             "scripts": [
+              "src/assets/chating.js"
             ]
           },
           "configurations": {
