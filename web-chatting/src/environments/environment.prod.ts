@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiServerUrl: 'http://localhost:3001',
-  mokServerUrl: 'http://localhost:3001/mok-server'
+  apiServerUrl: 'http://10.200.11.42:3001',
+  mokServerUrl: 'http://10.200.11.42:3001/mok-server'
 };
