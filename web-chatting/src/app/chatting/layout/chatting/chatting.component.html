@@ -1,0 +1,194 @@
+<!-- chating_wrap 속성
+  chating_room_open : 챗팅방
+  friend_list_open : 듀플친구들
+  chating_invite_open : 친구초대
+-->
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+<div id="chating_wrap" class="friend_list_open">
+
+  <!-- friend_list 친구목록 -->
+  <div class="chating_list friend_list">
+
+    <!-- top_close_area -->
+    <div class="top_close_area">
+      <div class="top_tit_box">
+        <strong class="top_tit">듀플 친구들</strong>
+        <button type="button" class="top_close"
+                onclick="parent.chatingFriendList()">닫기</button>
+      </div>
+    </div>
+    <!-- //top_close_area -->
+
+    <!-- scroll_box -->
+    <div class="scroll_box">
+      <app-chatting-tab></app-chatting-tab>
+      <div class="chating_tab_area">
+        <!-- 친구목록 tab -->
+        <app-frend-list></app-frend-list>
+        <!-- //친구목록 tab  -->
+        <!-- 룸이용자 tab -->
+        <app-meta-room-users></app-meta-room-users>
+        <!-- //룸이용자 tab -->
+      </div><!-- //chating_tab_area -->
+    </div><!-- //scroll_box -->
+
+  </div>
+  <!-- //friend_list 친구목록-->
+
+  <!-- chating_room 채팅방 -->
+  <div class="chating_room">
+
+    <!-- top_close_area -->
+    <div class="top_close_area">
+      <div class="top_back_box">
+        <!-- chating_room_tab -->
+        <div class="chating_room_tab">
+          <ul>
+            <li ripple #chattingRoomEle [ngClass]="setSelectCls(i)"
+                *ngFor="let obj of channelManSvc?.allChannel; let i = index"
+                (click)="channelClick(i);">
+              <button type="button" data-tab="chating_room_tab_02"><span>{{i+1}}</span></button>
+            </li>
+          </ul>
+        </div>
+        <!-- //chating_room_tab -->
+        <button type="button" class="top_close" onclick="parent.chatingRoomIframeWrap()">닫기</button>
+      </div><!-- //top_back_box -->
+      <div class="top_tit_box">
+        <strong class="top_tit">자유롭게 챗팅을 즐겨주세요</strong>
+        <button type="button" class="room_delete" (click)="goOutChannel()">해당 채팅방 삭제</button>
+      </div><!-- //top_tit_box -->
+    </div>
+    <!-- //top_close_area -->
+
+    <div class="chating_tab_area">
+      <!-- 채팅방 tab -->
+      <div id="chating_room_tab_01" class="tab_cont active"><!-- 맨 처음 .tab_cont active 선언 필요 -->
+        <!-- scroll_box chating_room_people -->
+        <div class="scroll_box chating_room_people">
+          <div class="people_list" *ngFor="let _user of channelManSvc.members">
+            <img *ngIf="_user.user.id === channelManSvc.selectChannel.data.created_by.id"
+               style="color: #0B4992; margin-bottom: -5px; width: 25px"
+                 src="https://cdn-icons-png.flaticon.com/512/679/679660.png"/>
+            <div class="img_bg" [ngStyle]="setProfileImg(_user.user)">
+              <img src="{{_user.user?.image}}" alt="내 프로필 사진">
+            </div>
+            <p>{{_user.user.name}}</p>
+            <button type="button" *ngIf="isMyFrends(_user.user)" class="add_friend" (click)="addFrend(_user.user.id)">친구추가</button>
+          </div>
+        </div>
+        <!-- //scroll_box chating_room_people -->
+
+        <!-- scroll_box chating_room_talk -->
+        <div id="scrollboxEle" class="scroll_box chating_room_talk">
+          <!-- inside_notify 입장알림 -->
+          <!-- //inside_notify -->
+<!--          메세지 포문-->
+          <ng-container *ngFor="let message of messageManSvc?.messages" >
+            <ng-container *ngIf="userSvc.getUser().id === message.user.id; else otherPartyBox">
+              <!-- my_party_box 내 글 표시 -->
+              <div class="my_party_box">
+                <div class="row_line">
+                  <p class="txt">{{message.text}}</p>
+                </div>
+              </div>
+              <ng-container *ngIf="message.attachFile?.length !== 0">
+                <div class="my_party_box">
+                  <div class="add_img" *ngFor="let attach of message.attachFile">
+                    <a href="javascript:void(0);" (click)="downloadImage(attach.thumb_url, attach.image_name)">
+                      <img style="max-height: 350px;" src="{{attach.thumb_url}}" alt=""></a>
+                  </div>
+                </div>
+              </ng-container>
+              <!-- //my_party_box 내 글 표시 -->
+            </ng-container>
+            <ng-template #otherPartyBox>
+              <!-- other_party_box 상대방 글 표시 -->
+              <div class="other_party_box">
+                <!-- people_list 상대방 프로필 표시 -->
+                <div class="people_list">
+                  <div class="img_bg" [ngStyle]="setProfileImg(message.user)">
+                    <img alt="프로필 사진">
+                  </div>
+                  <p>{{message.user.name}}</p>
+                </div>
+                <!-- //people_list 상대방 프로필 표시 -->
+                <div class="row_line">
+                  <p class="txt">{{message.text}}</p>
+                </div>
+                <ng-container *ngIf="message.attachFile?.length !== 0">
+                  <div class="row_line">
+                    <div class="add_img" *ngFor="let attach of message.attachFile">
+                      <a href="javascript:void(0);" (click)="downloadImage(attach.thumb_url, attach.image_name)">
+                        <img style="max-height: 350px;" src="{{attach.thumb_url}}" alt=""></a>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+              <!-- //other_party_box 상대방 글 표시 -->
+            </ng-template>
+          </ng-container>
+        </div>
+        <!-- //scroll_box chating_room_talk -->
+        <!-- talk_send_box -->
+        <app-talk-send-box ripple [user]="userSvc.getUser()"></app-talk-send-box>
+        <!-- //talk_send_box -->
+      </div>
+      <!-- //채팅방 tab -->
+
+      <!-- 채팅방 tab -->
+      <div id="chating_room_tab_02" class="tab_cont">
+        <!-- scroll_box chating_room_people -->
+        <div class="scroll_box chating_room_people">
+        </div>
+        <!-- //scroll_box chating_room_people -->
+
+        <!-- scroll_box chating_room_talk -->
+        <div class="scroll_box chating_room_talk">
+        </div>
+        <!-- //scroll_box chating_room_talk -->
+      </div>
+      <!-- //채팅방 tab -->
+
+    </div><!-- //chating_tab_area -->
+  </div>
+  <!-- //chating_room 채팅방 -->
+
+  <!-- chating_list 초대하기 -->
+  <app-invite-frends [user]="userSvc.getUser()" ></app-invite-frends>
+  <!-- //chating_list 초대하기 -->
+
+  <!-- 취소/확인 기본 팝업  -->
+  <app-move-room-popup></app-move-room-popup>
+  <!-- 확인/취소 기본 팝업 -->
+
+  <!-- 친구 승인 팝업  -->
+  <app-frend-accept-popup></app-frend-accept-popup>
+  <!-- 확인/취소 기본 팝업 -->
+
+</div>
+<!-- //chating_wrap -->
+
+<!--<div style="display: flex; align-content: center; justify-content: center">-->
+<!--  <button  *ngFor="let obj of channels; let i = index" (click)="channelClick(obj)" style="width: 50px; height: 50px" type="button">{{i+1}}</button>-->
+<!--</div>-->
+<!--<strong class="top_tit">{{setChannelName()}}</strong>-->
+<!--<div  *ngFor="let _user of channelMembers">-->
+<!--  <p>{{_user.user.name}}</p>-->
+<!--</div>-->
+<!--<div style="background-color: #0B4992; width: 100%; height: 500px;">-->
+<!--  <div style="display: flex; flex-direction: column" *ngFor="let message of messages">-->
+<!--    <div style="display: flex;">-->
+<!--      <strong>{{message.user.name}}</strong>-->
+<!--      <div class="img_bg" [ngStyle]="setProfileImg(message.user)">-->
+<!--        <img src="/assets/chating/my_profile.png" alt="내 프로필 사진">-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div>{{message.text}}</div>-->
+<!--  </div>-->
+<!--</div>-->
+<!--<div style="display: flex">-->
+<!--  <input type="file" (change)="attachFile($event)">-->
+<!--  <input #textVal style="width: 100%; height: 80px;" type="text">-->
+<!--  <button (click)="sendMessage(textVal.value)"> 확인 </button>-->
+<!--</div>-->

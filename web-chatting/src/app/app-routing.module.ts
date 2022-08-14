@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {LoginComponent} from './layout/login/login.component';
-import {ChattingComponent} from './layout/chatting/chatting.component';
-import {MainComponent} from './layout/main/main.component';
+import {LoginComponent} from './chatting/layout/login/login.component';
+import {ChattingComponent} from './chatting/layout/chatting/chatting.component';
+import {MainComponent} from './chatting/layout/main/main.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
