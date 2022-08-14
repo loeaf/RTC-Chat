@@ -156,4 +156,11 @@ export class ChattingComponent implements OnInit, AfterViewInit {
     }
     saveAs(url, name+'.png');
   }
+
+  addFrend(user: string) {
+    this.frendAcceptPopupSvc.frendRecProcPopUp({
+      userId: this.userSvc.getUser().id,
+      frendId: user
+    }, PopupType.친구초대);
+  }
 }

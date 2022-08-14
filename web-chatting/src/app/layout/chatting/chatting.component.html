@@ -74,7 +74,7 @@
               <img src="{{_user.user?.image}}" alt="내 프로필 사진">
             </div>
             <p>{{_user.user.name}}</p>
-            <button type="button" *ngIf="_user.user.id !== userSvc.getUser().id" class="add_friend" onclick="layerClickOpenM('basics_pop');">친구추가</button>
+            <button type="button" *ngIf="_user.user.id !== userSvc.getUser().id" class="add_friend" (click)="addFrend(_user.user.id)">친구추가</button>
           </div>
         </div>
         <!-- //scroll_box chating_room_people -->

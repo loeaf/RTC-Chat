@@ -7,12 +7,12 @@
     <!-- popuplayer_group 0 => 친구초대, 1 => 친구 승인, 2 => 친구 삭제 -->
     <div class="popuplayer_group" *ngIf="popupType === 0">
       <div class="finish_box">
-        <p class="finish_txt"><strong><em>OOO</em>님에게 친구 초대합니다.</strong></p>
+        <p class="finish_txt"><strong><em>{{frend.frendId}}</em>님에게 친구 초대합니다.</strong></p>
       </div>
     </div>
     <div class="popuplayer_group" *ngIf="popupType === 1">
       <div class="finish_box">
-        <p class="finish_txt"><strong><em>OOO</em>님으로부터 <br> 친구 초대를 받았습니다.</strong></p>
+        <p class="finish_txt"><strong><em>{{frend.frendId}}</em>님으로부터 <br> 친구 초대를 받았습니다.</strong></p>
         <p class="finish_txt"><strong>승인 하시겠습니까?</strong></p>
       </div>
     </div>
