@@ -18,7 +18,7 @@ import { ChatRoomModule } from './controller/chat-room/chat-room.module';
 @Module({
   imports: [
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '../../', 'volum'),
+      rootPath: join(__dirname, '../../', 'client'),
     }),
     ConfigModule.forRoot({
       isGlobal: true,

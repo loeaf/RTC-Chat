@@ -1,0 +1,28 @@
+<div style="display: flex; height: 100%;">
+  <div id="characterCanvasEle" style="flex: 1;">
+    <div #characterCanvasEle style="display: flex; align-content: center; justify-content: center">
+<!--      <div style="position: absolute" class="balloon_02"></div>-->
+    </div>
+  </div>
+  <div  style="flex: 1">
+    <div style="width: 800px; height: 800px; display: flex; align-content: center; justify-content: center; flex-direction: column">
+<!--      <div style="width: 30px; height: 100%;" (click)="click()">Test</div>-->
+      <div>JWT를 입력해주세요. 공란으로 로그인하시면 계정이 만들어집니다</div>
+      <input type="text" value="c05c77a7-e622-4c2b-9731-a51778d64add" #loginInfo>
+<!--      <div>value="53443ddd-c4a3-4e8a-b4a0-befc550a441e" hint="c360e08a-ae81-421f-bf40-8f4cc380d790"</div>-->
+<!--      <div> 1번방 1개 </div>-->
+<!--      <div>bd4add93-9144-4bdb-9ed0-8aa63b3488d9</div>-->
+<!--      <div>53f980d3-e3a2-47ab-9a82-4e1f1420a7de</div>-->
+<!--      <div> 2번방 1개 </div>-->
+<!--      <div>9007376a-5ed0-48e4-b342-1c84723951b3</div>-->
+<!--      <div>75c1ee69-985d-40a9-a8c1-5bfd8f416ec0</div>-->
+<!--      <div> 방 2개 </div>-->
+<!--      <div>dd9cf57b-0fa2-42e9-a9e5-7fc52976a804</div>-->
+<!--      <div> 방 0개 </div>-->
+<!--      <div>zero</div>-->
+<!--      <div>e401ad28-b806-46d2-b568-c575baba8da7</div>-->
+      <button type="button" style="background-color: #0B4992; height: 40px;" (click)="login(loginInfo.value)">로그인하기</button>
+    </div>
+  </div>
+
+</div>

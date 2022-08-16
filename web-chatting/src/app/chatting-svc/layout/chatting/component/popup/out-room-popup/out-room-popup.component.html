@@ -1,0 +1,21 @@
+<!-- onclick="layerClickOpenM('basics_pop');" -->
+<div id="out_room" class="basics_pop popuplayer"><!-- 활성화시 open -->
+  <div class="popuplayer_area">
+    <div class="tit">
+      <button type="button" class="close ri-close-line" onclick="layerClickCloseM('basics_pop');">닫기</button>
+    </div>
+    <!-- popuplayer_group -->
+    <div class="popuplayer_group">
+      <div class="finish_box">
+        <p class="finish_txt"><strong>정말 퇴장하시겠습니까?</strong></p>
+      </div>
+    </div>
+    <!-- //popuplayer_group -->
+    <div class="next_view">
+      <div class="linkArea linkHalf">
+        <button type="button" class="" (click)="onCancle()">취소</button>
+        <button type="button" class="" (click)="onAccept()">확인</button>
+      </div>
+    </div><!-- //next_view -->
+  </div>
+</div>

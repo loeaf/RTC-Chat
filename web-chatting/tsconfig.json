@@ -28,6 +28,7 @@
     "removeComments": true
   },
   "include": [
+    "/web-chatting/src/app/global.d.ts"
   ],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
