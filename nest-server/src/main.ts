@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import {createProxyMiddleware} from 'http-proxy-middleware';
 import {LoggerService} from '../logger/LoggerService';
+import { WsAdapter } from '@nestjs/platform-ws';
 import express from 'express';
 var proxy = require('http-proxy');
 var apiProxy = proxy.createProxyServer();
@@ -25,6 +26,7 @@ async function bootstrap() {
         }
       })
   );
+  app.useWebSocketAdapter(new WsAdapter(app));
   app.useLogger(new LoggerService());
   // WebPage 관련 프록시 설정 Sample
   // app.use(
