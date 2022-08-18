@@ -29,18 +29,16 @@ import * as redisStore from 'cache-manager-ioredis';
       ignoreEnvFile: process.env.NODE_ENV === 'prod'
     }), TokenModule, ChannelModule, FrendModule,
     MongooseModule.forRoot(
-      `mongodb+srv://chatting.m60fhbe.mongodb.net/nestjs-demo?
-            retryWrites=true&w=majority`, {
+      `${process.env.DATABASE_URI}`, {
         user: `${process.env.DATABASE_ID}`,
         pass: `${process.env.DATABASE_PASSWORD}`
       }),
     CacheModule.register({
       store: redisStore,
-      host: 'redis-10126.c258.us-east-1-4.ec2.cloud.redislabs.com',
+      host: `${process.env.CHACHE_DB_URI}`,
       port: 10126,
       no_ready_check: true,
-      password: 'dufrJqdz16VXgp40qXlFxLXJaP1e8v3i',
-      // auth_pass: 'dufrJqdz16VXgp40qXlFxLXJaP1e8v3i', // also tried password: 'azerty'
+      password: `${process.env.CHACHE_DB_PAWD}`,
     }),
     MetaRoomModule,
     ChatRoomModule,

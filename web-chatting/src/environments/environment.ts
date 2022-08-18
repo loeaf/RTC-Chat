@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   apiServerUrl: 'http://localhost:3001',
-  mokServerUrl: 'http://localhost:3001/mok-server'
+  mokServerUrl: 'http://localhost:3001/mok-server',
+  socketUrl: 'http://localhost:3010'
 };
 
 /*
