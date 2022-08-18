@@ -33,6 +33,8 @@ export class ChattingComponent implements OnInit, AfterViewInit {
   userAddFn: any = null;
   userUpdateFn: any = null;
   userDeleteFn: any = null;
+  chanelDeleteFn: any = null;
+  chanelUpdatedFn: any = null;
 
 
   constructor(
@@ -99,18 +101,30 @@ export class ChattingComponent implements OnInit, AfterViewInit {
       this.selectChannelFn.unsubscribe();
     }
     this.selectChannelFn = this.messageManSvc.listenMessage(this.channelManSvc.selectChannel);
+
     if(this.userAddFn !== null) {
       this.userAddFn.unsubscribe();
     }
-    this.userAddFn = this.clientManSvc.listenAddMember(this.channelManSvc.selectChannel);
+    this.userAddFn = this.messageManSvc.listenAddMember(this.channelManSvc.selectChannel);
     if(this.userDeleteFn !== null) {
       this.userDeleteFn.unsubscribe();
     }
-    this.userDeleteFn = this.clientManSvc.listenRemoveMember(this.channelManSvc.selectChannel);
+    this.userDeleteFn = this.messageManSvc.listenRemoveMember(this.channelManSvc.selectChannel);
+
     if(this.userUpdateFn !== null) {
       this.userUpdateFn.unsubscribe();
     }
-    this.userUpdateFn = this.clientManSvc.listenUpdateMember(this.channelManSvc.selectChannel);
+    this.userUpdateFn = this.messageManSvc.listenUpdateMember(this.channelManSvc.selectChannel);
+
+    if(this.chanelDeleteFn !== null) {
+      this.chanelDeleteFn.unsubscribe();
+    }
+    this.chanelDeleteFn = this.messageManSvc.listenDeleteChannel(this.channelManSvc.selectChannel);
+
+    if(this.chanelUpdatedFn !== null) {
+      this.chanelUpdatedFn.unsubscribe();
+    }
+    this.chanelUpdatedFn = this.messageManSvc.listenUpdateChannel(this.channelManSvc.selectChannel);
   }
   ngAfterViewInit(): void {
   }
@@ -182,5 +196,17 @@ export class ChattingComponent implements OnInit, AfterViewInit {
 
   async goOutChannel() {
     this.popupManSvc.openPopupEvt.emit(PopupType.챗팅방나가기);
+  }
+
+  triggerSwtich(message: any) {
+    if(message.user === undefined) {
+      return 1;
+    } else {
+      if (message.user.id === this.userSvc.getUser().id) {
+        return 2;
+      } else {
+        return 3;
+      }
+    }
   }
 }

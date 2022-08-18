@@ -14,8 +14,7 @@ const randomProfile = require('random-profile-generator');
 export class ClientManagerService {
   user: User;
 
-  constructor(private ChatHttpSvc: ChattingHttpService,
-              private messageManSvc: MessageManagerService) { }
+  constructor(private ChatHttpSvc: ChattingHttpService) { }
 
   /**
    * Client 전역
@@ -62,28 +61,6 @@ export class ClientManagerService {
       console.log('connection client');
     }
     return clientObj;
-  }
-
-  listenAddMember(selectChannel: any) {
-    return selectChannel.on("member.added", (event: any) => {
-      console.log(JSON.stringify(event));
-      this.messageManSvc.messages.push(`${event.user.name}님 깨서 출근하셨습니다.`);
-    });
-  }
-
-  listenRemoveMember(selectChannel: any) {
-    return selectChannel.on("member.removed", (event: any) => {
-      console.log(JSON.stringify(event));
-      this.messageManSvc.messages.push(`${event.user.name}님 깨서 퇴근하셨습니다.`);
-    });
-  }
-
-  listenUpdateMember(selectChannel: any) {
-    return selectChannel.on("member.updated", (event: any) => {
-      console.log(JSON.stringify(event));
-      debugger;
-      // this.messages.push(event.message)
-    });
   }
 
   genNickName() {

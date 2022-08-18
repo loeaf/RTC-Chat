@@ -119,9 +119,9 @@ export class ChannelManagerService {
   }
 
   public async inviteUserByChannel(user: string[]) {
-    const result1 = await this.selectChannel.inviteMembers(user);
-    const result = await this.selectChannel.acceptInvite();
-    debugger;
+    // await this.selectChannel.inviteMembers(user);
+    // await this.selectChannel.acceptInvite();
+    await this.selectChannel.addMembers(user);
     await this.initChannelMamber(this.selectChannel);
   }
 
