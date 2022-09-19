@@ -17,4 +17,25 @@ export class MetaRoomUsersService {
     debugger;
     console.log(metaRoom);
   }
+
+  refreshMetaRoom(metaRoomUser: MetaRoomUser[]) {
+    console.log('초기화 할 목록은 아래와 같다');
+    console.log(`${JSON.stringify(metaRoomUser)}`);
+    const displayArray = [];
+    for (const p of metaRoomUser) {
+      displayArray.push({
+        userId: p.userId,
+        userName: p.userName,
+        isFrend: false
+      })
+    }
+    this.roomUser = displayArray;
+  }
+}
+
+
+export interface MetaRoomUser {
+  userId: string;
+  userName: string;
+  photo: string;
 }

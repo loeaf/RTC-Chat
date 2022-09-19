@@ -28,6 +28,13 @@ export class MetaRoomUsersComponent implements OnInit, AfterViewInit {
     this.chattingTabService.onRoomUserTabClickEvt.subscribe(async p => {
       await this.initMetaRoom();
     })
+
+    const windowObj: any = self.window;
+    windowObj.webChat = {
+      refreshRoomUserList: (data: any) => {
+        this.metaRoomUsersService.refreshMetaRoom(data);
+      }
+    }
   }
   async initMetaRoom() {
     await this.metaRoomUsersService.initUserByMetaRoom(1);
